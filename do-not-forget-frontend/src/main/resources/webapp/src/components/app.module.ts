@@ -5,12 +5,16 @@ import {RouterModule} from "@angular/router";
 import {COMPONENTS} from "./components";
 import {ROUTES} from "./routes";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {FormsModule} from "@angular/forms";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
     imports: [
         BrowserModule,
         RouterModule.forRoot(ROUTES),
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        FormsModule,
+        HttpModule
     ],
     declarations: COMPONENTS,
     bootstrap: [AppComponent]
