@@ -16,5 +16,6 @@ export class AddTaskComponent {
 
     addTask() {
         this._taskService.saveTask(this.task);
+        this.task = new Task();
     }
 }

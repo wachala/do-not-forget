@@ -9,12 +9,28 @@ export class TaskService {
     }
 
     saveTask(task: Task) {
-        console.log(task);
         let body = JSON.stringify(task);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
         this.http.post(BASE_URL+'task/add', body, options)
+            .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
+            .subscribe(
+                response => console.log(response),
+                () => console.log('Complete')
+            );
+    }
+
+    getAllTasks() {
+        return this.http.get(BASE_URL + 'task/').map((res:Response) => res.json());
+    }
+
+    deleteTask(task) {
+        let body = JSON.stringify(task);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        this.http.post(BASE_URL+'task/delete', body, options)
             .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
             .subscribe(
                 response => console.log(response),

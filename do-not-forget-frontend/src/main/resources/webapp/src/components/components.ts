@@ -6,6 +6,8 @@ import {NavDropdownFieldComponent} from "./nav/dropdownfield/dropdownfield.compo
 import {AddTaskComponent} from "./add/add-task/add.task.component";
 import {AddTaskFormComponent} from "./add/add-task-form/add-task-form.component";
 import {DatePickerComponent} from "./commons/datepicker/datepicker.component";
+import {BrowseTasksComponent} from "./browse/browse-task/browse.task.component";
+import {TaskViewComponent} from "./browse/task-view/task-view.component";
 
 export const COMPONENTS = [
     AppComponent,
@@ -15,8 +17,10 @@ export const COMPONENTS = [
     NavSimpleFieldComponent,
     NavDropdownFieldComponent,
     //adding task
-    AddTaskComponent
-    // AddTaskFormComponent
+    AddTaskComponent,
 
+    //browsing tasks
+    BrowseTasksComponent,
+    TaskViewComponent
     //commons
 ];

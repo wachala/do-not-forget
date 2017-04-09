@@ -17,7 +17,7 @@ public class TaskController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public boolean addTask(@RequestBody Task task) {
-        return taskService.saveTask(task);
+        return taskService.addNewTask(task);
     }
 
     @RequestMapping(method = RequestMethod.GET)
