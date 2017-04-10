@@ -23,8 +23,10 @@ export class BrowseTasksComponent {
         this._taskService.getAllTasks().subscribe(data => this.tasks = data);
     }
 
-    deleteTask(task:Task) {
-        this._taskService.deleteTask(task);
-        this._loadTasks();
+    deleteTask(task: Task) {
+        this._taskService.deleteTask(task)
+            .subscribe(
+                (result) => this._loadTasks()
+            );
     }
 }

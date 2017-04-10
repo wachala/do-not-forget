@@ -16,7 +16,7 @@ export class TaskViewComponent {
     }
 
     getState(state: TaskState) {
-        return state.toString().replace('_', ' ');
+        return state ? state.toString().replace('_', ' ') : '';
     }
 
 }

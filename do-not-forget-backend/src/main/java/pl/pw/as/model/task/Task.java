@@ -18,5 +18,6 @@ public class Task {
     private CustomDate addedDate;
     private String title;
     private String description;
+    private TaskState state;
 
 }

@@ -26,11 +26,7 @@ export class TaskService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        this.http.post(BASE_URL+'task/delete', body, options)
-            .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
-            .subscribe(
-                response => console.log(response),
-                () => console.log('Complete')
-            );
+        return this.http.post(BASE_URL+'task/delete', body, options)
+            .map((res:Response) => res.json());
     }
 }
