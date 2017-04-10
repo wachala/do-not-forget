@@ -7,7 +7,6 @@ import pl.pw.as.services.TaskService;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping(value = "task/")
 public class TaskController {
