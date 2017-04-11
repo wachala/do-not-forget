@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http, RequestOptions, Headers, Response} from "@angular/http";
 import {BASE_URL} from "./config";
-import {Observable} from "rxjs";
 import {Task} from "../model/Task";
 @Injectable()
 export class TaskService {
