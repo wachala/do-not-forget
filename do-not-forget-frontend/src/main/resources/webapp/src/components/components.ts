@@ -9,9 +9,14 @@ import {DatePickerComponent} from "./commons/datepicker/datepicker.component";
 import {BrowseTasksComponent} from "./browse/browse-task/browse.task.component";
 import {TaskViewComponent} from "./browse/task-view/task-view.component";
 import {DateInFutureValidator} from './add/add-task/date.validator'
+import {LoginComponent} from "./login/login.component";
+import {RegisterComponent} from "./register/register.component";
 
 export const COMPONENTS = [
     AppComponent,
+    //login
+    LoginComponent,
+    RegisterComponent,
     //navbar
     NavbarComponent,
     TopNavbarComponent,
