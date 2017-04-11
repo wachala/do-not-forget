@@ -8,4 +8,8 @@ import {RegisterData} from "../../model/RegisterData";
 export class RegisterComponent {
     registerData: RegisterData = new RegisterData;
     repeatedPassword:string = '';
+
+    register() {
+        console.log(this.registerData);
+    }
 }
