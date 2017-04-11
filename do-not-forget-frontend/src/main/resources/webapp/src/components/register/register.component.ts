@@ -1,15 +1,26 @@
 import {Component} from "@angular/core";
 import {URL_COMPONENT_BASE} from "../../url.constants";
-import {RegisterData} from "../../model/RegisterData";
+import {RegistrationData} from "../../model/RegistrationData";
+import {RegistrationService} from "../../services/RegistrationService";
 @Component({
     selector: 'login-view',
+    providers: [RegistrationService],
     templateUrl: URL_COMPONENT_BASE + 'register/register.component.html'
 })
 export class RegisterComponent {
-    registerData: RegisterData = new RegisterData;
+    constructor(private _registrationService: RegistrationService) {
+
+    }
+    registrationData: RegistrationData = new RegistrationData;
     repeatedPassword:string = '';
 
     register() {
-        console.log(this.registerData);
+        this._registrationService.registerUser(this.registrationData)
+            .subscribe(
+                success => {
+                    this.registrationData = new RegistrationData
+                }
+            );
+        console.log(this.registrationData);
     }
 }
