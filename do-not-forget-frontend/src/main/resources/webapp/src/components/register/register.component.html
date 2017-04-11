@@ -1,0 +1,50 @@
+<div class="container">
+    <ngb-accordion #aac="ngbAccordion" activeIds="ngb-panel-0">
+        <ngb-panel title="Log In">
+            <template ngbPanelContent>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <form class="form">
+
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="text" class="form-control" [(ngModel)]="registerData.email"
+                                       [ngModelOptions]="{standalone: true}" id="Email">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="pass">Password: </label>
+                                <input type="password" class="form-control" [(ngModel)]="registerData.password"
+                                       [ngModelOptions]="{standalone: true}" id="pass">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rppass">Repeat password: </label>
+                                <input type="password" class="form-control" [(ngModel)]="repeatedPassword"
+                                       [ngModelOptions]="{standalone: true}" id="rppass">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" [(ngModel)]="registerData.name"
+                                       [ngModelOptions]="{standalone: true}" id="name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="surname">Surname:</label>
+                                <input type="text" class="form-control" [(ngModel)]="registerData.surname"
+                                       [ngModelOptions]="{standalone: true}" id="surname">
+                            </div>
+
+
+                                <div class="span1 offset-11">
+                                    <button class="btn btn-primary" (click)="register()">Sign up</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </template>
+        </ngb-panel>
+    </ngb-accordion>
+</div>
