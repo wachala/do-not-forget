@@ -4,12 +4,17 @@
             <template ngbPanelContent>
                 <div class="row-fluid">
                     <div class="span6">
-                        <form class="form">
+                        <form class="form" #addForm="ngForm">
 
                             <div class="form-group">
                                 <label for="title">Title:</label>
-                                <input type="text" class="form-control" [(ngModel)]="task.title"
-                                       [ngModelOptions]="{standalone: true}" id="title">
+                                <input type="text" class="form-control" id="title"
+                                       name="title" placeholder="Something to do..."
+                                       [(ngModel)]="task.title"
+                                       #title="ngModel" maxlength="255" required>
+                                <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+                                    Title is required!
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -17,8 +22,9 @@
                                 <div class="input-group">
                                     <input class="form-control" placeholder="yyyy-mm-dd"
                                            name="dp" [(ngModel)]="task.deadLine" ngbDatepicker #d="ngbDatepicker">
-                                    <div class="input-group-addon" (click)="d.toggle()" >
-                                        <img src="assets/icons/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                                    <div class="input-group-addon" (click)="d.toggle()">
+                                        <img src="assets/icons/calendar-icon.svg"
+                                             style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
                                     </div>
                                 </div>
                             </div>
@@ -32,8 +38,8 @@
 
                             <div class="form-group">
                                 <label for="prior">Priority: </label>
-                                <input type="text" class="form-control" [(ngModel)]="task.priority"
-                                       [ngModelOptions]="{standalone: true}" id="prior">
+                                <input type="number" class="form-control" [(ngModel)]="task.priority"
+                                       [ngModelOptions]="{standalone: true}" id="prior" min="0" max="9" >
                             </div>
 
                             <div class="form-group">
@@ -42,10 +48,10 @@
                                        [ngModelOptions]="{standalone: true}" id="estimate">
                             </div>
 
+                            <div class="span1 offset-11">
+                                <button class="btn btn-primary" (click)="addTask(); addForm.resetForm()" [disabled]="!addForm.form.valid" >Add</button>
+                            </div>
                         </form>
-                    </div>
-                    <div class="span1 offset-11">
-                        <button class="btn btn-primary" (click)="addTask()">Add</button>
                     </div>
                 </div>
             </template>
