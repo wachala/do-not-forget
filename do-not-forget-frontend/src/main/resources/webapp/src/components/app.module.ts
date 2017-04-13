@@ -7,6 +7,7 @@ import {ROUTES} from "./routes";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
+import {CustomFormsModule} from 'ng2-validation'
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import {HttpModule} from "@angular/http";
         RouterModule.forRoot(ROUTES),
         NgbModule.forRoot(),
         FormsModule,
-        HttpModule
+        HttpModule,
+        CustomFormsModule
     ],
     declarations: COMPONENTS,
     bootstrap: [AppComponent]
