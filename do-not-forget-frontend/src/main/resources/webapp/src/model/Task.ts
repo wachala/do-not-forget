@@ -7,7 +7,7 @@ export class Task {
     deadLine: CustomDate = new CustomDate;
     addedDate: CustomDate = new CustomDate;
     priority: number = 0;
-    title: string = '';
+    title: string = 'Something to do..';
     description: string = '';
     state: TaskState = TaskState.NEW;
 }
