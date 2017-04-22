@@ -16,13 +16,15 @@ import java.util.List;
 @Builder
 public class User {
     @Id
-    private String id;
+    private String email;
     private String name;
     private String surname;
-    private String email;
     private String password;
 
     @DBRef
     List<Task> tasks;
 
+    public boolean addTask(Task task) {
+        return this.tasks.add(task);
+    }
 }
