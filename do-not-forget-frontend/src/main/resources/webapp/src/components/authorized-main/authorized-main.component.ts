@@ -15,7 +15,7 @@ export class AuthorizedMainComponent {
     userInfo: UserInfo;
 
     constructor() {
-        this.userInfo = JSON.parse(localStorage.getItem(USER));
+        this.userInfo = JSON.parse(sessionStorage.getItem(USER));
     }
 
 }

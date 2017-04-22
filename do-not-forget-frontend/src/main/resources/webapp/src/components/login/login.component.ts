@@ -20,7 +20,7 @@ export class LoginComponent {
     login() {
         this._loginService.loginUser(this.loginData)
             .subscribe(token => {
-                localStorage.setItem(AUTH_HEADER, token);
+                sessionStorage.setItem(AUTH_HEADER, token);
                 this._retrieveUserData();
                 this.loginData = new LoginData
             });
@@ -30,7 +30,7 @@ export class LoginComponent {
     private _retrieveUserData() {
         this._userService.retrieveUserData()
             .subscribe(userData => {
-                localStorage.setItem(USER, JSON.stringify(userData));
+                sessionStorage.setItem(USER, JSON.stringify(userData));
                 this._router.navigate(['/authorized'])
             })
     }

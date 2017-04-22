@@ -8,7 +8,8 @@ export class HttpService {
     constructor(private http: Http) {}
 
     private _decorateHeaders(headers: Headers) {
-        headers.append(AUTH_HEADER, localStorage.getItem(AUTH_HEADER));
+        if(sessionStorage.getItem(AUTH_HEADER))
+            headers.append(AUTH_HEADER, sessionStorage.getItem(AUTH_HEADER));
         headers.append('Content-Type', 'application/json')
     }
 

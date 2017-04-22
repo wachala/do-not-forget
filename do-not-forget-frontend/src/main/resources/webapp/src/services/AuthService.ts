@@ -10,17 +10,7 @@ export class AuthService {
     }
 
     isTokenValid(): boolean {
-        this._http.get(BASE_URL + 'user')
-            .subscribe(
-                (success:Response) => {
-                    localStorage.setItem(AUTH_HEADER, success.headers.get(AUTH_HEADER));
-                    localStorage.setItem(USER, JSON.stringify(success.json()))
-                },
-                error => {
-                    localStorage.clear();
-                });
-
-        return !!(localStorage.getItem(AUTH_HEADER) && localStorage.getItem(USER));
+        return !!(sessionStorage.getItem(AUTH_HEADER) && sessionStorage.getItem(USER));
     }
 
 }

@@ -26,6 +26,7 @@ public class TaskService {
                 .month(today.getMonthValue())
                 .year(today.getYear()).build());
         user.addTask(task);
+        taskRepository.insert(task);
         userRepository.save(user);
         return true;
     }
