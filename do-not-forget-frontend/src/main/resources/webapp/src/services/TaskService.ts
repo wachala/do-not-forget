@@ -16,10 +16,7 @@ export class TaskService {
     }
 
     getAllTasks() {
-        return this.http.get(BASE_URL + 'task/').map((res: Response) => {
-                    res.json();
-            }
-        );
+        return this.http.get(BASE_URL + 'task/').map((res: Response) => res.json());
     }
 
     deleteTask(task) {

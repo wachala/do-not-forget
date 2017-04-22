@@ -41,6 +41,8 @@ public class TaskService {
     }
 
     public boolean deleteTask(Task task, User user) {
+        user.removeTask(task);
+        userRepository.save(user);
         taskRepository.delete(task.getId());
         return true;
     }
