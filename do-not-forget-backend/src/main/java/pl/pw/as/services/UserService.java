@@ -1,5 +1,6 @@
 package pl.pw.as.services;
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pw.as.converters.UserToUserInfoConverter;
@@ -23,6 +24,7 @@ public class UserService {
         User user = User.builder()
                 .email(registrationData.getEmail())
                 .name(registrationData.getName())
+                .tasks(Lists.newArrayList())
                 .surname(registrationData.getSurname())
                 .password(registrationData.getPassword())
                 .build();

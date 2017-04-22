@@ -19,11 +19,11 @@ export class NavDropdownFieldComponent {
         this._logoutService.logout()
             .subscribe(
                 success => {
-                    localStorage.clear();
+                    sessionStorage.clear();
                     this._router.navigate(['/']);
                 }
             );
-        localStorage.clear();
+        sessionStorage.clear();
         this._router.navigate(['/']);
     }
 }

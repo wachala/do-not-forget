@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import pl.pw.as.model.task.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,7 +23,7 @@ public class User {
     private String password;
 
     @DBRef
-    List<Task> tasks;
+    List<Task> tasks = new ArrayList<>();
 
     public boolean addTask(Task task) {
         return this.tasks.add(task);
