@@ -7,6 +7,10 @@ import {ROUTES} from "./routes";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
+import {HttpService} from "../services/HttpService";
+import {AuthGuard} from "../guards/AuthGuard";
+import {NonAuthGuard} from "../guards/NonAuthGuard";
+import {AuthService} from "../services/AuthService";
 
 @NgModule({
     imports: [
@@ -16,6 +20,7 @@ import {HttpModule} from "@angular/http";
         FormsModule,
         HttpModule
     ],
+    providers: [HttpService, AuthGuard, NonAuthGuard, AuthService],
     declarations: COMPONENTS,
     bootstrap: [AppComponent]
 })
