@@ -8,6 +8,7 @@ import {AddTaskFormComponent} from "./add/add-task-form/add-task-form.component"
 import {DatePickerComponent} from "./commons/datepicker/datepicker.component";
 import {BrowseTasksComponent} from "./browse/browse-task/browse.task.component";
 import {TaskViewComponent} from "./browse/task-view/task-view.component";
+import {DateInFutureValidator} from './add/add-task/date.validator'
 
 export const COMPONENTS = [
     AppComponent,
@@ -21,6 +22,8 @@ export const COMPONENTS = [
 
     //browsing tasks
     BrowseTasksComponent,
-    TaskViewComponent
+    TaskViewComponent,
     //commons
+    //validators
+    DateInFutureValidator
 ];
