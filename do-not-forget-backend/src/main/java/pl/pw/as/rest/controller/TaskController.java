@@ -33,7 +33,7 @@ public class TaskController {
         return taskService.getAllUserTasks(userService.getUser(idRetrievingService.retrieve(request)));
     }
 
-    @RequestMapping(value="delete", method = RequestMethod.POST)
+    @RequestMapping(value="delete", method = RequestMethod.PUT)
     public boolean delete(@RequestBody Task task, HttpServletRequest request) {
         return taskService.deleteTask(task, userService.getUser(idRetrievingService.retrieve(request)));
     }
