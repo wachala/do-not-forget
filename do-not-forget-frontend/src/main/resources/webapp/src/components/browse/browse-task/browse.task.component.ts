@@ -20,7 +20,10 @@ export class BrowseTasksComponent {
     }
 
     private _loadTasks() {
-        this._taskService.getAllTasks().subscribe(data => this.tasks = data);
+        this._taskService.getAllTasks().subscribe(data => {
+            this.tasks = data;
+            console.log(data);
+        });
     }
 
     deleteTask(task: Task) {

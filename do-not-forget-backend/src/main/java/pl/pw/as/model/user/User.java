@@ -28,4 +28,8 @@ public class User {
     public boolean addTask(Task task) {
         return this.tasks.add(task);
     }
+
+    public boolean removeTask(Task task) {
+        return this.tasks.remove(task);
+    }
 }
