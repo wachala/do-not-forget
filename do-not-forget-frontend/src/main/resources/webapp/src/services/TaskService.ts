@@ -17,11 +17,7 @@ export class TaskService {
 
     getAllTasks() {
         return this.http.get(BASE_URL + 'task/').map((res: Response) => {
-                try {
                     res.json();
-                } catch (e) {
-                    [];
-                }
             }
         );
     }
