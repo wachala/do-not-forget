@@ -24,10 +24,10 @@
                                 <input id="password" name="password" type="password"
                                        class="form-control" [(ngModel)]="loginData.password"
                                        #password="ngModel" required minlength="4">
-                                <div  *ngIf="password.errors?.required" class="alert alert-danger">
+                                <div *ngIf="password.errors?.required" class="alert alert-danger">
                                     Password is required
                                 </div>
-                                <div  *ngIf="password.errors?.minlength" class="alert alert-danger">
+                                <div *ngIf="password.errors?.minlength" class="alert alert-danger">
                                     Password must have at least 4 characters
                                 </div>
                             </div>
@@ -35,7 +35,8 @@
 
                                 <div class="span1 offset-11">
                                     <button class="btn btn-primary" (click)="login()"
-                                            [disabled]="!loginForm.form.valid">Log In</button>
+                                            [disabled]="!loginForm.form.valid">Log In
+                                    </button>
                                 </div>
                             </div>
                         </form>
