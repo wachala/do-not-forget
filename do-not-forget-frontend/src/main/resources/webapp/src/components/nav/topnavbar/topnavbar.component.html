@@ -1,13 +1,16 @@
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+            aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#">Do not forget!</a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-            <nav-simplefield name="Add tasks" link="/addTask"></nav-simplefield>
-            <nav-simplefield name="Browse tasks" link="/browseTasks"></nav-simplefield>
-            <nav-dropdownfield></nav-dropdownfield>
+            <div *ngFor="let navElement of navElements">
+                <nav-simplefield [name]="navElement.name" [link]="navElement.link"></nav-simplefield>
+            </div>
+            <nav-dropdownfield *ngIf="userInfo" [user-info]="userInfo"></nav-dropdownfield>
         </ul>
     </div>
 </nav>
