@@ -18,9 +18,9 @@ export class RegisterComponent {
         this._registrationService.registerUser(this.registrationData)
             .subscribe(
                 success => {
-                    this.registrationData = new RegistrationData
+                    this.registrationData = new RegistrationData;
+                    this.repeatedPassword = ''
                 }
             );
-        console.log(this.registrationData);
     }
 }

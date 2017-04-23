@@ -4,43 +4,72 @@
             <template ngbPanelContent>
                 <div class="row-fluid">
                     <div class="span6">
-                        <form class="form">
+                        <form class="form" #registerForm="ngForm">
 
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="text" class="form-control" [(ngModel)]="registrationData.email"
-                                       [ngModelOptions]="{standalone: true}" id="Email">
+                                <input id="email" name="email" type="email"
+                                       #email="ngModel" class="form-control" [(ngModel)]="registrationData.email"
+                                       required email>
+                                <div *ngIf="email.errors?.required" class="alert alert-danger">
+                                    Email is required
+                                </div>
+                                <div *ngIf="email.errors?.email" class="alert alert-danger">
+                                    Not valid email
+                                </div>
                             </div>
 
 
                             <div class="form-group">
-                                <label for="pass">Password: </label>
-                                <input type="password" class="form-control" [(ngModel)]="registrationData.password"
-                                       [ngModelOptions]="{standalone: true}" id="pass">
+                                <label for="password">Password: </label>
+                                <input id="password" name="password" type="password"
+                                       #password="ngModel"
+                                       class="form-control" [(ngModel)]="registrationData.password"
+                                       required minlength="4">
+                                <div *ngIf="password.errors?.required" class="alert alert-danger">
+                                    Password is required
+                                </div>
+                                <div *ngIf="password.errors?.minlength" class="alert alert-danger">
+                                    Password must have at least 4 characters
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="rppass">Repeat password: </label>
-                                <input type="password" class="form-control" [(ngModel)]="repeatedPassword"
-                                       [ngModelOptions]="{standalone: true}" id="rppass">
+                                <input id="rppass" name="rppass" type="password" class="form-control"
+                                       [(ngModel)]="repeatedPassword" #rppass="ngModel"
+                                >
+                                <div *ngIf="repeatedPassword != registrationData.password" class="alert alert-danger">
+                                    Repeated password must be the same as password
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="name">Name:</label>
-                                <input type="text" class="form-control" [(ngModel)]="registrationData.name"
-                                       [ngModelOptions]="{standalone: true}" id="name">
+                                <input id="name" name="name" type="text"
+                                       class="form-control" [(ngModel)]="registrationData.name" #name="ngModel"
+                                       required>
+                                <div *ngIf="name.errors?.required" class="alert alert-danger">
+                                    Name is required
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="surname">Surname:</label>
-                                <input type="text" class="form-control" [(ngModel)]="registrationData.surname"
-                                       [ngModelOptions]="{standalone: true}" id="surname">
+                                <input id="surname" name="surname" type="text"
+                                       class="form-control" [(ngModel)]="registrationData.surname" #surname="ngModel"
+                                       required>
+                                <div *ngIf="surname.errors?.required" class="alert alert-danger">
+                                    Surname is required
+                                </div>
                             </div>
 
 
-                                <div class="span1 offset-11">
-                                    <button class="btn btn-primary" (click)="register()">Sign up</button>
-                                </div>
+                            <div class="span1 offset-11">
+                                <button class="btn btn-primary" (click)="register()"
+                                        [disabled]="!registerForm.form.valid && repeatedPassword != registrationData.password">Sign up
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
