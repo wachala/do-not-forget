@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Response} from "@angular/http";
-import {BASE_URL} from "./config";
+import {BASE_URL, LOGIN_URL} from "./config";
 import {LoginData} from "../model/LoginData";
 import {AUTH_HEADER} from "../auth.constants";
 import {HttpService} from "./HttpService";
@@ -12,7 +12,7 @@ export class LoginService {
     loginUser(loginData: LoginData) {
         let body = JSON.stringify(loginData);
 
-        return this.http.post(BASE_URL + 'login', body)
+        return this.http.post(BASE_URL, LOGIN_URL, body)
             .map((res: Response) => res.headers.get(AUTH_HEADER));
     }
 

@@ -22,7 +22,7 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public UserInfo getMe(HttpServletRequest request) {
+    public UserInfo getUserData(HttpServletRequest request) {
         return userService.getUserInfo(idRetrievingService.retrieve(request));
     }
 }

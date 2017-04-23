@@ -20,7 +20,7 @@ public class UserService {
     @Autowired
     private UserToUserInfoConverter userToUserInfoConverter;
 
-    public boolean addUser(RegistrationData registrationData) {
+    public void addUser(RegistrationData registrationData) {
         User user = User.builder()
                 .email(registrationData.getEmail())
                 .name(registrationData.getName())
@@ -30,7 +30,6 @@ public class UserService {
                 .build();
 
         userRepository.insert(user);
-        return true;
     }
 
     public User getUser(String id) {

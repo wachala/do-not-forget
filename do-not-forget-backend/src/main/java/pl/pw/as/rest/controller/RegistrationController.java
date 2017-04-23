@@ -14,7 +14,7 @@ public class RegistrationController {
     private UserService userService;
 
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    public boolean registerUser(@RequestBody RegistrationData registrationData) {
-        return userService.addUser(registrationData);
+    public void registerUser(@RequestBody RegistrationData registrationData) {
+        userService.addUser(registrationData);
     }
 }

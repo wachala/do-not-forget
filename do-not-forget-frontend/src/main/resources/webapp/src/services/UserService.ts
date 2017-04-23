@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpService} from "./HttpService";
-import {BASE_URL} from "./config";
+import {BASE_URL, RETRIEVE_USER_DATA_URL} from "./config";
 import {Response} from "@angular/http";
 @Injectable()
 export class UserService {
@@ -8,7 +8,7 @@ export class UserService {
     }
 
     retrieveUserData() {
-        return this.http.get(BASE_URL + 'user')
+        return this.http.get(BASE_URL, RETRIEVE_USER_DATA_URL)
             .map((res: Response) => res.json());
     }
 

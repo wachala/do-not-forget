@@ -4,7 +4,7 @@ import {AUTH_HEADER, USER} from "../auth.constants";
 
 @Injectable()
 export class AuthService {
-    constructor(private _http: HttpService) {
+    constructor() {
     }
 
     isTokenValid(): boolean {
