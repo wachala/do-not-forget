@@ -26,10 +26,10 @@ public class User {
     List<Task> tasks = new ArrayList<>();
 
     public boolean addTask(Task task) {
-        return this.tasks.add(task);
+        return tasks.add(task);
     }
 
     public boolean removeTask(Task task) {
-        return this.tasks.remove(task);
+        return tasks.remove(task);
     }
 }
