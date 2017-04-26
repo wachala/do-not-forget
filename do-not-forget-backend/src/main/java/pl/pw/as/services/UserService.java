@@ -2,6 +2,7 @@ package pl.pw.as.services;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.pw.as.converters.UserToUserInfoConverter;
 import pl.pw.as.database.repository.UserRepository;
@@ -9,6 +10,7 @@ import pl.pw.as.model.registration.RegistrationData;
 import pl.pw.as.model.user.User;
 import pl.pw.as.model.user.UserInfo;
 import pl.pw.as.security.UserIdRetrievingService;
+import pl.pw.as.validators.Validator;
 
 @Service
 public class UserService {
@@ -20,7 +22,12 @@ public class UserService {
     @Autowired
     private UserToUserInfoConverter userToUserInfoConverter;
 
+    @Autowired
+    private Validator<RegistrationData> registrationDataValidator;
+
     public void addUser(RegistrationData registrationData) {
+        registrationDataValidator.validate(registrationData);
+
         User user = User.builder()
                 .email(registrationData.getEmail())
                 .name(registrationData.getName())
