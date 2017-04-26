@@ -11,8 +11,7 @@ export class RegistrationService {
     registerUser(registrationData: RegistrationData) {
         let body = JSON.stringify(registrationData);
 
-        return this.http.post(BASE_URL, SIGNUP_URL, body)
-            .map((res: Response) => res.json());
+        return this.http.post(BASE_URL, SIGNUP_URL, body);
     }
 
 }
