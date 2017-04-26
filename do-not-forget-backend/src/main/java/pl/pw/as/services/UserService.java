@@ -23,7 +23,6 @@ public class UserService {
     private UserToUserInfoConverter userToUserInfoConverter;
 
     @Autowired
-    @Qualifier("registration")
     private Validator<RegistrationData> registrationDataValidator;
 
     public void addUser(RegistrationData registrationData) {

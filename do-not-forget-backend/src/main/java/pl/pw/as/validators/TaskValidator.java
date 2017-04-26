@@ -1,6 +1,5 @@
 package pl.pw.as.validators;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import pl.pw.as.model.task.Task;
 import pl.pw.as.utils.CustomDateUtils;
@@ -8,11 +7,14 @@ import pl.pw.as.utils.IntegerUtils;
 
 import java.util.Objects;
 
-import static pl.pw.as.validators.ValidationConsts.*;
 
 @Component
-@Qualifier("task")
 public class TaskValidator implements Validator<Task> {
+    private static final int MIN_PRIORITY = 0;
+    private static final int MAX_PRIORITY = 100;
+    private static final int MIN_ESTIMATION_TIME = 0;
+    private static final int MAX_ESTIMATION_TIME = 9999;
+
     @Override
     public void validate(Task data) {
         String errorMessage = "";
@@ -29,16 +31,16 @@ public class TaskValidator implements Validator<Task> {
         }
 
         if (IntegerUtils.isInRange(data.getPriority(), MIN_PRIORITY, MAX_PRIORITY)) {
-            errorMessage += "Priorirt must be between " + MIN_PRIORITY + " and " + MAX_PRIORITY + "\n";
+            errorMessage += "Priority must be between " + MIN_PRIORITY + " and " + MAX_PRIORITY + "\n";
             invalid = true;
         }
 
         if (IntegerUtils.isInRange(data.getEstimateTime(), MIN_ESTIMATION_TIME, MAX_ESTIMATION_TIME)) {
-            errorMessage += "Estimate time must be between " + MIN_ESTIMATION_TIME+ " and " + MAX_ESTIMATION_TIME + "\n";
+            errorMessage += "Estimate time must be between " + MIN_ESTIMATION_TIME + " and " + MAX_ESTIMATION_TIME + "\n";
             invalid = true;
         }
 
-        if(invalid)
+        if (invalid)
             throw new RuntimeException(errorMessage);
     }
 }

@@ -22,7 +22,6 @@ public class TaskService {
     private UserRepository userRepository;
 
     @Autowired
-    @Qualifier("task")
     private Validator<Task> taskValidator;
 
     public boolean addNewTask(Task task, User user) {
