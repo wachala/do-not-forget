@@ -4,9 +4,10 @@ import {Task} from "../../../model/Task";
 import {TaskService} from "../../../services/TaskService";
 import {AlertService} from "../../../services/AlertService";
 import {AlertConfig} from "../../../model/alert/AlertConfig";
+import {ErrorService} from "../../../services/ErrorService";
 @Component({
     selector: 'add-task',
-    providers: [TaskService, AlertService],
+    providers: [TaskService, AlertService, ErrorService],
     templateUrl: URL_COMPONENT_BASE + 'add/add-task/add.task.component.html'
 //
 })
@@ -14,7 +15,8 @@ export class AddTaskComponent {
     task: Task = new Task();
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
 
-    constructor(private _taskService: TaskService, private _alertService: AlertService) {
+    constructor(private _taskService: TaskService, private _alertService: AlertService,
+                private _errorService: ErrorService) {
     }
 
     addTask() {
@@ -26,7 +28,8 @@ export class AddTaskComponent {
                     this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Task ' + taskTitle + ' added');
                 },
                 (error) => {
-                    this.alertConfig = this._alertService.retrieveErrorAlertShowConfig('Something went wrong with adding task, try again');
+                    let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
+                    this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
                 }
             );
     }

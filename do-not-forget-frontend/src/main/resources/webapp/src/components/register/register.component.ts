@@ -4,15 +4,17 @@ import {RegistrationData} from "../../model/RegistrationData";
 import {RegistrationService} from "../../services/RegistrationService";
 import {AlertService} from "../../services/AlertService";
 import {AlertConfig} from "../../model/alert/AlertConfig";
+import {ErrorService} from "../../services/ErrorService";
 @Component({
     selector: 'login-view',
-    providers: [RegistrationService, AlertService],
+    providers: [RegistrationService, AlertService, ErrorService],
     templateUrl: URL_COMPONENT_BASE + 'register/register.component.html'
 })
 export class RegisterComponent {
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
 
-    constructor(private _registrationService: RegistrationService, private _alertService: AlertService) {
+    constructor(private _registrationService: RegistrationService, private _alertService: AlertService,
+                private _errorService: ErrorService) {
     }
 
     registrationData: RegistrationData = new RegistrationData;
@@ -22,15 +24,14 @@ export class RegisterComponent {
         this._registrationService.registerUser(this.registrationData)
             .subscribe(
                 success => {
-                    console.log('success');
                     this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Successfull registration');
                     this.registrationData = new RegistrationData;
                     this.repeatedPassword = '';
                 },
                 error => {
-                    console.log('error');
+                    let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
                     this.alertConfig = this._alertService
-                        .retrieveErrorAlertShowConfig('Something went wrong with registration, try again');
+                        .retrieveErrorAlertShowConfig(errorMsg);
                 }
             );
     }

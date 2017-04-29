@@ -4,9 +4,10 @@ import {TaskService} from "../../../services/TaskService";
 import {Task} from "../../../model/Task";
 import {AlertService} from "../../../services/AlertService";
 import {AlertConfig} from "../../../model/alert/AlertConfig";
+import {ErrorService} from "../../../services/ErrorService";
 @Component({
     selector: 'browse-tasks',
-    providers: [TaskService, AlertService],
+    providers: [TaskService, AlertService, ErrorService],
     templateUrl: URL_COMPONENT_BASE + 'browse/browse-task/browse.task.component.html'
 //
 })
@@ -14,7 +15,8 @@ export class BrowseTasksComponent {
     tasks;
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
 
-    constructor(private _taskService: TaskService, private _alertService: AlertService) {
+    constructor(private _taskService: TaskService, private _alertService: AlertService,
+                private _errorService: ErrorService) {
 
     }
 
@@ -24,8 +26,13 @@ export class BrowseTasksComponent {
 
     private _loadTasks() {
         this._taskService.getAllTasks().subscribe(data => {
-            this.tasks = data;
-        });
+                this.tasks = data;
+            },
+            (error) => {
+                let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
+                this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
+            }
+        );
     }
 
     deleteTask(task: Task) {
@@ -37,7 +44,8 @@ export class BrowseTasksComponent {
                     this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Task ' + taskTitle + ' removed');
                 },
                 (error) => {
-                    this.alertConfig = this._alertService.retrieveErrorAlertShowConfig('Something went wrong with removing task, try again');
+                    let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
+                    this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
                 }
             );
     }

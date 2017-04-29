@@ -2,6 +2,14 @@
     <div class="slds-notify_container">
         <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
                           (nglNotificationClose)="alertConfig.onClose($event)"
+                          timeout="alertConfig.timeout" class="slds-theme--alert-texture">
+            <h2>{{alertConfig.message}}</h2>
+        </ngl-notification>
+    </div>
+
+    <div class="slds-notify_container">
+        <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
+                          (nglNotificationClose)="alertConfig.onClose($event)"
                           [timeout]="alertConfig.timeout" class="slds-theme--alert-texture">
             <h2>{{alertConfig.message}}</h2>
         </ngl-notification>
