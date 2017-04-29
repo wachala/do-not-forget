@@ -9,6 +9,7 @@ import {ErrorService} from "../../services/ErrorService";
 import {AlertService} from "../../services/AlertService";
 import {AlertConfig} from "../../model/alert/AlertConfig";
 import {LoginStateMapService} from "../../services/LoginStateMapService";
+import {AUTHORIZED} from "../../navigation.constants";
 @Component({
     selector: 'login-view',
     providers: [LoginService, UserService, ErrorService,
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this._userService.retrieveUserData()
             .subscribe(userData => {
                 sessionStorage.setItem(USER, JSON.stringify(userData));
-                this._router.navigate(['/authorized']);
+                this._router.navigate([AUTHORIZED]);
             })
     }
 

@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import {LoginStateMapService} from "./LoginStateMapService";
+import {LOGIN} from "../navigation.constants";
 
 @Injectable()
 export class ErrorService {
@@ -19,7 +20,7 @@ export class ErrorService {
 
         } else if (this._isTokenExpired(exception)) {
             sessionStorage.clear();
-            this._router.navigate(['/login', LoginStateMapService.TOKEN_EXPIRED_STATE]);
+            this._router.navigate([LOGIN, LoginStateMapService.TOKEN_EXPIRED_STATE]);
             return '';
 
         }

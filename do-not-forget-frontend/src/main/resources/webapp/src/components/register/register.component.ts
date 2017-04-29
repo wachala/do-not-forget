@@ -7,6 +7,7 @@ import {AlertConfig} from "../../model/alert/AlertConfig";
 import {ErrorService} from "../../services/ErrorService";
 import {Router} from "@angular/router";
 import {LoginStateMapService} from "../../services/LoginStateMapService";
+import {LOGIN} from "../../navigation.constants";
 @Component({
     selector: 'login-view',
     providers: [RegistrationService, AlertService, ErrorService],
@@ -27,7 +28,7 @@ export class RegisterComponent {
             .subscribe(
                 success => {
                     this._router
-                        .navigate(['/login', LoginStateMapService.REGISTER_SUCCESSFUL_STATE]);
+                        .navigate([LOGIN, LoginStateMapService.REGISTER_SUCCESSFUL_STATE]);
                 },
                 error => {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
