@@ -5,6 +5,8 @@ import {RegistrationService} from "../../services/RegistrationService";
 import {AlertService} from "../../services/AlertService";
 import {AlertConfig} from "../../model/alert/AlertConfig";
 import {ErrorService} from "../../services/ErrorService";
+import {Router} from "@angular/router";
+import {LoginStateMapService} from "../../services/LoginStateMapService";
 @Component({
     selector: 'login-view',
     providers: [RegistrationService, AlertService, ErrorService],
@@ -14,7 +16,7 @@ export class RegisterComponent {
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
 
     constructor(private _registrationService: RegistrationService, private _alertService: AlertService,
-                private _errorService: ErrorService) {
+                private _errorService: ErrorService, private _router: Router) {
     }
 
     registrationData: RegistrationData = new RegistrationData;
@@ -24,9 +26,8 @@ export class RegisterComponent {
         this._registrationService.registerUser(this.registrationData)
             .subscribe(
                 success => {
-                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Successfull registration');
-                    this.registrationData = new RegistrationData;
-                    this.repeatedPassword = '';
+                    this._router
+                        .navigate(['/login', LoginStateMapService.REGISTER_SUCCESSFUL_STATE]);
                 },
                 error => {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
