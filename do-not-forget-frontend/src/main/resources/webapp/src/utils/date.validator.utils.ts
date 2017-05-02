@@ -2,7 +2,6 @@ import {CustomDate} from "../model/CustomDate";
 
 export class DateValidationUtils {
     private static _isLeapYear(year) {
-        console.log(year);
         return !(year % 400) || (year % 100 != 0 && year % 4 == 0);
     }
 

@@ -3,9 +3,10 @@ package pl.pw.as.validators;
 import org.springframework.stereotype.Component;
 import pl.pw.as.model.task.Task;
 import pl.pw.as.utils.CustomDateUtils;
-import pl.pw.as.utils.IntegerUtils;
 
 import java.util.Objects;
+
+import static pl.pw.as.utils.IntegerUtils.isNotInRange;
 
 
 @Component
@@ -25,17 +26,17 @@ public class TaskValidator implements Validator<Task> {
             invalid = true;
         }
 
-        if (Objects.isNull(data.getDeadLine()) || CustomDateUtils.isInFuture(data.getDeadLine())) {
+        if (Objects.isNull(data.getDeadLine()) || CustomDateUtils.isInPast(data.getDeadLine())) {
             errorMessage += "Deadline must be in future and must be correct date\n";
             invalid = true;
         }
 
-        if (IntegerUtils.isInRange(data.getPriority(), MIN_PRIORITY, MAX_PRIORITY)) {
+        if (isNotInRange(data.getPriority(), MIN_PRIORITY, MAX_PRIORITY)) {
             errorMessage += "Priority must be between " + MIN_PRIORITY + " and " + MAX_PRIORITY + "\n";
             invalid = true;
         }
 
-        if (IntegerUtils.isInRange(data.getEstimateTime(), MIN_ESTIMATION_TIME, MAX_ESTIMATION_TIME)) {
+        if (isNotInRange(data.getEstimateTime(), MIN_ESTIMATION_TIME, MAX_ESTIMATION_TIME)) {
             errorMessage += "Estimate time must be between " + MIN_ESTIMATION_TIME + " and " + MAX_ESTIMATION_TIME + "\n";
             invalid = true;
         }
