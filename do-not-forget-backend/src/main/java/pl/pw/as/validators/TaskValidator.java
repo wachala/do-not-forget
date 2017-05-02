@@ -26,7 +26,7 @@ public class TaskValidator implements Validator<Task> {
             invalid = true;
         }
 
-        if (Objects.isNull(data.getDeadLine()) || CustomDateUtils.isInFuture(data.getDeadLine())) {
+        if (Objects.isNull(data.getDeadLine()) || CustomDateUtils.isInPast(data.getDeadLine())) {
             errorMessage += "Deadline must be in future and must be correct date\n";
             invalid = true;
         }
