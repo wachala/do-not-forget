@@ -1,8 +1,10 @@
+import {ALERT_TIMEOUT} from "../../custom.constants";
+
 export class AlertConfig {
     show: boolean;
     message: string = '';
     type: string = '';
-    timeout: number = 3000;
+    timeout: number = ALERT_TIMEOUT;
 
     constructor(alertMessage: string, alertType: string, show: boolean) {
         this.message = alertMessage;

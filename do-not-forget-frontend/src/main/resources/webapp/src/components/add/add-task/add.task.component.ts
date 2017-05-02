@@ -20,7 +20,7 @@ export class AddTaskComponent {
     }
 
     addTask() {
-        let taskTitle = JSON.stringify(this.task.title);
+        let taskTitle = this.task.title;
         this._taskService.saveTask(this.task)
             .subscribe(
                 (success) => {
