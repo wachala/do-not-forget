@@ -47,5 +47,4 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
                 .addAuthentication(res, auth.getName());
     }
 
-
 }
