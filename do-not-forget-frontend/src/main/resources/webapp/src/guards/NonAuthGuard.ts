@@ -2,6 +2,7 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {AuthService} from "../services/AuthService";
+import {AUTHORIZED} from "../navigation.constants";
 
 @Injectable()
 export class NonAuthGuard implements CanActivate {
@@ -9,7 +10,7 @@ export class NonAuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|Promise<boolean>|boolean {
         if(this._authService.isTokenValid()) {
-            this._router.navigate(['/authorized']);
+            this._router.navigate([AUTHORIZED]);
         }
         return true;
 

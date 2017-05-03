@@ -23,6 +23,10 @@ export const ROUTES = [
                 component: LoginComponent
             },
             {
+                path: 'login/:state',
+                component: LoginComponent
+            },
+            {
                 path: 'register',
                 component: RegisterComponent
             }
