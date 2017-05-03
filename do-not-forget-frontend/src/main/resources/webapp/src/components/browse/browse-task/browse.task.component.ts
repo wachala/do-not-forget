@@ -3,6 +3,7 @@ import {URL_COMPONENT_BASE} from "../../../url.constants";
 import {TaskService} from "../../../services/TaskService";
 import {Task} from "../../../model/Task";
 import {Router} from "@angular/router";
+import {DateValidationUtils} from "../../../utils/date.validator.utils";
 
 @Component({
     selector: 'browse-tasks',
@@ -36,5 +37,9 @@ export class BrowseTasksComponent {
 
     editTask(task: Task) {
         this._router.navigate(['authorized/editTask/' + task.id])
+    }
+
+    isHistoricalTask(task: Task) {
+        return !DateValidationUtils.isDateInTheFuture(task.deadLine);
     }
 }

@@ -11,11 +11,7 @@ function validateDateInFutureFactory(): ValidatorFn {
         let inputDate: CustomDate = control.value;
 
         if (inputDate && DateValidationUtils.isValidDate(inputDate)) {
-            let date: Date = new Date(inputDate.year, inputDate.month - 1, inputDate.day);
-            let now: Date = new Date();
-            let today: Date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-            isValid = date >= today;
+            isValid = DateValidationUtils.isDateInTheFuture(inputDate);
         }
 
         return isValid ? null : {dateInFuture: {valid: false}};
