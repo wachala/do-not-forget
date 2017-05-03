@@ -6,6 +6,7 @@ import {UnauthorizedMainComponent} from "./unauthorized-main/unauthorized-main.c
 import {AuthorizedMainComponent} from "./authorized-main/authorized-main.component";
 import {NonAuthGuard} from "../guards/NonAuthGuard";
 import {AuthGuard} from "../guards/AuthGuard";
+import {EditTaskComponent} from "./edit/edit.component";
 export const ROUTES = [
     {
         path: '',
@@ -44,6 +45,10 @@ export const ROUTES = [
             {
                 path: 'browseTasks',
                 component: BrowseTasksComponent
+            },
+            {
+                path: 'editTask/:id',
+                component: EditTaskComponent
             }
         ]
     }

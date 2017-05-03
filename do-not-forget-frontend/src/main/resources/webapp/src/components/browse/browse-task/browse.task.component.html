@@ -2,6 +2,7 @@
     <div *ngFor="let _task of tasks">
         <task-view [task]="_task"></task-view>
         <button class="btn btn-primary" (click)="deleteTask(_task)">Delete</button>
+        <button class="btn btn-primary" (click)="editTask(_task)">Edit</button>
     </div>
 </div>
 

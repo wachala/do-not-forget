@@ -2,6 +2,8 @@ import {Component} from "@angular/core";
 import {URL_COMPONENT_BASE} from "../../../url.constants";
 import {TaskService} from "../../../services/TaskService";
 import {Task} from "../../../model/Task";
+import {Router} from "@angular/router";
+
 @Component({
     selector: 'browse-tasks',
     providers: [TaskService],
@@ -11,7 +13,7 @@ import {Task} from "../../../model/Task";
 export class BrowseTasksComponent {
     tasks;
 
-    constructor(private _taskService: TaskService) {
+    constructor(private _taskService: TaskService, private _router: Router) {
 
     }
 
@@ -21,8 +23,7 @@ export class BrowseTasksComponent {
 
     private _loadTasks() {
         this._taskService.getAllTasks().subscribe(data => {
-            this.tasks = data;
-            console.log(data);
+            this.tasks = data
         });
     }
 
@@ -31,5 +32,9 @@ export class BrowseTasksComponent {
             .subscribe(
                 (result) => this._loadTasks()
             );
+    }
+
+    editTask(task: Task) {
+        this._router.navigate(['authorized/editTask/' + task.id])
     }
 }
