@@ -32,4 +32,17 @@ public class User {
     public boolean removeTask(Task task) {
         return tasks.remove(task);
     }
+
+    public boolean editTask(Task task) {
+        return removeTaskWithId(task.getId()) && addTask(task);
+    }
+
+    private boolean removeTaskWithId(String id) {
+        for(Task task: tasks) {
+            if(id.equals(task.getId())) {
+                return removeTask(task);
+            }
+        }
+        return false;
+    }
 }

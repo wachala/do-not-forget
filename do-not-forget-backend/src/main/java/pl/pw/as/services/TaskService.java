@@ -1,7 +1,6 @@
 package pl.pw.as.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.pw.as.database.repository.TaskRepository;
 import pl.pw.as.database.repository.UserRepository;
@@ -12,6 +11,7 @@ import pl.pw.as.validators.Validator;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -44,7 +44,6 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-
     public List<Task> getAllUserTasks(User user) {
         return user.getTasks();
     }
@@ -56,5 +55,20 @@ public class TaskService {
         taskRepository.delete(task.getId());
 
         return true;
+    }
+
+    public boolean editTask(Task task,  User user) {
+        taskValidator.validate(task);
+
+        user.editTask(task);
+
+        userRepository.save(user);
+        taskRepository.save(task);
+
+        return true;
+    }
+
+    public Optional<Task> getTask(String id, User user) {
+        return getAllUserTasks(user).stream().filter(t -> id.equals(t.getId())).findFirst();
     }
 }
