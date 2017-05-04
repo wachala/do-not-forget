@@ -1,8 +1,7 @@
 package pl.pw.as.services;
 
 import com.google.common.collect.Lists;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,8 +13,8 @@ import pl.pw.as.model.user.UserInfo;
 import pl.pw.as.validators.Validator;
 
 @Service
+@Slf4j
 public class UserService {
-    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserRepository userRepository;
@@ -30,7 +29,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public void addUser(RegistrationData registrationData) {
-        LOG.info("Registering user with email {}", registrationData.getEmail());
+        log.info("Registering user with email {}", registrationData.getEmail());
         registrationDataValidator.validate(registrationData);
 
         User user = User.builder()
@@ -45,12 +44,12 @@ public class UserService {
     }
 
     public User getUser(String id) {
-        LOG.info("Getting user data for user id {}", id);
+        log.info("Getting user data for user id {}", id);
         return userRepository.findOne(id);
     }
 
     public UserInfo getUserInfo(String id) {
-        LOG.info("Getting user information for user id {}", id);
+        log.info("Getting user information for user id {}", id);
 
         User user = getUser(id);
         if (user == null)

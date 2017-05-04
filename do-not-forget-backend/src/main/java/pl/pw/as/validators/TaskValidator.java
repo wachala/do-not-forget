@@ -1,7 +1,6 @@
 package pl.pw.as.validators;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import pl.pw.as.model.task.Task;
 import pl.pw.as.utils.CustomDateUtils;
@@ -11,8 +10,8 @@ import java.util.Objects;
 import static pl.pw.as.utils.IntegerUtils.isNotInRange;
 
 @Component
+@Slf4j
 public class TaskValidator implements Validator<Task> {
-    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
     private static final int MIN_PRIORITY = 0;
     private static final int MAX_PRIORITY = 100;
     private static final int MIN_ESTIMATION_TIME = 0;
@@ -20,7 +19,7 @@ public class TaskValidator implements Validator<Task> {
 
     @Override
     public void validate(Task task) {
-        LOG.info("Validating task with title {}", task.getTitle());
+        log.info("Validating task with title {}", task.getTitle());
 
         String errorMessage = "";
         boolean invalid = false;

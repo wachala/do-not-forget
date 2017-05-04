@@ -1,7 +1,6 @@
 package pl.pw.as.validators;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.pw.as.database.repository.UserRepository;
@@ -10,15 +9,15 @@ import pl.pw.as.model.registration.RegistrationData;
 import java.util.Objects;
 
 @Component
+@Slf4j
 public class RegistrationDataValidator implements Validator<RegistrationData> {
-    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public void validate(RegistrationData data) {
-        LOG.info("Validating registration data for user with email {}", data.getEmail());
+        log.info("Validating registration data for user with email {}", data.getEmail());
 
         String errorMsg = "";
         boolean invalid = false;

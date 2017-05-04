@@ -1,7 +1,6 @@
 package pl.pw.as.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pw.as.database.repository.TaskRepository;
@@ -15,8 +14,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Slf4j
 public class TaskService {
-    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private TaskRepository taskRepository;
@@ -28,7 +27,7 @@ public class TaskService {
     private Validator<Task> taskValidator;
 
     public boolean addNewTask(Task task, User user) {
-        LOG.info("Adding new task with title {} for user {}", task.getTitle(), user.getEmail());
+        log.info("Adding new task with title {} for user {}", task.getTitle(), user.getEmail());
         taskValidator.validate(task);
 
         LocalDateTime today = LocalDateTime.now();
@@ -38,7 +37,7 @@ public class TaskService {
                 .year(today.getYear()).build());
         user.addTask(task);
 
-        LOG.info("Saving task with title {}", task.getTitle());
+        log.info("Saving task with title {}", task.getTitle());
 
         taskRepository.insert(task);
         userRepository.save(user);
@@ -47,17 +46,17 @@ public class TaskService {
     }
 
     public List<Task> getAllTasks() {
-        LOG.info("Getting all tasks");
+        log.info("Getting all tasks");
         return taskRepository.findAll();
     }
 
     public List<Task> getAllUserTasks(User user) {
-        LOG.info("Getting all tasks for user {}", user.getEmail());
+        log.info("Getting all tasks for user {}", user.getEmail());
         return user.getTasks();
     }
 
     public boolean deleteTask(Task task, User user) {
-        LOG.info("Deleting task with id {} and user {}", task.getId(), user.getEmail());
+        log.info("Deleting task with id {} and user {}", task.getId(), user.getEmail());
         user.removeTask(task);
 
         userRepository.save(user);
