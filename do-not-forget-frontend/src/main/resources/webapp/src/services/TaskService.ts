@@ -28,14 +28,7 @@ export class TaskService {
 
     getTaskById(id) {
         return this.http.get(BASE_URL, GET_TASKS_URL + id)
-            .map((res: Response) => {
-                if(res.status < 200 || res.status >= 300) {
-                    throw new Error('This request has failed ' + res.status);
-                }
-                else {
-                    return res.json();
-                }
-            });
+            .map((res: Response) => res.json());
     }
 
     editTask(task) {

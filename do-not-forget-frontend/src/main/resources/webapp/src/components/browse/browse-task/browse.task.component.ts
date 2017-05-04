@@ -28,7 +28,8 @@ export class BrowseTasksComponent {
     }
 
     private _loadTasks() {
-        this._taskService.getAllTasks().subscribe(data => {
+        this._taskService.getAllTasks().subscribe(
+            (data) => {
                 this.tasks = data;
             },
             (error) => {

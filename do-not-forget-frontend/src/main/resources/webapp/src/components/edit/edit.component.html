@@ -1,5 +1,13 @@
-<div *ngIf="task" class="container">
-    <ngb-accordion #aac="ngbAccordion" activeIds="ngb-panel-0">
+<div class="container">
+    <div class="slds-notify_container">
+        <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
+                          (nglNotificationClose)="alertConfig.onClose($event)"
+                          timeout="alertConfig.timeout" class="slds-theme--alert-texture">
+            <h2>{{alertConfig.message}}</h2>
+        </ngl-notification>
+    </div>
+
+    <ngb-accordion *ngIf="task" #aac="ngbAccordion" activeIds="ngb-panel-0">
         <ngb-panel title="Edit task">
             <template ngbPanelContent>
                 <div class="row-fluid">
@@ -86,7 +94,4 @@
             </template>
         </ngb-panel>
     </ngb-accordion>
-</div>
-<div *ngIf="errorText">
-    {{errorText}}
 </div>
