@@ -1,5 +1,6 @@
 package pl.pw.as.validators;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.pw.as.database.repository.UserRepository;
@@ -8,6 +9,7 @@ import pl.pw.as.model.registration.RegistrationData;
 import java.util.Objects;
 
 @Component
+@Slf4j
 public class RegistrationDataValidator implements Validator<RegistrationData> {
 
     @Autowired
@@ -15,6 +17,8 @@ public class RegistrationDataValidator implements Validator<RegistrationData> {
 
     @Override
     public void validate(RegistrationData data) {
+        log.info("Validating registration data for user with email {}", data.getEmail());
+
         String errorMsg = "";
         boolean invalid = false;
 
@@ -45,6 +49,5 @@ public class RegistrationDataValidator implements Validator<RegistrationData> {
 
         if (invalid)
             throw new RuntimeException(errorMsg);
-
     }
 }
