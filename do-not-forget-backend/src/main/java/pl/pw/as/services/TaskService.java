@@ -57,18 +57,15 @@ public class TaskService {
         return true;
     }
 
-    public boolean editTask(Task task,  User user) {
+    public boolean editTask(Task task) {
         taskValidator.validate(task);
 
-        user.editTask(task);
-
-        userRepository.save(user);
         taskRepository.save(task);
 
         return true;
     }
 
-    public Optional<Task> getTask(String id, User user) {
-        return getAllUserTasks(user).stream().filter(t -> id.equals(t.getId())).findFirst();
+    public Optional<Task> getTask(String id) {
+        return Optional.ofNullable(taskRepository.findOne(id));
     }
 }

@@ -1,7 +1,6 @@
 package pl.pw.as.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.pw.as.model.task.Task;
 import pl.pw.as.security.UserIdRetrievingService;
@@ -35,13 +34,10 @@ public class TaskController {
         return taskService.getAllUserTasks(userService.getUser(idRetrievingService.retrieve(request)));
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Task> getTask(@PathVariable("id") String id, HttpServletRequest request) {
-        Optional<Task> task = taskService.getTask(id, userService.getUser(idRetrievingService.retrieve(request)));
-        if (task.isPresent()) {
-            return ResponseEntity.ok(task.get());
-        }
-        return ResponseEntity.notFound().build();
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public Task getTask(@PathVariable("id") String id) {
+        Optional<Task> task = taskService.getTask(id);
+        return task.orElseThrow(() -> new RuntimeException("Task not found"));
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.PUT)
@@ -50,7 +46,7 @@ public class TaskController {
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.PUT)
-    public boolean edit(@RequestBody Task task, HttpServletRequest request) {
-        return taskService.editTask(task, userService.getUser(idRetrievingService.retrieve(request)));
+    public boolean edit(@RequestBody Task task) {
+        return taskService.editTask(task);
     }
 }
