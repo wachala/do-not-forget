@@ -1,7 +1,7 @@
 import {Directive} from '@angular/core';
 import {NG_VALIDATORS, AbstractControl, ValidatorFn, Validator, FormControl} from '@angular/forms';
 import {CustomDate} from "../model/CustomDate";
-import {DateValidationUtils} from "./date.validator.utils"
+import {DateValidationUtils} from "../utils/date.validator.utils"
 
 function validateDateInFutureFactory(): ValidatorFn {
 

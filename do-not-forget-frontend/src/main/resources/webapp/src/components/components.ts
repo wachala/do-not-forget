@@ -6,7 +6,7 @@ import {NavDropdownFieldComponent} from "./nav/dropdownfield/dropdownfield.compo
 import {AddTaskComponent} from "./add/add-task/add.task.component";
 import {BrowseTasksComponent} from "./browse/browse-task/browse.task.component";
 import {TaskViewComponent} from "./browse/task-view/task-view.component";
-import {DateInFutureValidator} from "../utils/date.validator";
+import {DateInFutureValidator} from "../validators/date.validator";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {AuthorizedMainComponent} from "./authorized-main/authorized-main.component";
