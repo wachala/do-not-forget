@@ -7,10 +7,15 @@
         </ngl-notification>
     </div>
 
-
+    <!--TASK LIST-->
     <div *ngFor="let _task of tasks">
         <task-view [task]="_task"></task-view>
         <button class="btn btn-primary" (click)="deleteTask(_task)">Delete</button>
     </div>
+    <!--NO TASK ALERT-->
+    <div class="alert alert-info" role="alert" *ngIf="!tasks || tasks.length==0">
+        You have no active tasks
+    </div>
+
 </div>
 

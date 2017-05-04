@@ -20,12 +20,13 @@ export class AddTaskComponent {
     }
 
     addTask() {
-        let taskTitle = this.task.title;
+        let taskTitle = JSON.stringify(this.task.title);
+
         this._taskService.saveTask(this.task)
             .subscribe(
                 (success) => {
                     this.task = new Task();
-                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Task ' + taskTitle + ' added');
+                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Task ' + taskTitle + ' added successfully.');
                 },
                 (error) => {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
