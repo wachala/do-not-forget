@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start",
     "start": "webpack-dev-server --inline --progress --port 3000",
     "postinstall": "typings install"
   },
@@ -29,6 +29,7 @@
     "zone.js": "^0.8.5"
   },
   "devDependencies": {
+    "@types/node": "^7.0.16",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.1.2",
     "css-loader": "^0.28.0",
@@ -36,6 +37,12 @@
     "file-loader": "^0.11.1",
     "html-loader": "^0.4.5",
     "html-webpack-plugin": "^2.28.0",
+    "jasmine": "^2.6.0",
+    "karma": "^1.6.0",
+    "karma-chrome-launcher": "^2.1.0",
+    "karma-jasmine": "^1.1.0",
+    "ng2-validation": "^4.1.0",
+    "node-static": "^0.7.9",
     "null-loader": "^0.1.1",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.1",
@@ -45,7 +52,6 @@
     "typings": "^2.1.0",
     "webpack": "^2.3.3",
     "webpack-dev-server": "^2.4.2",
-    "webpack-merge": "^4.1.0",
-    "ng2-validation": "^4.1.0"
+    "webpack-merge": "^4.1.0"
   }
 }
