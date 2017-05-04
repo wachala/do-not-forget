@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ErrorService} from "../../services/ErrorService";
 import {AlertService} from "../../services/AlertService";
 import {AlertConfig} from "../../model/alert/AlertConfig";
+import {ALERT_TIMEOUT} from "../../custom.constants";
 
 @Component({
     selector: 'edit-view',
@@ -33,6 +34,9 @@ export class EditTaskComponent {
                 (error) => {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
                     this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
+                    setTimeout(() => {
+                        this._router.navigate(['authorized/browseTasks']);
+                    }, ALERT_TIMEOUT);
                 });
     }
 
@@ -43,8 +47,11 @@ export class EditTaskComponent {
     save(): void {
         this._taskService.editTask(this.task).subscribe(
             () => {
-                this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Task \''+ this.task.title+ '\' saved');
-                //this._router.navigate(['authorized/browseTasks'])
+                this.alertConfig = this._alertService
+                    .retrieveSuccessAlertShowConfig('Task \'' + this.task.title + '\' saved!');
+                setTimeout(() => {
+                    this._router.navigate(['authorized/browseTasks']);
+                }, ALERT_TIMEOUT);
             }
         );
     }
