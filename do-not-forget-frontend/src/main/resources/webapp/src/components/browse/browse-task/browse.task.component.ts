@@ -5,6 +5,9 @@ import {Task} from "../../../model/Task";
 import {AlertService} from "../../../services/AlertService";
 import {AlertConfig} from "../../../model/alert/AlertConfig";
 import {ErrorService} from "../../../services/ErrorService";
+import {Router} from "@angular/router";
+import {DateValidationUtils} from "../../../utils/date.validator.utils";
+
 @Component({
     selector: 'browse-tasks',
     providers: [TaskService, AlertService, ErrorService],
@@ -16,7 +19,7 @@ export class BrowseTasksComponent {
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
 
     constructor(private _taskService: TaskService, private _alertService: AlertService,
-                private _errorService: ErrorService) {
+                private _errorService: ErrorService, private _router: Router) {
 
     }
 
@@ -25,7 +28,8 @@ export class BrowseTasksComponent {
     }
 
     private _loadTasks() {
-        this._taskService.getAllTasks().subscribe(data => {
+        this._taskService.getAllTasks().subscribe(
+            (data) => {
                 this.tasks = data;
             },
             (error) => {
@@ -48,5 +52,13 @@ export class BrowseTasksComponent {
                     this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
                 }
             );
+    }
+
+    editTask(task: Task) {
+        this._router.navigate(['authorized/editTask/' + task.id])
+    }
+
+    isHistoricalTask(task: Task) {
+        return !DateValidationUtils.isDateInTheFuture(task.deadLine);
     }
 }

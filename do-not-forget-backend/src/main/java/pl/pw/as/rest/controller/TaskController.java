@@ -9,6 +9,7 @@ import pl.pw.as.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "task/")
@@ -33,8 +34,19 @@ public class TaskController {
         return taskService.getAllUserTasks(userService.getUser(idRetrievingService.retrieve(request)));
     }
 
-    @RequestMapping(value="delete", method = RequestMethod.PUT)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public Task getTask(@PathVariable("id") String id) {
+        Optional<Task> task = taskService.getTask(id);
+        return task.orElseThrow(() -> new RuntimeException("Task not found"));
+    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.PUT)
     public boolean delete(@RequestBody Task task, HttpServletRequest request) {
         return taskService.deleteTask(task, userService.getUser(idRetrievingService.retrieve(request)));
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.PUT)
+    public boolean edit(@RequestBody Task task) {
+        return taskService.editTask(task);
     }
 }

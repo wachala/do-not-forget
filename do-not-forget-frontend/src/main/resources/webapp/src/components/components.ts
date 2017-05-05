@@ -6,11 +6,12 @@ import {NavDropdownFieldComponent} from "./nav/dropdownfield/dropdownfield.compo
 import {AddTaskComponent} from "./add/add-task/add.task.component";
 import {BrowseTasksComponent} from "./browse/browse-task/browse.task.component";
 import {TaskViewComponent} from "./browse/task-view/task-view.component";
-import {DateInFutureValidator} from './add/add-task/date.validator'
+import {DateInFutureValidator} from "../validators/date.validator";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {AuthorizedMainComponent} from "./authorized-main/authorized-main.component";
 import {UnauthorizedMainComponent} from "./unauthorized-main/unauthorized-main.component";
+import {EditTaskComponent} from "./edit/edit.component";
 
 export const COMPONENTS = [
     AppComponent,
@@ -30,6 +31,7 @@ export const COMPONENTS = [
     //browsing tasks
     BrowseTasksComponent,
     TaskViewComponent,
+    EditTaskComponent,
     //commons
     //validators
     DateInFutureValidator

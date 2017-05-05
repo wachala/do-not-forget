@@ -11,6 +11,9 @@
     <div *ngFor="let _task of tasks">
         <task-view [task]="_task"></task-view>
         <button class="btn btn-primary" (click)="deleteTask(_task)">Delete</button>
+        <button class="btn btn-primary" (click)="editTask(_task)"
+                [disabled] = "isHistoricalTask(_task)" >Edit
+        </button>
     </div>
     <!--NO TASK ALERT-->
     <div class="alert alert-info" role="alert" *ngIf="!tasks || tasks.length==0">

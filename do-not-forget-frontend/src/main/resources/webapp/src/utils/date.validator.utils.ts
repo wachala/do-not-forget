@@ -14,4 +14,12 @@ export class DateValidationUtils {
 
         return date.month > 0 && date.month <= 12 && date.day > 0 && date.day <= daysInMonths[date.month - 1];
     }
+
+    static isDateInTheFuture(inputDate: CustomDate) {
+        let date: Date = new Date(inputDate.year, inputDate.month - 1, inputDate.day);
+        let now: Date = new Date();
+        let today: Date = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+        return date >= today;
+    }
 }

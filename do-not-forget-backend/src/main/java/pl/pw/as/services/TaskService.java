@@ -12,6 +12,7 @@ import pl.pw.as.validators.Validator;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -63,5 +64,17 @@ public class TaskService {
         taskRepository.delete(task.getId());
 
         return true;
+    }
+
+    public boolean editTask(Task task) {
+        taskValidator.validate(task);
+
+        taskRepository.save(task);
+
+        return true;
+    }
+
+    public Optional<Task> getTask(String id) {
+        return Optional.ofNullable(taskRepository.findOne(id));
     }
 }
