@@ -1,5 +1,6 @@
 package pl.pw.as.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.pw.as.database.repository.TaskRepository;
@@ -14,7 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class TaskService {
+
     @Autowired
     private TaskRepository taskRepository;
 
@@ -25,6 +28,7 @@ public class TaskService {
     private Validator<Task> taskValidator;
 
     public boolean addNewTask(Task task, User user) {
+        log.info("Adding new task with title {} for user {}", task.getTitle(), user.getEmail());
         taskValidator.validate(task);
 
         LocalDateTime today = LocalDateTime.now();
@@ -34,6 +38,8 @@ public class TaskService {
                 .year(today.getYear()).build());
         user.addTask(task);
 
+        log.info("Saving task with title {}", task.getTitle());
+
         taskRepository.insert(task);
         userRepository.save(user);
 
@@ -41,14 +47,17 @@ public class TaskService {
     }
 
     public List<Task> getAllTasks() {
+        log.info("Getting all tasks");
         return taskRepository.findAll();
     }
 
     public List<Task> getAllUserTasks(User user) {
+        log.info("Getting all tasks for user {}", user.getEmail());
         return user.getTasks();
     }
 
     public boolean deleteTask(Task task, User user) {
+        log.info("Deleting task with id {} and user {}", task.getId(), user.getEmail());
         user.removeTask(task);
 
         userRepository.save(user);

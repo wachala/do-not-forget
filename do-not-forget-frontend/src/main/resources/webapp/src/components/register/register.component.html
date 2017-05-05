@@ -2,7 +2,7 @@
     <div class="slds-notify_container">
         <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
                           (nglNotificationClose)="alertConfig.onClose($event)"
-                          timeout="alertConfig.timeout" class="slds-theme--alert-texture">
+                          [timeout]="alertConfig.timeout" class="slds-theme--alert-texture">
             <h2>{{alertConfig.message}}</h2>
         </ngl-notification>
     </div>
@@ -13,66 +13,72 @@
                 <div class="row-fluid">
                     <div class="span6">
                         <form class="form" #registerForm="ngForm">
-
+                            <!--E-MAIL-->
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input id="email" name="email" type="email"
                                        #email="ngModel" class="form-control" [(ngModel)]="registrationData.email"
                                        required email>
-                                <div *ngIf="email.errors?.required" class="alert alert-danger">
+                                <div *ngIf="email.errors?.required && email.touched" class="alert alert-danger">
                                     Email is required
                                 </div>
-                                <div *ngIf="email.errors?.email" class="alert alert-danger">
+                                <div *ngIf="email.errors?.email && !email.errors?.required && email.touched" class="alert alert-danger">
                                     Not valid email
                                 </div>
                             </div>
 
-
+                            <!--PASSWORD-->
                             <div class="form-group">
                                 <label for="password">Password: </label>
                                 <input id="password" name="password" type="password"
                                        #password="ngModel"
                                        class="form-control" [(ngModel)]="registrationData.password"
                                        required minlength="4">
-                                <div *ngIf="password.errors?.required" class="alert alert-danger">
+                                <div *ngIf="password.errors?.required && password.touched" class="alert alert-danger">
                                     Password is required
                                 </div>
-                                <div *ngIf="password.errors?.minlength" class="alert alert-danger">
+                                <div *ngIf="password.errors?.minlength && !password.errors?.required && password.touched" class="alert alert-danger">
                                     Password must have at least 4 characters
                                 </div>
                             </div>
 
+                            <!--PASSWORD REPEATED-->
                             <div class="form-group">
                                 <label for="rppass">Repeat password: </label>
-                                <input id="rppass" name="rppass" type="password" class="form-control"
-                                       [(ngModel)]="repeatedPassword" #rppass="ngModel"
+                                <input id="rppass" name="rppass" type="password"
+                                       class="form-control"
+                                       #rppass="ngModel"
+                                       [(ngModel)]="repeatedPassword"
+                                        required
                                 >
-                                <div *ngIf="repeatedPassword != registrationData.password" class="alert alert-danger">
+                                <div *ngIf="repeatedPassword != registrationData.password && password.touched" class="alert alert-danger">
                                     Repeated password must be the same as password
                                 </div>
                             </div>
 
+                            <!--NAME-->
                             <div class="form-group">
                                 <label for="name">Name:</label>
                                 <input id="name" name="name" type="text"
                                        class="form-control" [(ngModel)]="registrationData.name" #name="ngModel"
                                        required>
-                                <div *ngIf="name.errors?.required" class="alert alert-danger">
+                                <div *ngIf="name.errors?.required && name.touched" class="alert alert-danger">
                                     Name is required
                                 </div>
                             </div>
 
+                            <!--SURENAME-->
                             <div class="form-group">
                                 <label for="surname">Surname:</label>
                                 <input id="surname" name="surname" type="text"
                                        class="form-control" [(ngModel)]="registrationData.surname" #surname="ngModel"
                                        required>
-                                <div *ngIf="surname.errors?.required" class="alert alert-danger">
+                                <div *ngIf="surname.errors?.required && name.touched" class="alert alert-danger">
                                     Surname is required
                                 </div>
                             </div>
 
-
+                            <!--SIGN-UP BUTTON-->
                             <div class="span1 offset-11">
                                 <button class="btn btn-primary" (click)="register()"
                                         [disabled]="!registerForm.form.valid && repeatedPassword != registrationData.password">Sign up

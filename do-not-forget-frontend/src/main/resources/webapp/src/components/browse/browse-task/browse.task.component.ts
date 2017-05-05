@@ -45,7 +45,7 @@ export class BrowseTasksComponent {
             .subscribe(
                 (success) => {
                     this._loadTasks();
-                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Task ' + taskTitle + ' removed');
+                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Task ' + taskTitle + ' removed successfully');
                 },
                 (error) => {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
