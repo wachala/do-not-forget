@@ -7,11 +7,12 @@
     "module": "commonjs",
     "noImplicitAny": false,
     "outDir": "built",
-    "rootDir": ".",
-    "types": [
-      "node",
-      "jasmine"
-    ]
+    "rootDir": "."
+//  ,
+//    "types": [
+//      "node",
+//      "jasmine"
+//    ]
   },
   "exclude": [
     "node_modules",
