@@ -59,6 +59,20 @@ export class BrowseTasksComponent {
     }
 
     isHistoricalTask(task: Task) {
-        return !DateValidationUtils.isDateInTheFuture(task.deadLine);
+        return !this.isCurrentTask(task);
+    }
+
+    isCurrentTask(task: Task) {
+        return DateValidationUtils.isDateInTheFuture(task.deadLine);
+    }
+
+    getHistoricalTasks() : Task[] {
+        if(!this.tasks) return [];
+        return this.tasks.filter(task => this.isHistoricalTask(task));
+    }
+
+    getCurrentTasks() : Task[] {
+        if(!this.tasks) return [];
+        return this.tasks.filter(task => this.isCurrentTask(task))
     }
 }
