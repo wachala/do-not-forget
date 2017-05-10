@@ -7,17 +7,27 @@
         </ngl-notification>
     </div>
 
-    <!--TASK LIST-->
-    <div *ngFor="let _task of tasks">
+    <!--CURRENT TASKS-->
+    <h1>Current tasks</h1>
+    <div *ngFor="let _task of getCurrentTasks()">
         <task-view [task]="_task"></task-view>
-        <button class="btn btn-primary" (click)="deleteTask(_task)">Delete</button>
-        <button class="btn btn-primary" (click)="editTask(_task)"
-                [disabled] = "isHistoricalTask(_task)" >Edit
-        </button>
+        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
+        <button class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
     </div>
-    <!--NO TASK ALERT-->
-    <div class="alert alert-info" role="alert" *ngIf="!tasks || tasks.length==0">
+    <!--NO TASKS ALERT-->
+    <div class="alert alert-info" role="alert" *ngIf="getCurrentTasks().length==0">
         You have no active tasks
+    </div>
+
+    <!--HISTORICAL TASKS-->
+    <h1>Historical tasks</h1>
+    <div *ngFor="let _task of getHistoricalTasks()">
+        <task-view [task]="_task"></task-view>
+        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
+    </div>
+    <!--NO HISTORICAL TASKS ALERT-->
+    <div class="alert alert-info" role="alert" *ngIf="getHistoricalTasks().length==0">
+        You have no historical tasks
     </div>
 
 </div>

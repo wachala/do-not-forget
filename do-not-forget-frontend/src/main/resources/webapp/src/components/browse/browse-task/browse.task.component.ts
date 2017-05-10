@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {URL_COMPONENT_BASE} from "../../../url.constants";
 import {TaskService} from "../../../services/TaskService";
 import {Task} from "../../../model/Task";
+import {TaskState} from "../../../model/TaskState";
 import {AlertService} from "../../../services/AlertService";
 import {AlertConfig} from "../../../model/alert/AlertConfig";
 import {ErrorService} from "../../../services/ErrorService";
@@ -58,7 +59,25 @@ export class BrowseTasksComponent {
         this._router.navigate(['authorized/editTask/' + task.id])
     }
 
-    isHistoricalTask(task: Task) {
-        return !DateValidationUtils.isDateInTheFuture(task.deadLine);
+    _isHistoricalTask(task: Task) {
+        return !this._isCurrentTask(task);
+    }
+
+    _isCurrentTask(task: Task) {
+        return DateValidationUtils.isDateInTheFuture(task.deadLine) && this._isNewTask(task);
+    }
+
+    _isNewTask(task: Task) {
+        return task.state.toString() === TaskState[TaskState.NEW].toString();
+    }
+
+    getHistoricalTasks() : Task[] {
+        if(!this.tasks) return [];
+        return this.tasks.filter(task => this._isHistoricalTask(task));
+    }
+
+    getCurrentTasks() : Task[] {
+        if(!this.tasks) return [];
+        return this.tasks.filter(task => this._isCurrentTask(task))
     }
 }
