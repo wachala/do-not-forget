@@ -12,6 +12,7 @@ import {RegisterComponent} from "./register/register.component";
 import {AuthorizedMainComponent} from "./authorized-main/authorized-main.component";
 import {UnauthorizedMainComponent} from "./unauthorized-main/unauthorized-main.component";
 import {EditTaskComponent} from "./edit/edit.component";
+import {TaskStateFilterPipe} from "../pipes/state/TaskStateFilterPipe";
 
 export const COMPONENTS = [
     AppComponent,
@@ -34,5 +35,8 @@ export const COMPONENTS = [
     EditTaskComponent,
     //commons
     //validators
-    DateInFutureValidator
+    DateInFutureValidator,
+
+    //pipes
+    TaskStateFilterPipe
 ];
