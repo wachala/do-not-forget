@@ -10,6 +10,7 @@ import {TaskState} from "../../../model/TaskState";
 })
 export class TaskViewComponent {
     @Input('task') task: Task;
+    @Input('show-state') showState: boolean = true;
 
     getDate(date: CustomDate) {
         return date.day + '/' + date.month + '/' + date.year;

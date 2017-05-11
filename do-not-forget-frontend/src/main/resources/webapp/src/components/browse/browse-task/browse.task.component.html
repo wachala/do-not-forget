@@ -30,5 +30,56 @@
         You have no historical tasks
     </div>
 
+    <div class="row">
+        <div class="col-sm-3">
+            <div dnd-droppable (onDropSuccess)="changeTaskState($event, newTaskState)" [dropZones]="['demo1']" class="panel panel-info">
+                <div class="panel-heading">New:</div>
+                <div class="panel-body">
+                    <div *ngFor="let _task of tasks | taskStateFilter:newTaskState" class="panel panel-default"
+                         dnd-draggable [dragEnabled]="true" [dragData]="_task"
+                         [dropZones]="['demo1']">
+                        <div class="panel-body">
+                            <task-view [show-state]="false" [task]="_task"></task-view>
+                            <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
+                            <button class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div dnd-droppable (onDropSuccess)="changeTaskState($event, inProgressTaskState)" [dropZones]="['demo1']" class="panel panel-info">
+                <div class="panel-heading">In progress:</div>
+                <div class="panel-body">
+                    <div *ngFor="let _task of tasks | taskStateFilter:inProgressTaskState" class="panel panel-default"
+                         dnd-draggable [dragEnabled]="true" [dragData]="_task"
+                         [dropZones]="['demo1']">
+                        <div class="panel-body">
+                            <task-view [show-state]="false" [task]="_task"></task-view>
+                            <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
+                            <button class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div dnd-droppable (onDropSuccess)="changeTaskState($event, finishedTaskState)" [dropZones]="['demo1']" class="panel panel-info">
+                <div class="panel-heading">Finished:</div>
+                <div class="panel-body">
+                    <div *ngFor="let _task of tasks | taskStateFilter:finishedTaskState" class="panel panel-default"
+                         dnd-draggable [dragEnabled]="true" [dragData]="_task"
+                         [dropZones]="['demo1']">
+                        <div class="panel-body">
+                            <task-view [show-state]="false" [task]="_task"></task-view>
+                            <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
+                            <button class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 

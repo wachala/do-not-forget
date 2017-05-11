@@ -1,6 +1,5 @@
 import {Pipe, PipeTransform} from "@angular/core";
 import {Task} from "../../model/Task";
-import {TaskState} from "../../model/TaskState";
 
 @Pipe({name: 'taskStateFilter'})
 export class TaskStateFilterPipe implements PipeTransform {
@@ -9,6 +8,6 @@ export class TaskStateFilterPipe implements PipeTransform {
             return items;
         }
 
-        return items.filter(item => TaskState[item.state] === TaskState[type])
+        return items.filter(item => item.state === type)
     }
 }

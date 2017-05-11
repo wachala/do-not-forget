@@ -6,4 +6,5 @@ export const ADD_TASK_URL:string = 'task/add';
 export const GET_TASKS_URL:string = 'task/';
 export const DELETE_TASK_URL:string = 'task/delete';
 export const EDIT_TASK_URL:string = 'task/edit';
+export const EDIT_TASK_STATE_URL:string = 'task/editTaskState';
 export const RETRIEVE_USER_DATA_URL:string = 'user';

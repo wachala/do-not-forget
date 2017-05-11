@@ -16,8 +16,12 @@ import {DateValidationUtils} from "../../../utils/date.validator.utils";
 //
 })
 export class BrowseTasksComponent {
-    tasks;
+    tasks:Array<Task>;
+
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
+    newTaskState = TaskState.NEW;
+    inProgressTaskState = TaskState.IN_PROGRESS;
+    finishedTaskState = TaskState.FINISHED;
 
     constructor(private _taskService: TaskService, private _alertService: AlertService,
                 private _errorService: ErrorService, private _router: Router) {
@@ -68,16 +72,32 @@ export class BrowseTasksComponent {
     }
 
     _isNewTask(task: Task) {
-        return task.state.toString() === TaskState[TaskState.NEW].toString();
+        return task.state === TaskState.NEW;
     }
 
-    getHistoricalTasks() : Task[] {
-        if(!this.tasks) return [];
+    getHistoricalTasks(): Task[] {
+        if (!this.tasks) return [];
         return this.tasks.filter(task => this._isHistoricalTask(task));
     }
 
-    getCurrentTasks() : Task[] {
-        if(!this.tasks) return [];
+    getCurrentTasks(): Task[] {
+        if (!this.tasks) return [];
         return this.tasks.filter(task => this._isCurrentTask(task))
+    }
+
+    changeTaskState(event, taskState) {
+        let task: Task = event.dragData as Task;
+        task.state = taskState;
+        let taskTitle = task.title;
+        this._taskService.editTaskState(task)
+            .subscribe(
+                (success) => {
+                    this._loadTasks();
+                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('State of task ' + taskTitle + ' change to: ' + taskState);
+                },
+                (error) => {
+                    let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
+                    this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
+                });
     }
 }

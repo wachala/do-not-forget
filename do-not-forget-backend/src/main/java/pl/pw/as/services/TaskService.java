@@ -74,6 +74,13 @@ public class TaskService {
         return true;
     }
 
+
+    public boolean editTaskState(Task task) {
+        taskRepository.save(task);
+
+        return true;
+    }
+
     public Optional<Task> getTask(String id) {
         return Optional.ofNullable(taskRepository.findOne(id));
     }

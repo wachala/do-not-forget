@@ -49,4 +49,9 @@ public class TaskController {
     public boolean edit(@RequestBody Task task) {
         return taskService.editTask(task);
     }
+
+    @RequestMapping(value = "editTaskState", method = RequestMethod.PUT)
+    public boolean editTaskState(@RequestBody Task task) {
+        return taskService.editTaskState(task);
+    }
 }
