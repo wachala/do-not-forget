@@ -13,6 +13,8 @@ import {AuthorizedMainComponent} from "./authorized-main/authorized-main.compone
 import {UnauthorizedMainComponent} from "./unauthorized-main/unauthorized-main.component";
 import {EditTaskComponent} from "./edit/edit.component";
 import {TaskStateFilterPipe} from "../pipes/state/TaskStateFilterPipe";
+import {HistoricalTaskFilterPipe} from "../pipes/HistoricalTaskFilterPipe";
+import {CurrentTaskFilterPipe} from "../pipes/CurrentTaskFilterPipe";
 
 export const COMPONENTS = [
     AppComponent,
@@ -38,5 +40,7 @@ export const COMPONENTS = [
     DateInFutureValidator,
 
     //pipes
-    TaskStateFilterPipe
+    TaskStateFilterPipe,
+    HistoricalTaskFilterPipe,
+    CurrentTaskFilterPipe
 ];

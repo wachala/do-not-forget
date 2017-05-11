@@ -8,6 +8,7 @@ import {AlertConfig} from "../../../model/alert/AlertConfig";
 import {ErrorService} from "../../../services/ErrorService";
 import {Router} from "@angular/router";
 import {DateValidationUtils} from "../../../utils/date.validator.utils";
+import {TaskUtils} from "../../../utils/task.utils";
 
 @Component({
     selector: 'browse-tasks',
@@ -63,26 +64,14 @@ export class BrowseTasksComponent {
         this._router.navigate(['authorized/editTask/' + task.id])
     }
 
-    _isHistoricalTask(task: Task) {
-        return !this._isCurrentTask(task);
-    }
-
-    _isCurrentTask(task: Task) {
-        return DateValidationUtils.isDateInTheFuture(task.deadLine) && this._isNewTask(task);
-    }
-
-    _isNewTask(task: Task) {
-        return task.state === TaskState.NEW;
-    }
-
     getHistoricalTasks(): Task[] {
         if (!this.tasks) return [];
-        return this.tasks.filter(task => this._isHistoricalTask(task));
+        return this.tasks.filter(task => TaskUtils.isHistoricalTask(task));
     }
 
     getCurrentTasks(): Task[] {
         if (!this.tasks) return [];
-        return this.tasks.filter(task => this._isCurrentTask(task))
+        return this.tasks.filter(task => TaskUtils.isCurrentTask(task))
     }
 
     changeTaskState(event, taskState) {
@@ -93,7 +82,7 @@ export class BrowseTasksComponent {
             .subscribe(
                 (success) => {
                     this._loadTasks();
-                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('State of task ' + taskTitle + ' change to: ' + taskState);
+                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('State of task "' + taskTitle + '" change to: ' + TaskUtils.statePrettyPrint(taskState));
                 },
                 (error) => {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
