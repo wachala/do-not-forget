@@ -5,10 +5,6 @@ import {TaskUtils} from "../utils/task.utils";
 @Pipe({name: 'historicalTaskFilter'})
 export class HistoricalTaskFilterPipe implements PipeTransform {
     transform(tasks: Task[]): Task[] {
-        if(!tasks) {
-            return tasks;
-        }
-
-        return tasks.filter(task => TaskUtils.isHistoricalTask(task))
+        return tasks ? tasks.filter(task => TaskUtils.isHistoricalTask(task)) : tasks;
     }
 }
