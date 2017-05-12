@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     loginData: LoginData = new LoginData;
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
 
+
     constructor(private _loginService: LoginService, private _userService: UserService,
                 private _router: Router, private _errorService: ErrorService,
                 private _alertService: AlertService, private _route: ActivatedRoute,
@@ -59,8 +60,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if(this.state){
+        if (this.state) {
             this.state.unsubscribe();
         }
     }
+
 }

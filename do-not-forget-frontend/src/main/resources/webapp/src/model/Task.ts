@@ -9,5 +9,5 @@ export class Task {
     priority: number = 0;
     title: string = 'Something to do..';
     description: string = '';
-    state: TaskState = TaskState.NEW;
+    state: string = TaskState.NEW;
 }

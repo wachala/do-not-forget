@@ -8,6 +8,7 @@ import {AlertConfig} from "../../../model/alert/AlertConfig";
 import {ErrorService} from "../../../services/ErrorService";
 import {Router} from "@angular/router";
 import {DateValidationUtils} from "../../../utils/date.validator.utils";
+import {TaskUtils} from "../../../utils/task.utils";
 
 @Component({
     selector: 'browse-tasks',
@@ -16,8 +17,12 @@ import {DateValidationUtils} from "../../../utils/date.validator.utils";
 //
 })
 export class BrowseTasksComponent {
-    tasks;
+    tasks:Array<Task>;
+
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
+    newTaskState = TaskState.NEW;
+    inProgressTaskState = TaskState.IN_PROGRESS;
+    finishedTaskState = TaskState.FINISHED;
 
     constructor(private _taskService: TaskService, private _alertService: AlertService,
                 private _errorService: ErrorService, private _router: Router) {
@@ -59,25 +64,29 @@ export class BrowseTasksComponent {
         this._router.navigate(['authorized/editTask/' + task.id])
     }
 
-    _isHistoricalTask(task: Task) {
-        return !this._isCurrentTask(task);
+    getHistoricalTasks(): Task[] {
+        if (!this.tasks) return [];
+        return this.tasks.filter(task => TaskUtils.isHistoricalTask(task));
     }
 
-    _isCurrentTask(task: Task) {
-        return DateValidationUtils.isDateInTheFuture(task.deadLine) && this._isNewTask(task);
+    getCurrentTasks(): Task[] {
+        if (!this.tasks) return [];
+        return this.tasks.filter(task => TaskUtils.isCurrentTask(task))
     }
 
-    _isNewTask(task: Task) {
-        return task.state.toString() === TaskState[TaskState.NEW].toString();
-    }
-
-    getHistoricalTasks() : Task[] {
-        if(!this.tasks) return [];
-        return this.tasks.filter(task => this._isHistoricalTask(task));
-    }
-
-    getCurrentTasks() : Task[] {
-        if(!this.tasks) return [];
-        return this.tasks.filter(task => this._isCurrentTask(task))
+    changeTaskState(event, taskState) {
+        let task: Task = event.dragData as Task;
+        task.state = taskState;
+        let taskTitle = task.title;
+        this._taskService.editTaskState(task)
+            .subscribe(
+                (success) => {
+                    this._loadTasks();
+                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('State of task "' + taskTitle + '" change to: ' + TaskUtils.statePrettyPrint(taskState));
+                },
+                (error) => {
+                    let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
+                    this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
+                });
     }
 }
