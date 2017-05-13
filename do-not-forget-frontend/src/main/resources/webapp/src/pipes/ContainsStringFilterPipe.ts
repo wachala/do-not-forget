@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from "@angular/core";
 import {Task} from "../model/Task";
 
-@Pipe({name: 'containsStringFilterPipe'})
+@Pipe({name: 'containsStringFilter'})
 export class ContainsStringFilterPipe implements PipeTransform {
     transform(tasks: Task[], str : string): Task[] {
         return tasks ? tasks.filter(task =>
