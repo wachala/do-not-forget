@@ -15,6 +15,7 @@ import {EditTaskComponent} from "./edit/edit.component";
 import {TaskStateFilterPipe} from "../pipes/state/TaskStateFilterPipe";
 import {HistoricalTaskFilterPipe} from "../pipes/HistoricalTaskFilterPipe";
 import {CurrentTaskFilterPipe} from "../pipes/CurrentTaskFilterPipe";
+import {ContainsStringFilterPipe} from "../pipes/ContainsStringFilterPipe";
 
 export const COMPONENTS = [
     AppComponent,
@@ -42,5 +43,6 @@ export const COMPONENTS = [
     //pipes
     TaskStateFilterPipe,
     HistoricalTaskFilterPipe,
-    CurrentTaskFilterPipe
+    CurrentTaskFilterPipe,
+    ContainsStringFilterPipe
 ];

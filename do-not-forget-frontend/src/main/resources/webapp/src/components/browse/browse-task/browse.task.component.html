@@ -11,18 +11,22 @@
         <ngb-tab title="Current tasks" id="1">
             <template ngbTabContent>
                 <!--NO TASKS ALERT-->
-                <div class="alert alert-info" role="alert" *ngIf="getCurrentTasks().length==0">
+                <div class="alert alert-info" role="alert" *ngIf="!currentTasksPresent()">
                     You have no active tasks
                 </div>
 
+                <div *ngIf="currentTasksPresent()" class="row col-sm-12">
+                    <input type="text" class="form-control col-sm-4 dnf-input" placeholder="Current task filter" [(ngModel)]="currentTaskFilterString">
+                </div>
+
                 <!--CURRENT TASKS-->
-                <div class="row" *ngIf="getCurrentTasks().length!=0">
-                    <div class="col-sm-3 card">
+                <div class="row col-sm-12" *ngIf="currentTasksPresent()">
+                    <div class="col-sm-4 card dnf-no-border-radius-right">
                         <div dnd-droppable (onDropSuccess)="changeTaskState($event, newTaskState)" [dropZones]="['demo1']"
                              class="panel panel-info card-block">
                             <div class="panel-heading card-title">New:</div>
                             <div class="panel-body">
-                                <div *ngFor="let _task of tasks | currentTaskFilter | taskStateFilter:newTaskState"
+                                <div *ngFor="let _task of tasks | currentTaskFilter | taskStateFilter:newTaskState | containsStringFilter:currentTaskFilterString"
                                      class="panel panel-default"
                                      dnd-draggable [dragEnabled]="true" [dragData]="_task"
                                      [dropZones]="['demo1']">
@@ -35,12 +39,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 card">
+                    <div class="col-sm-4 card dnf-no-border-radius-right dnf-no-border-radius-left dnf-no-border-left dnf-no-border-right">
                         <div dnd-droppable (onDropSuccess)="changeTaskState($event, inProgressTaskState)" [dropZones]="['demo1']"
                              class="panel panel-info card-block">
                             <div class="panel-heading card-title">In progress:</div>
                             <div class="panel-body">
-                                <div *ngFor="let _task of tasks | currentTaskFilter | taskStateFilter:inProgressTaskState"
+                                <div *ngFor="let _task of tasks | currentTaskFilter | taskStateFilter:inProgressTaskState | containsStringFilter:currentTaskFilterString"
                                      class="panel panel-default"
                                      dnd-draggable [dragEnabled]="true" [dragData]="_task"
                                      [dropZones]="['demo1']">
@@ -53,12 +57,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 card">
+                    <div class="col-sm-4 card dnf-no-border-radius-left">
                         <div dnd-droppable (onDropSuccess)="changeTaskState($event, finishedTaskState)" [dropZones]="['demo1']"
                              class="panel panel-info card-block">
                             <div class="panel-heading card-title">Finished:</div>
                             <div class="panel-body">
-                                <div *ngFor="let _task of tasks | currentTaskFilter | taskStateFilter:finishedTaskState"
+                                <div *ngFor="let _task of tasks | currentTaskFilter | taskStateFilter:finishedTaskState | containsStringFilter:currentTaskFilterString"
                                      class="panel panel-default"
                                      dnd-draggable [dragEnabled]="true" [dragData]="_task"
                                      [dropZones]="['demo1']">
@@ -77,18 +81,22 @@
         <ngb-tab title="Historical tasks" id="2">
             <template ngbTabContent>
                 <!--NO HISTORICAL TASKS ALERT-->
-                <div class="alert alert-info" role="alert" *ngIf="getHistoricalTasks().length==0">
+                <div class="alert alert-info" role="alert" *ngIf="!historicalTasksPresent()">
                     You have no historical tasks
                 </div>
 
+                <div *ngIf="historicalTasksPresent()" class="row col-sm-12">
+                    <input type="text" class="form-control col-sm-4 dnf-input" placeholder="Historical task filter" [(ngModel)]="historicalTaskFilterString">
+                </div>
+
                 <!--HISTORICAL TASKS-->
-                <div class="row" *ngIf="getHistoricalTasks().length!=0">
-                    <div class="col-sm-3 card">
+                <div class="row col-sm-12" *ngIf="historicalTasksPresent()">
+                    <div class="col-sm-4 card dnf-no-border-radius-right">
                         <div dnd-droppable (onDropSuccess)="changeTaskState($event, newTaskState)" [dropZones]="['demo1']"
                              class="panel panel-info card-block">
                             <div class="panel-heading card-title">New:</div>
                             <div class="panel-body">
-                                <div *ngFor="let _task of tasks | historicalTaskFilter | taskStateFilter:newTaskState"
+                                <div *ngFor="let _task of tasks | historicalTaskFilter | taskStateFilter:newTaskState | containsStringFilter:historicalTaskFilterString"
                                      class="panel panel-default"
                                      dnd-draggable [dragEnabled]="true" [dragData]="_task"
                                      [dropZones]="['demo1']">
@@ -101,12 +109,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 card">
+                    <div class="col-sm-4 card dnf-no-border-radius-left dnf-no-border-radius-right dnf-no-border-left dnf-no-border-right">
                         <div dnd-droppable (onDropSuccess)="changeTaskState($event, inProgressTaskState)" [dropZones]="['demo1']"
                              class="panel panel-info card-block">
                             <div class="panel-heading card-title">In progress:</div>
                             <div class="panel-body">
-                                <div *ngFor="let _task of tasks | historicalTaskFilter | taskStateFilter:inProgressTaskState"
+                                <div *ngFor="let _task of tasks | historicalTaskFilter | taskStateFilter:inProgressTaskState | containsStringFilter:historicalTaskFilterString"
                                      class="panel panel-default"
                                      dnd-draggable [dragEnabled]="true" [dragData]="_task"
                                      [dropZones]="['demo1']">
@@ -119,12 +127,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3 card">
+                    <div class="col-sm-4 card dnf-no-border-radius-left">
                         <div dnd-droppable (onDropSuccess)="changeTaskState($event, finishedTaskState)" [dropZones]="['demo1']"
                              class="panel panel-info card-block">
                             <div class="panel-heading card-title">Finished:</div>
                             <div class="panel-body">
-                                <div *ngFor="let _task of tasks | historicalTaskFilter | taskStateFilter:finishedTaskState"
+                                <div *ngFor="let _task of tasks | historicalTaskFilter | taskStateFilter:finishedTaskState | containsStringFilter:historicalTaskFilterString"
                                      class="panel panel-default"
                                      dnd-draggable [dragEnabled]="true" [dragData]="_task"
                                      [dropZones]="['demo1']">

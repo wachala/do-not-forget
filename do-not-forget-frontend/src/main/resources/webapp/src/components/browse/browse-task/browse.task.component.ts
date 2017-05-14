@@ -23,6 +23,8 @@ export class BrowseTasksComponent {
     newTaskState = TaskState.NEW;
     inProgressTaskState = TaskState.IN_PROGRESS;
     finishedTaskState = TaskState.FINISHED;
+    currentTaskFilterString = "";
+    historicalTaskFilterString = "";
 
     constructor(private _taskService: TaskService, private _alertService: AlertService,
                 private _errorService: ErrorService, private _router: Router) {
@@ -88,5 +90,13 @@ export class BrowseTasksComponent {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
                     this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
                 });
+    }
+
+    currentTasksPresent() {
+        return this.getCurrentTasks().length!=0;
+    }
+
+    historicalTasksPresent() {
+        return this.getHistoricalTasks().length!=0;
     }
 }

@@ -1,0 +1,22 @@
+.dnf-input {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.dnf-no-border-radius-left {
+     border-top-left-radius: 0;
+     border-bottom-left-radius: 0;
+}
+
+.dnf-no-border-radius-right {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.dnf-no-border-left {
+    border-left: 0;
+}
+
+.dnf-no-border-right {
+    border-right: 0;
+}
