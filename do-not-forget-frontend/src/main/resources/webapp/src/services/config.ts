@@ -8,3 +8,4 @@ export const DELETE_TASK_URL:string = 'task/delete';
 export const EDIT_TASK_URL:string = 'task/edit';
 export const EDIT_TASK_STATE_URL:string = 'task/editTaskState';
 export const RETRIEVE_USER_DATA_URL:string = 'user';
+export const PREDICT_TIME_URL:string = 'task/predictTime';

@@ -21,6 +21,13 @@ export class HttpService {
         return this.http.get(baseUrl + suffixUrl, options);
     }
 
+    getWithParams(baseUrl, suffixUrl, params) {
+        let headers = new Headers();
+        this._decorateHeaders(headers);
+        let options = new RequestOptions({headers: headers, search: params});
+        return this.http.get(baseUrl + suffixUrl, options);
+    }
+
     post(baseUrl, suffixUrl, data) {
         let headers = new Headers();
         this._decorateHeaders(headers);

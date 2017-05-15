@@ -1,6 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Response} from "@angular/http";
-import {BASE_URL, ADD_TASK_URL, GET_TASKS_URL, DELETE_TASK_URL, EDIT_TASK_URL, EDIT_TASK_STATE_URL} from "./config";
+import {
+    BASE_URL, ADD_TASK_URL, GET_TASKS_URL, DELETE_TASK_URL, EDIT_TASK_URL, EDIT_TASK_STATE_URL,
+    PREDICT_TIME_URL
+} from "./config";
 import {Task} from "../model/Task";
 import {HttpService} from "./HttpService";
 @Injectable()
@@ -47,5 +50,12 @@ export class TaskService {
             .map((res: Response) => {
                 res.json()
             });
+    }
+
+    predictTime(title) {
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('pattern', title);
+
+        return this.http.getWithParams(BASE_URL, PREDICT_TIME_URL, params).map((res: Response) => res.json())
     }
 }
