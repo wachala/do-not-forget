@@ -53,9 +53,6 @@ export class TaskService {
     }
 
     predictTime(title) {
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('pattern', title);
-
-        return this.http.getWithParams(BASE_URL, PREDICT_TIME_URL, params).map((res: Response) => res.json())
+        return this.http.get(BASE_URL, PREDICT_TIME_URL + '?pattern=' + title).map((res: Response) => res.json())
     }
 }
