@@ -9,6 +9,7 @@ import pl.pw.as.model.task.CustomDate;
 import pl.pw.as.model.task.Task;
 import pl.pw.as.model.task.TaskState;
 import pl.pw.as.model.user.User;
+import pl.pw.as.predictors.TimePredictor;
 import pl.pw.as.validators.Validator;
 
 import java.time.LocalDateTime;
@@ -93,5 +94,9 @@ public class TaskService {
 
     public Optional<Task> getTask(String id) {
         return Optional.ofNullable(taskRepository.findOne(id));
+    }
+
+    public long predictTime(User user, String pattern) {
+        return TimePredictor.predict(getAllUserTasks(user), pattern);
     }
 }

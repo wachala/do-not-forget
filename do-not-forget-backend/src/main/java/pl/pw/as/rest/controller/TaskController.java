@@ -1,6 +1,7 @@
 package pl.pw.as.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import pl.pw.as.model.task.Task;
 import pl.pw.as.security.UserIdRetrievingService;
@@ -53,5 +54,10 @@ public class TaskController {
     @RequestMapping(value = "editTaskState", method = RequestMethod.PUT)
     public boolean editTaskState(@RequestBody Task task) {
         return taskService.editTaskState(task);
+    }
+
+    @RequestMapping(value = "predictTime", method = RequestMethod.GET)
+    public long predictTime (@Param("pattern") String pattern, HttpServletRequest request) {
+        return taskService.predictTime(userService.getUser(idRetrievingService.retrieve(request)), pattern);
     }
 }
