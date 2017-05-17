@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import pl.pw.as.model.task.Task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class User {
     private String name;
     private String surname;
     private String password;
-
+    private LocalDate lastBrowseTaskDate;
     @DBRef
     List<Task> tasks = new ArrayList<>();
 

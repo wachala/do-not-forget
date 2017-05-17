@@ -11,9 +11,25 @@ public class CustomDateUtils {
         try {
             LocalDate deadLineLocal = new CustomDateToJavaDateConverter().toJavaDate(date);
             return deadLineLocal.compareTo(LocalDate.now()) < 0;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return true;
         }
+    }
+
+    public static CustomDate now() {
+        LocalDate now = LocalDate.now();
+        return CustomDate.builder()
+                .year(now.getYear())
+                .month(now.getMonthValue())
+                .day(now.getDayOfMonth())
+                .build();
+    }
+
+    public static CustomDate of(int day, int month, int year) {
+        return CustomDate.builder()
+                .year(year)
+                .month(month)
+                .day(day)
+                .build();
     }
 }

@@ -3,12 +3,14 @@ package pl.pw.as.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.pw.as.converters.CustomDateToJavaDateConverter;
 import pl.pw.as.database.repository.TaskRepository;
 import pl.pw.as.database.repository.UserRepository;
 import pl.pw.as.model.task.CustomDate;
 import pl.pw.as.model.task.Task;
 import pl.pw.as.model.task.TaskState;
 import pl.pw.as.model.user.User;
+import pl.pw.as.retrievers.TaskRetriever;
 import pl.pw.as.validators.Validator;
 
 import java.time.LocalDateTime;
@@ -19,17 +21,17 @@ import java.util.Optional;
 @Slf4j
 public class TaskService {
 
+    private final CustomDateToJavaDateConverter customDateToJavaDateConverter = new CustomDateToJavaDateConverter();
     @Autowired
     private TaskRepository taskRepository;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private Validator<Task> taskValidator;
-
     @Autowired
     private Validator<TaskState> taskStateValidator;
+    @Autowired
+    private TaskRetriever taskRetriever;
 
     public boolean addNewTask(Task task, User user) {
         log.info("Adding new task with title {} for user {}", task.getTitle(), user.getEmail());
@@ -93,5 +95,11 @@ public class TaskService {
 
     public Optional<Task> getTask(String id) {
         return Optional.ofNullable(taskRepository.findOne(id));
+    }
+
+    public List<Task> getRecentlyExpiredTasks(User user) {
+        log.info("Get tasks which expired after last log in");
+
+        return taskRetriever.retrieveTasksExpiredAfter(user.getTasks(), user.getLastBrowseTaskDate());
     }
 }
