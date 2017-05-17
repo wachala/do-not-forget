@@ -6,7 +6,7 @@
             <h2>{{alertConfig.message}}</h2>
         </ngl-notification>
     </div>
-    <button *ngIf="expiredTaskAmount > 0" class="btn btn-lg btn-outline-danger dnf-center-margin row" (click)="openModal(content)">
+    <button *ngIf="expiredTaskAmount > 0" class="btn btn-lg btn-outline-danger col-md-6 offset-md-3" (click)="openModal(content)">
         {{expiredTaskAmount}} of your tasks expired after your last be here
     </button>
 
