@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Response} from "@angular/http";
 import {BASE_URL, SIGNUP_URL} from "./config";
 import {RegistrationData} from "../model/RegistrationData";
 import {HttpService} from "./HttpService";

@@ -3,6 +3,7 @@ import {Response} from "@angular/http";
 import {BASE_URL, ADD_TASK_URL, GET_TASKS_URL, DELETE_TASK_URL, EDIT_TASK_URL, EDIT_TASK_STATE_URL} from "./config";
 import {Task} from "../model/Task";
 import {HttpService} from "./HttpService";
+import {TaskUtils} from "../utils/task.utils";
 @Injectable()
 export class TaskService {
     constructor(private http: HttpService) {
@@ -16,7 +17,8 @@ export class TaskService {
     }
 
     getAllTasks() {
-        return this.http.get(BASE_URL, GET_TASKS_URL).map((res: Response) => res.json());
+        return this.http.get(BASE_URL, GET_TASKS_URL)
+            .map((res: Response) => res.json().map(task => TaskUtils.correctDateInTask(task)));
     }
 
     deleteTask(task) {
@@ -28,7 +30,7 @@ export class TaskService {
 
     getTaskById(id) {
         return this.http.get(BASE_URL, GET_TASKS_URL + id)
-            .map((res: Response) => res.json());
+            .map((res: Response) => TaskUtils.correctDateInTask(res.json()));
     }
 
     editTask(task) {

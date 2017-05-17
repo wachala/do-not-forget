@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +19,8 @@ public class Task {
     private int estimateTime;
     private int spendTime;
     private int priority;
-    private CustomDate deadLine;
-    private CustomDate addedDate;
+    private LocalDate deadLine;
+    private LocalDate addedDate;
     private String title;
     private String description;
     private TaskState state;

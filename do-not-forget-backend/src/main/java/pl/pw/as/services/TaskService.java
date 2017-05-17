@@ -11,6 +11,7 @@ import pl.pw.as.model.task.TaskState;
 import pl.pw.as.model.user.User;
 import pl.pw.as.validators.Validator;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -35,11 +36,8 @@ public class TaskService {
         log.info("Adding new task with title {} for user {}", task.getTitle(), user.getEmail());
         taskValidator.validate(task);
 
-        LocalDateTime today = LocalDateTime.now();
-        task.setAddedDate(CustomDate.builder()
-                .day(today.getDayOfMonth())
-                .month(today.getMonthValue())
-                .year(today.getYear()).build());
+        LocalDate today = LocalDate.now();
+        task.setAddedDate(today);
         user.addTask(task);
 
         log.info("Saving task with title {}", task.getTitle());

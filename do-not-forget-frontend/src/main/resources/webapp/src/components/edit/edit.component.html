@@ -28,7 +28,7 @@
                                 <label for="deadline">Deadline: </label>
                                 <div class="input-group">
                                     <input class="form-control" placeholder="yyyy-mm-dd" id="deadline"
-                                           name="deadline" [(ngModel)]="task.deadLine" ngbDatepicker #d="ngbDatepicker"
+                                           name="deadline" [(ngModel)]="customDateDeadLine" ngbDatepicker #d="ngbDatepicker"
                                            #deadline="ngModel" dateInFuture required>
                                     <div class="input-group-addon" (click)="d.toggle()">
                                         <img src="assets/icons/calendar-icon.svg"

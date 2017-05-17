@@ -5,6 +5,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ErrorService} from "../../services/ErrorService";
 import {AlertService} from "../../services/AlertService";
 import {AlertConfig} from "../../model/alert/AlertConfig";
+import {TaskUtils} from "../../utils/task.utils";
+import {CustomDate} from "../../model/CustomDate";
+import {CustomDateAndDateConverter} from "../../converters/CustomDateAndDateConverter";
 
 @Component({
     selector: 'edit-view',
@@ -15,6 +18,7 @@ import {AlertConfig} from "../../model/alert/AlertConfig";
 export class EditTaskComponent {
     task;
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
+    customDateDeadline = new CustomDate;
 
     constructor(private _taskService: TaskService,
                 private _route: ActivatedRoute,
@@ -29,6 +33,8 @@ export class EditTaskComponent {
             .subscribe(
                 data => {
                     this.task = data;
+                    this.customDateDeadline = CustomDateAndDateConverter.toCustomDate(this.task.deadLine);
+                    console.log(this.customDateDeadline);
                 },
                 (error) => {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
@@ -41,6 +47,9 @@ export class EditTaskComponent {
     }
 
     save(): void {
+        this.task.deadLine = CustomDateAndDateConverter.toDate(this.customDateDeadline);
+        console.log(this.customDateDeadline);
+        console.log(this.task);
         this._taskService.editTask(this.task).subscribe(
             () => {
                 this.alertConfig = this._alertService
