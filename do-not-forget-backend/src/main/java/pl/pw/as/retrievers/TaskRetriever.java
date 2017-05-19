@@ -22,8 +22,8 @@ public class TaskRetriever {
     public List<Task> retrieveTasksExpiredAfter(List<Task> tasks, LocalDate date) {
         return tasks.stream()
                 .filter(task -> CustomDateUtils.isInPast(task.getDeadLine())
-                        && customDateToJavaDateConverter.toJavaDate(task.getDeadLine()).isAfter(date)
-                        || customDateToJavaDateConverter.toJavaDate(task.getDeadLine()).isEqual(date))
+                        && (customDateToJavaDateConverter.toJavaDate(task.getDeadLine()).isAfter(date)
+                        || customDateToJavaDateConverter.toJavaDate(task.getDeadLine()).isEqual(date)))
                 .collect(Collectors.toList());
     }
 }
