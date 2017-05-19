@@ -13,7 +13,7 @@ import static pl.pw.as.utils.IntegerUtils.isNotInRange;
 @Slf4j
 public class TaskValidator implements Validator<Task> {
     private static final int MIN_PRIORITY = 0;
-    private static final int MAX_PRIORITY = 100;
+    private static final int MAX_PRIORITY = 4;
     private static final int MIN_ESTIMATION_TIME = 0;
     private static final int MAX_ESTIMATION_TIME = 9999;
 
