@@ -55,6 +55,11 @@ public class TaskController {
         return taskService.editTaskState(task);
     }
 
+    @RequestMapping(value = "editTimeSpend", method = RequestMethod.PUT)
+    public void editTimeSpend(@RequestBody Task task) {
+        taskService.editTimeSpendOnTask(task);
+    }
+
     @RequestMapping(value = "recentlyExpired", method = RequestMethod.GET)
     public List<Task> editTaskState(HttpServletRequest request) {
         return taskService.getRecentlyExpiredTasks(userService.getUser(idRetrievingService.retrieve(request)));
