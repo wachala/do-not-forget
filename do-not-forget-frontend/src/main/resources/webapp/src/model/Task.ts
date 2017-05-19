@@ -3,7 +3,7 @@ import {CustomDate} from "./CustomDate";
 import {PriorityProvider} from "../providers/priority.provider";
 export class Task {
     id: string;
-    estimateTime: number = 0;
+    estimateTime: number = 60;
     spendTime: number = 0;
     deadLine: CustomDate = {day: new Date().getDate(), month: new Date().getMonth() + 1, year: new Date().getFullYear()};
     addedDate: CustomDate = new CustomDate;
