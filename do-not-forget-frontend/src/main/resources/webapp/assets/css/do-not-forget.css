@@ -20,3 +20,8 @@
 .dnf-no-border-right {
     border-right: 0;
 }
+
+.dnf-center-margin {
+    text-align: center;
+    margin: 5px;
+}

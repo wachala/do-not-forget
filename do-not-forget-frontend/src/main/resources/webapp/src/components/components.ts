@@ -16,6 +16,7 @@ import {TaskStateFilterPipe} from "../pipes/state/TaskStateFilterPipe";
 import {HistoricalTaskFilterPipe} from "../pipes/HistoricalTaskFilterPipe";
 import {CurrentTaskFilterPipe} from "../pipes/CurrentTaskFilterPipe";
 import {ContainsStringFilterPipe} from "../pipes/ContainsStringFilterPipe";
+import {ExpiredTasksComponent} from "./expired-tasks/expired-tasks.component";
 
 export const COMPONENTS = [
     AppComponent,
@@ -36,6 +37,7 @@ export const COMPONENTS = [
     BrowseTasksComponent,
     TaskViewComponent,
     EditTaskComponent,
+    ExpiredTasksComponent,
     //commons
     //validators
     DateInFutureValidator,

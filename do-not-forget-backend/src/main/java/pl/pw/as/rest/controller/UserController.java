@@ -32,4 +32,9 @@ public class UserController {
     public void registerUser(@RequestBody RegistrationData registrationData) {
         userService.addUser(registrationData);
     }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/browseTasksDateUpdate")
+    public void updateBrowseTasksDate(HttpServletRequest request) {
+        userService.updateLastBorwseTaskDate(userService.getUser(idRetrievingService.retrieve(request)));
+    }
 }
