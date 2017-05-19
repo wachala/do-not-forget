@@ -4,6 +4,7 @@ import {Task} from "../../../model/Task";
 import {CustomDate} from "../../../model/CustomDate";
 import {TaskState} from "../../../model/TaskState";
 import {TaskUtils} from "../../../utils/task.utils";
+import {PriorityProvider} from "../../../providers/priority.provider";
 @Component({
     selector: 'task-view',
     templateUrl: URL_COMPONENT_BASE + 'browse/task-view/task-view.component.html'
@@ -12,6 +13,7 @@ import {TaskUtils} from "../../../utils/task.utils";
 export class TaskViewComponent {
     @Input('task') task: Task;
     @Input('show-state') showState: boolean = true;
+    priorityProvider: PriorityProvider = new PriorityProvider();
 
     getDate(date: CustomDate) {
         return date.day + '/' + date.month + '/' + date.year;
@@ -21,4 +23,7 @@ export class TaskViewComponent {
         return TaskUtils.statePrettyPrint(state);
     }
 
+    getPriorityLabel(priority: number) {
+        return this.priorityProvider.retrievePriorityLabel(priority);
+    }
 }

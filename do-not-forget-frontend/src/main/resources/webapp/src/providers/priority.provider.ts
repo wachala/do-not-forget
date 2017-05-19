@@ -1,15 +1,24 @@
+import {Priority} from "../model/Priority";
 export class PriorityProvider {
+    private _priorityOptions = [
+        {name: Priority.VERY_LOW},
+        {name: Priority.LOW},
+        {name: Priority.MEDIUM},
+        {name: Priority.HIGH},
+        {name: Priority.URGENT}
+    ];
+
+    public retrievePriorityLabel(priority) {
+        return this._priorityOptions[priority].name;
+    }
+
     public retrievePriorityOptions() {
-        return [
-            {name: 'Very low', cssclass: 'dnf-very-low-priority'},
-            {name: 'Low', cssclass: 'dnf-low-priority'},
-            {name: 'Medium', cssclass: 'dnf-medium-priority'},
-            {name: 'High', cssclass: 'dnf-high-priority'},
-            {name: 'Urgent', cssclass: 'dnf-urgent-priority'}
-        ];
+        return this._priorityOptions;
     }
 
     public retrieveDefaultPriorityIndex() {
-        return 2;
+        return Priority.DEFAULT_INDEX;
     }
+
+
 }

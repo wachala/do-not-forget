@@ -4,8 +4,8 @@
 }
 
 .dnf-no-border-radius-left {
-     border-top-left-radius: 0;
-     border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .dnf-no-border-radius-right {
@@ -24,24 +24,4 @@
 .dnf-center-margin {
     text-align: center;
     margin: 5px;
-}
-
-.dnf-very-low-priority {
-    border: 1px green;
-}
-
-.dnf-low-priority {
-    border: 1px greenyellow;
-}
-
-.dnf-medium-priority {
-    border: 1px yellow;
-}
-
-.dnf-high-priority {
-    border: 1px red;
-}
-
-.dnf-urgent-priority {
-    border: 1px darkred;
 }

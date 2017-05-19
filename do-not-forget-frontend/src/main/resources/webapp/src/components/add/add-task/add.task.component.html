@@ -53,7 +53,7 @@
                                 <label class="col-xs-3 control-label">Priority</label>
                                 <div class="col-xs-5 selectContainer" [ngClass]=" priorityProvider.retrievePriorityOptions()[task.priority].cssclass">
                                     <select [(ngModel)]="task.priority" class="form-control" name="priority">
-                                        <option *ngFor="let priority of priorityProvider.retrievePriorityOptions(); let i = index" [ngClass]="priority.cssclass" [value]="i">
+                                        <option class="dnf-select-option" *ngFor="let priority of priorityProvider.retrievePriorityOptions(); let i = index" [ngClass]="priority.cssclass" [value]="i">
                                             {{priority.name}}
                                         </option>
                                     </select>

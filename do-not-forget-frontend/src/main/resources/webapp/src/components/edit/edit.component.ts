@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ErrorService} from "../../services/ErrorService";
 import {AlertService} from "../../services/AlertService";
 import {AlertConfig} from "../../model/alert/AlertConfig";
+import {PriorityProvider} from "../../providers/priority.provider";
 
 @Component({
     selector: 'edit-view',
@@ -15,6 +16,7 @@ import {AlertConfig} from "../../model/alert/AlertConfig";
 export class EditTaskComponent {
     task;
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
+    priorityProvider: PriorityProvider = new PriorityProvider();
 
     constructor(private _taskService: TaskService,
                 private _route: ActivatedRoute,
