@@ -123,6 +123,7 @@ export class BrowseTasksComponent {
     openModal(content) {
         this._modalService.open(content).result.then((result) => {
             this._loadTasks()
+            this.expiredTaskAmount = this.recentlyExpiredTasks.length
         });
     }
 }
