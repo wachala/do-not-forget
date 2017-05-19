@@ -3,7 +3,6 @@ package pl.pw.as.services;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.pw.as.converters.CustomDateToJavaDateConverter;
 import pl.pw.as.database.repository.TaskRepository;
 import pl.pw.as.database.repository.UserRepository;
 import pl.pw.as.model.task.CustomDate;
@@ -21,7 +20,6 @@ import java.util.Optional;
 @Slf4j
 public class TaskService {
 
-    private final CustomDateToJavaDateConverter customDateToJavaDateConverter = new CustomDateToJavaDateConverter();
     @Autowired
     private TaskRepository taskRepository;
     @Autowired
@@ -98,7 +96,7 @@ public class TaskService {
     }
 
     public List<Task> getRecentlyExpiredTasks(User user) {
-        log.info("Get tasks which expired after last log in");
+        log.info("Get tasks of user: {}, which expired after last log in", user.getEmail());
 
         return taskRetriever.retrieveTasksExpiredAfter(user.getTasks(), user.getLastBrowseTaskDate());
     }
