@@ -9,6 +9,7 @@ import pl.pw.as.model.task.CustomDate;
 import pl.pw.as.model.task.Task;
 import pl.pw.as.model.task.TaskState;
 import pl.pw.as.model.user.User;
+import pl.pw.as.predictors.TimePredictor;
 import pl.pw.as.retrievers.TaskRetriever;
 import pl.pw.as.validators.Validator;
 
@@ -30,6 +31,8 @@ public class TaskService {
     private Validator<TaskState> taskStateValidator;
     @Autowired
     private TaskRetriever taskRetriever;
+    @Autowired
+    private TimePredictor timePredictor;
 
     public boolean addNewTask(Task task, User user) {
         log.info("Adding new task with title {} for user {}", task.getTitle(), user.getEmail());
@@ -93,6 +96,10 @@ public class TaskService {
 
     public Optional<Task> getTask(String id) {
         return Optional.ofNullable(taskRepository.findOne(id));
+    }
+
+    public long predictTime(User user, String pattern) {
+        return timePredictor.predict(getAllUserTasks(user), pattern);
     }
 
     public List<Task> getRecentlyExpiredTasks(User user) {

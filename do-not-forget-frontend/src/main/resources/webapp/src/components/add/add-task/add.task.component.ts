@@ -21,6 +21,16 @@ export class AddTaskComponent {
                 private _errorService: ErrorService) {
     }
 
+    estimatedTimePrediction() {
+        if (this.task.title) {
+            this._taskService.predictTime(this.task.title)
+                .subscribe(data => this.task.estimateTime = data);
+        }
+        else {
+            this.task.estimateTime = 0;
+        }
+    };
+
     addTask() {
         let taskTitle = this.task.title;
 

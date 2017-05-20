@@ -65,7 +65,7 @@
                                 <label for="estimate">Estimate time (minutes): </label>
                                 <input type="number" class="form-control" id="estimate"
                                        name="estimate" [(ngModel)]="task.estimateTime"
-                                       #estimate="ngModel" [min]="0" [max]="99999" pattern="\-?[0-9]+" required>
+                                       #estimate="ngModel" [min]="0" [max]="9999" pattern="\-?[0-9]+" required>
                                 <div [hidden]="!estimate.errors?.pattern" class="alert alert-danger">
                                     Time must be an integer!
                                 </div>
@@ -76,6 +76,9 @@
                                      class="alert alert-danger">
                                     Time must have value from 0 to 9999!
                                 </div>
+                                <button class="btn btn-info" (click)="estimatedTimePrediction()"
+                                        [disabled]="!title.valid">Estimate
+                                </button>
                             </div>
 
                             <div class="span1 offset-11">
