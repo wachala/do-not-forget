@@ -32,6 +32,9 @@ public class TaskService {
     @Autowired
     private Validator<TaskState> taskStateValidator;
 
+    @Autowired
+    private TimePredictor timePredictor;
+
     public boolean addNewTask(Task task, User user) {
         log.info("Adding new task with title {} for user {}", task.getTitle(), user.getEmail());
         taskValidator.validate(task);
@@ -97,6 +100,6 @@ public class TaskService {
     }
 
     public long predictTime(User user, String pattern) {
-        return TimePredictor.predict(getAllUserTasks(user), pattern);
+        return timePredictor.predict(getAllUserTasks(user), pattern);
     }
 }

@@ -6,11 +6,14 @@ import pl.pw.as.model.task.Task
 import pl.pw.as.model.task.TaskState
 import spock.lang.Specification
 
-class TaskFinderTest extends Specification {
+class TaskFinderImplTest extends Specification {
+
+    def taskFinder = new TaskFinderImpl()
+
     def "should find tasks with similar title"() {
         expect:
-        TaskFinder.findTasksWithSimilarTitle(allTasks(), title).size() == taskWithSimilarTitle().size()
-        TaskFinder.findTasksWithSimilarTitle(allTasks(), title).containsAll(taskWithSimilarTitle())
+        taskFinder.findTasksWithSimilarTitle(allTasks(), title).size() == taskWithSimilarTitle().size()
+        taskFinder.findTasksWithSimilarTitle(allTasks(), title).containsAll(taskWithSimilarTitle())
 
         where:
         title << ["do math homework", "do,math,homework", "do. math'homework", "do - math - homework", "do   math_ homework"]
@@ -18,8 +21,8 @@ class TaskFinderTest extends Specification {
 
     def "should find tasks with finished state"() {
         expect:
-        TaskFinder.findFinishedTasks(allTasks()).size() == finishedTasks().size()
-        TaskFinder.findFinishedTasks(allTasks()).containsAll(finishedTasks())
+        taskFinder.findFinishedTasks(allTasks()).size() == finishedTasks().size()
+        taskFinder.findFinishedTasks(allTasks()).containsAll(finishedTasks())
     }
 
     List<Task> allTasks() {
