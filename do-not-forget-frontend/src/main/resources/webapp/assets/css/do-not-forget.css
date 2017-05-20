@@ -4,8 +4,8 @@
 }
 
 .dnf-no-border-radius-left {
-     border-top-left-radius: 0;
-     border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .dnf-no-border-radius-right {
@@ -19,4 +19,9 @@
 
 .dnf-no-border-right {
     border-right: 0;
+}
+
+.dnf-center-margin {
+    text-align: center;
+    margin: 5px;
 }

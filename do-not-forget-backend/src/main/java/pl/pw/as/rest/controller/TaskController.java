@@ -57,6 +57,11 @@ public class TaskController {
         return taskService.editTaskState(task);
     }
 
+    @RequestMapping(value = "recentlyExpired", method = RequestMethod.GET)
+    public List<Task> editTaskState(HttpServletRequest request) {
+        return taskService.getRecentlyExpiredTasks(extractUser(request));
+    }
+
     @RequestMapping(value = "predictTime", method = RequestMethod.GET)
     public long predictTime (@Param("pattern") String pattern, HttpServletRequest request) {
         return taskService.predictTime(extractUser(request), pattern);

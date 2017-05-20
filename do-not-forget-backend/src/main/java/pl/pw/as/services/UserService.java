@@ -12,6 +12,8 @@ import pl.pw.as.model.user.User;
 import pl.pw.as.model.user.UserInfo;
 import pl.pw.as.validators.Validator;
 
+import java.time.LocalDate;
+
 @Service
 @Slf4j
 public class UserService {
@@ -55,5 +57,13 @@ public class UserService {
         if (user == null)
             throw new RuntimeException("No user with email: '" + id + "' exist");
         return userToUserInfoConverter.convert(user);
+    }
+
+    public void updateLastBorwseTaskDate(User user) {
+        log.info("Update last browse task date for user " + user.getEmail());
+
+        user.setLastBrowseTaskDate(LocalDate.now());
+
+        userRepository.save(user);
     }
 }

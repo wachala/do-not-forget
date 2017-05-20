@@ -5,6 +5,7 @@ import {TaskService} from "../../../services/TaskService";
 import {AlertService} from "../../../services/AlertService";
 import {AlertConfig} from "../../../model/alert/AlertConfig";
 import {ErrorService} from "../../../services/ErrorService";
+import {PriorityProvider} from "../../../providers/priority.provider";
 @Component({
     selector: 'add-task',
     providers: [TaskService, AlertService, ErrorService],
@@ -14,6 +15,7 @@ import {ErrorService} from "../../../services/ErrorService";
 export class AddTaskComponent {
     task: Task = new Task();
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
+    priorityProvider: PriorityProvider = new PriorityProvider();
 
     constructor(private _taskService: TaskService, private _alertService: AlertService,
                 private _errorService: ErrorService) {
@@ -30,7 +32,7 @@ export class AddTaskComponent {
     };
 
     addTask() {
-        let taskTitle = JSON.stringify(this.task.title);
+        let taskTitle = this.task.title;
 
         this._taskService.saveTask(this.task)
             .subscribe(

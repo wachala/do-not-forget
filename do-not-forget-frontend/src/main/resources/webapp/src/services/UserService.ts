@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpService} from "./HttpService";
-import {BASE_URL, RETRIEVE_USER_DATA_URL} from "./config";
+import {BASE_URL, RETRIEVE_USER_DATA_URL, UPDATE_BROWSE_TASKS_DATE_URL} from "./config";
 import {Response} from "@angular/http";
 @Injectable()
 export class UserService {
@@ -12,4 +12,7 @@ export class UserService {
             .map((res: Response) => res.json());
     }
 
+    updateLastBrowseTaskDate() {
+        return this.http.post(BASE_URL, UPDATE_BROWSE_TASKS_DATE_URL, '');
+    }
 }

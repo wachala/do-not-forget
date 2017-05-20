@@ -10,6 +10,7 @@ import pl.pw.as.model.task.Task;
 import pl.pw.as.model.task.TaskState;
 import pl.pw.as.model.user.User;
 import pl.pw.as.predictors.TimePredictor;
+import pl.pw.as.retrievers.TaskRetriever;
 import pl.pw.as.validators.Validator;
 
 import java.time.LocalDateTime;
@@ -22,16 +23,14 @@ public class TaskService {
 
     @Autowired
     private TaskRepository taskRepository;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private Validator<Task> taskValidator;
-
     @Autowired
     private Validator<TaskState> taskStateValidator;
-
+    @Autowired
+    private TaskRetriever taskRetriever;
     @Autowired
     private TimePredictor timePredictor;
 
@@ -101,5 +100,11 @@ public class TaskService {
 
     public long predictTime(User user, String pattern) {
         return timePredictor.predict(getAllUserTasks(user), pattern);
+    }
+
+    public List<Task> getRecentlyExpiredTasks(User user) {
+        log.info("Get tasks of user: {}, which expired after last log in", user.getEmail());
+
+        return taskRetriever.retrieveTasksExpiredAfter(user.getTasks(), user.getLastBrowseTaskDate());
     }
 }
