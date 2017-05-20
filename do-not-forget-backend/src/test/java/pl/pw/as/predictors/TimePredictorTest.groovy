@@ -9,19 +9,21 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 import static java.util.Collections.emptyList
+import static org.mockito.Mockito.mock
+import static org.mockito.Mockito.when
 
 class TimePredictorTest extends Specification {
 
     @Shared
-    def taskFinderMock = GroovyMock(TaskFinder.class)
+    def taskFinderMock = mock(TaskFinder.class)
 
     @Shared
     def timePredictor = new TimePredictorImpl(taskFinderMock)
 
     def "should predict time of task with given title"() {
         setup:
-        taskFinderMock.findFinishedTasks(tasks) >> allFinishedTasks
-        taskFinderMock.findTasksWithSimilarTitle(tasks, "do math homework") >> allTasksWithSimilarTitle
+        when(taskFinderMock.findFinishedTasks(tasks)).thenReturn(allFinishedTasks)
+        when(taskFinderMock.findTasksWithSimilarTitle(allFinishedTasks, "do math homework")).thenReturn(allTasksWithSimilarTitle)
 
         expect:
         timePredictor.predict(tasks, "do math homework") == result
