@@ -6,14 +6,17 @@ import pl.pw.as.model.task.Task
 import pl.pw.as.model.task.TaskState
 import spock.lang.Specification
 
-class TaskFinderImplTest extends Specification {
+class TaskFinderTest extends Specification {
 
     def taskFinder = new TaskFinderImpl()
 
     def "should find tasks with similar title"() {
-        expect:
-        taskFinder.findTasksWithSimilarTitle(allTasks(), title).size() == taskWithSimilarTitle().size()
-        taskFinder.findTasksWithSimilarTitle(allTasks(), title).containsAll(taskWithSimilarTitle())
+        when:
+        def result = taskFinder.findTasksWithSimilarTitle(allTasks(), title)
+
+        then:
+        result.size() == taskWithSimilarTitle().size()
+        result.containsAll(taskWithSimilarTitle())
 
         where:
         title << ["do math homework", "do,math,homework", "do. math'homework", "do - math - homework", "do   math_ homework"]
