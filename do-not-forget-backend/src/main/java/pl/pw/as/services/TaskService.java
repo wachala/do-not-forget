@@ -107,4 +107,11 @@ public class TaskService {
 
         return taskRetriever.retrieveTasksExpiredAfter(user.getTasks(), user.getLastBrowseTaskDate());
     }
+
+    public void editTimeSpendOnTask(Task task) {
+        log.info("Update time spend on task with id: {}", task.getId());
+
+        taskRepository.save(task);
+
+    }
 }

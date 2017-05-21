@@ -21,13 +21,16 @@ export class BrowseTasksComponent {
     tasks: Array<Task>;
     recentlyExpiredTasks: Array<Task>;
 
-    expiredTaskAmount:number = 0;
+    expiredTaskAmount: number = 0;
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
     newTaskState = TaskState.NEW;
     inProgressTaskState = TaskState.IN_PROGRESS;
     finishedTaskState = TaskState.FINISHED;
     currentTaskFilterString = "";
     historicalTaskFilterString = "";
+    spendTimeVal = 0;
+    spendTimeDismissEnable = true;
+    currentTaskTitle = '';
 
     constructor(private _taskService: TaskService, private _alertService: AlertService,
                 private _errorService: ErrorService, private _router: Router, private _modalService: NgbModal,
@@ -112,6 +115,12 @@ export class BrowseTasksComponent {
                 });
     }
 
+    changeTaskStateAndChangeTimeSpend(event, taskState, content) {
+        this.spendTimeDismissEnable = false;
+        this.openSpendingTimeModal(content, event.dragData as Task);
+        this.changeTaskState(event, taskState);
+    }
+
     currentTasksPresent() {
         return this.getCurrentTasks().length != 0;
     }
@@ -122,8 +131,35 @@ export class BrowseTasksComponent {
 
     openModal(content) {
         this._modalService.open(content).result.then((result) => {
-            this._loadTasks()
+            this._loadTasks();
             this.expiredTaskAmount = this.recentlyExpiredTasks.length
         });
+    }
+
+    openSpendingTimeModal(content, task: Task) {
+        this.spendTimeVal = task.spendTime;
+        this.currentTaskTitle = task.title;
+        let taskTitle = task.title;
+        this._modalService.open(content).result.then((result) => {
+                task.spendTime = result;
+                this._taskService.editTaskTimeSpend(task).subscribe((result) => {
+                        this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Change time spend on task: "' + taskTitle + '"');
+                    },
+                    (error) => {
+                        let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
+                        this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
+                    });
+                this._loadTasks();
+                this._resetSpendTimeValues();
+            },
+            (dismiss) => {
+                this._resetSpendTimeValues();
+            });
+    }
+
+    _resetSpendTimeValues() {
+        this.spendTimeVal = 0;
+        this.spendTimeDismissEnable = true;
+        this.currentTaskTitle = '';
     }
 }

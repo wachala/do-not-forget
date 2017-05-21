@@ -33,7 +33,7 @@ public class TaskController {
     @Autowired
     private ToDoGenerator toDoGenerator;
 
-    @RequestMapping(value = "add", method = POST)
+    @RequestMapping(value = "add", method = RequestMethod.POST)
     public boolean addTask(@RequestBody Task task, HttpServletRequest request) {
         return taskService.addNewTask(task, extractUser(request));
     }
@@ -49,22 +49,27 @@ public class TaskController {
         return task.orElseThrow(() -> new RuntimeException("Task not found"));
     }
 
-    @RequestMapping(value = "delete", method = PUT)
+    @RequestMapping(value = "delete", method = RequestMethod.PUT)
     public boolean delete(@RequestBody Task task, HttpServletRequest request) {
-        return taskService.deleteTask(task, extractUser(request));
+        return taskService.deleteTask(task, userService.getUser(idRetrievingService.retrieve(request)));
     }
 
-    @RequestMapping(value = "edit", method = PUT)
+    @RequestMapping(value = "edit", method = RequestMethod.PUT)
     public boolean edit(@RequestBody Task task) {
         return taskService.editTask(task);
     }
 
-    @RequestMapping(value = "editTaskState", method = PUT)
+    @RequestMapping(value = "editTaskState", method = RequestMethod.PUT)
     public boolean editTaskState(@RequestBody Task task) {
         return taskService.editTaskState(task);
     }
 
-    @RequestMapping(value = "recentlyExpired", method = GET)
+    @RequestMapping(value = "editTimeSpend", method = RequestMethod.PUT)
+    public void editTimeSpend(@RequestBody Task task) {
+        taskService.editTimeSpendOnTask(task);
+    }
+
+    @RequestMapping(value = "recentlyExpired", method = RequestMethod.GET)
     public List<Task> editTaskState(HttpServletRequest request) {
         return taskService.getRecentlyExpiredTasks(extractUser(request));
     }

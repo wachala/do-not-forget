@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Response} from "@angular/http";
 import {
     BASE_URL, ADD_TASK_URL, GET_TASKS_URL, DELETE_TASK_URL, EDIT_TASK_URL, EDIT_TASK_STATE_URL,
-    PREDICT_TIME_URL, GET_RECENTLY_EXPIRED_TASKS_URL
+    GET_RECENTLY_EXPIRED_TASKS_URL, EDIT_TASK_TIME_SPEND_URL, PREDICT_TIME_URL
 } from "./config";
 import {Task} from "../model/Task";
 import {HttpService} from "./HttpService";
@@ -54,6 +54,12 @@ export class TaskService {
 
     predictTime(title) {
         return this.http.get(BASE_URL, PREDICT_TIME_URL + '?pattern=' + title).map((res: Response) => res.json())
+    }
+
+    editTaskTimeSpend(task: Task) {
+        let body = JSON.stringify(task);
+
+        return this.http.put(BASE_URL, EDIT_TASK_TIME_SPEND_URL, body);
     }
 
     getRecentlyExpiredTasks() {
