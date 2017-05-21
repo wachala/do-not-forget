@@ -26,7 +26,7 @@ public class GeneratorSortStrategyFactory {
 
         sortStrategy.put(PRIORITY, comparingInt(Task::getPriority).reversed());
         sortStrategy.put(OLDEST, comparing(task -> customDateConverter.toJavaDate(task.getAddedDate())));
-        sortStrategy.put(DEADLINE, Collections.reverseOrder(comparing(a -> customDateConverter.toJavaDate(a.getDeadLine()))));
+        sortStrategy.put(DEADLINE, Collections.reverseOrder(Collections.reverseOrder(comparing(a -> customDateConverter.toJavaDate(a.getDeadLine())))));
         sortStrategy.put(VARIETY, comparingInt(a -> a.getEstimateTime() - a.getSpendTime()));
     }
 
