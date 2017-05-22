@@ -7,6 +7,8 @@ import {AuthorizedMainComponent} from "./authorized-main/authorized-main.compone
 import {NonAuthGuard} from "../guards/NonAuthGuard";
 import {AuthGuard} from "../guards/AuthGuard";
 import {EditTaskComponent} from "./edit/edit.component";
+import {GenerateTodoComponent} from "./browse/generate-todo/generate.todo.component";
+
 export const ROUTES = [
     {
         path: '',
@@ -53,6 +55,10 @@ export const ROUTES = [
             {
                 path: 'editTask/:id',
                 component: EditTaskComponent
+            },
+            {
+                path: 'generateTodo',
+                component: GenerateTodoComponent
             }
         ]
     }
