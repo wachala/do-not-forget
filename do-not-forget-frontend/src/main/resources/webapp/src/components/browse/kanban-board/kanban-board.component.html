@@ -22,14 +22,18 @@
                      dnd-draggable [dragEnabled]="editable" [dragData]="_task"
                      [dropZones]="['demo1']">
                     <div class="panel-body">
-                        <task-view [show-state]="false" [task]="_task"></task-view>
-                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
-                        <button *ngIf="editable" class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
+                        <task-view [show-state]="false" [task]="_task" (taskDelete)="deleteTask($event)"
+                                   (taskTimeSpendEdit)="openSpendingTimeModal(spendingTimeModal, $event)"
+                                   [edit-enable]="editable" [edit-spend-time-enable]="false">
+
+                        </task-view>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
     <div class="col-sm-4 card bg-faded dnf-no-border-radius-right dnf-no-border-radius-left dnf-no-border-left dnf-no-border-right">
         <div dnd-droppable (onDropSuccess)="changeTaskState($event, inProgressTaskState)"
              [dropZones]="['demo1']"
@@ -41,17 +45,18 @@
                      dnd-draggable [dragEnabled]="editable" [dragData]="_task"
                      [dropZones]="['demo1']">
                     <div class="panel-body">
-                        <task-view [show-state]="false" [task]="_task"></task-view>
-                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
-                        <button *ngIf="editable" class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
-                        <button *ngIf="editable" class="btn btn-primary btn-sm"
-                                (click)="openSpendingTimeModal(spendingTimeModal, _task)">Edit time spend
-                        </button>
+                        <task-view [show-state]="false" [task]="_task" (taskDelete)="deleteTask($event)"
+                                   (taskTimeSpendEdit)="openSpendingTimeModal(spendingTimeModal, $event)"
+                                   [edit-enable]="editable" [edit-spend-time-enable]="editable">
+
+                        </task-view>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
     <div class="col-sm-4 card bg-faded dnf-no-border-radius-left">
         <div dnd-droppable
              (onDropSuccess)="changeTaskStateAndChangeTimeSpend($event, finishedTaskState, spendingTimeModal)"
@@ -64,14 +69,17 @@
                      dnd-draggable [dragEnabled]="editable" [dragData]="_task"
                      [dropZones]="['demo1']">
                     <div class="panel-body">
-                        <task-view [show-state]="false" [task]="_task"></task-view>
-                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
-                        <button *ngIf="editable" class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
+                        <task-view [show-state]="false" [task]="_task" (taskDelete)="deleteTask($event)"
+                                   (taskTimeSpendEdit)="openSpendingTimeModal(spendingTimeModal, $event)"
+                                   [edit-enable]="editable" [edit-spend-time-enable]="false">
+
+                        </task-view>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 

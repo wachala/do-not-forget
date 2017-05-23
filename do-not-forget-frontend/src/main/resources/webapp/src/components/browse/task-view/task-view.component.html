@@ -1,12 +1,18 @@
-<div class="card">
+<div class="card m-2">
+    <h3 class="card-header">{{task.title}}</h3>
     <div class="card-block">
-        <h3 class="card-title">{{task.title}}</h3>
-        <h4 class="card-text">{{task.description}}</h4>
-        <h4 class="card-text">Deadline: {{getDate(task.deadLine)}}</h4>
-        <h4 class="card-text">Added date: {{getDate(task.addedDate)}}</h4>
-        <h4 class="card-text">Estimate time: {{task.estimateTime}} mins</h4>
-        <h4 class="card-text">Spend time: {{task.spendTime}} mins</h4>
-        <h4 class="card-text">Priority: {{getPriorityLabel(task.priority)}}</h4>
-        <h4 *ngIf="showState" class="card-text">{{getState(task.state)}}</h4>
+        <p *ngIf="task.description" class="card-text">{{task.description}}</p>
+        <h5 class="text-danger card-title">Deadline: {{getDate(task.deadLine)}}</h5>
+        <h6 class="card-title ">Estimate time: {{task.estimateTime}} mins</h6>
+        <h6 class="card-title ">Spend time: {{task.spendTime}} mins</h6>
+        <h6 class="card-title ">Priority: {{getPriorityLabel(task.priority)}}</h6>
+        <h6 *ngIf="showState" class="card-subtitle text-muted">{{getState(task.state)}}</h6>
+        <h6 class="card-title ">Added date: {{getDate(task.addedDate)}}</h6>
+
+    </div>
+    <div class="card-footer">
+        <a *ngIf="editEnable" class="card-link text-success" (click)="edit()">Edit</a>
+        <a *ngIf="editSpendTimeEnable" class="card-link text-success" (click)="editTimeSpend()">Edit time spend</a>
+        <a *ngIf="deleteEnable" class="card-link text-danger" (click)="remove()">Delete</a>
     </div>
 </div>

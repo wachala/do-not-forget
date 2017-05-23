@@ -6,14 +6,12 @@ import {TaskState} from "../../../model/TaskState";
 import {AlertService} from "../../../services/AlertService";
 import {AlertConfig} from "../../../model/alert/AlertConfig";
 import {ErrorService} from "../../../services/ErrorService";
-import {Router} from "@angular/router";
 import {TaskUtils} from "../../../utils/task.utils";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {UserService} from "../../../services/UserService";
 
 @Component({
     selector: 'kanban-board',
-    providers: [TaskService, AlertService, ErrorService, NgbModal, UserService],
+    providers: [TaskService, AlertService, ErrorService, NgbModal],
     templateUrl: URL_COMPONENT_BASE + 'browse/kanban-board/kanban-board.component.html'
 //
 })
@@ -38,8 +36,7 @@ export class KanbanBoardComponent {
     currentTaskTitle = '';
 
     constructor(private _taskService: TaskService, private _alertService: AlertService,
-                private _errorService: ErrorService, private _router: Router, private _modalService: NgbModal,
-                private _userService: UserService) {
+                private _errorService: ErrorService, private _modalService: NgbModal) {
 
     }
 
@@ -72,10 +69,6 @@ export class KanbanBoardComponent {
                     this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
                 }
             );
-    }
-
-    editTask(task: Task) {
-        this._router.navigate(['authorized/editTask/' + task.id])
     }
 
     openSpendingTimeModal(content, task: Task) {
