@@ -14,6 +14,7 @@ import {HistoricalTaskFilterPipe} from "../pipes/HistoricalTaskFilterPipe";
 import {CurrentTaskFilterPipe} from "../pipes/CurrentTaskFilterPipe";
 import {ContainsStringFilterPipe} from "../pipes/ContainsStringFilterPipe";
 import {ExpiredTasksComponent} from "./expired-tasks/expired-tasks.component";
+import {KanbanBoardComponent} from "./browse/kanban-board/kanban-board.component";
 
 export const COMPONENTS = [
     AppComponent,
@@ -32,6 +33,7 @@ export const COMPONENTS = [
     TaskViewComponent,
     EditTaskComponent,
     ExpiredTasksComponent,
+    KanbanBoardComponent,
     //commons
     //validators
     DateInFutureValidator,

@@ -1,0 +1,114 @@
+<div class="slds-notify_container">
+    <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
+                      (nglNotificationClose)="alertConfig.onClose($event)"
+                      [timeout]="alertConfig.timeout" class="slds-theme--alert-texture">
+        <h6>{{alertConfig.message}}</h6>
+    </ngl-notification>
+</div>
+
+<div class="row col-sm-12">
+    <input type="text" class="form-control col-sm-4 dnf-input" placeholder="Task filter"
+           [(ngModel)]="taskFilterString">
+</div>
+
+<div class="row col-sm-12 ">
+    <div class="col-sm-4 card bg-faded dnf-no-border-radius-right">
+        <div dnd-droppable (onDropSuccess)="changeTaskState($event, newTaskState)" [dropZones]="['demo1']"
+             class="panel panel-info card-block">
+            <div class="panel-heading card-title">New:</div>
+            <div class="panel-body">
+                <div *ngFor="let _task of boardTasks | taskStateFilter:newTaskState | containsStringFilter:taskFilterString"
+                     class="panel panel-default"
+                     dnd-draggable [dragEnabled]="editable" [dragData]="_task"
+                     [dropZones]="['demo1']">
+                    <div class="panel-body">
+                        <task-view [show-state]="false" [task]="_task"></task-view>
+                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
+                        <button *ngIf="editable" class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 card bg-faded dnf-no-border-radius-right dnf-no-border-radius-left dnf-no-border-left dnf-no-border-right">
+        <div dnd-droppable (onDropSuccess)="changeTaskState($event, inProgressTaskState)"
+             [dropZones]="['demo1']"
+             class="panel panel-info card-block">
+            <div class="panel-heading card-title">In progress:</div>
+            <div class="panel-body">
+                <div *ngFor="let _task of boardTasks | taskStateFilter:inProgressTaskState | containsStringFilter:taskFilterString"
+                     class="panel panel-default"
+                     dnd-draggable [dragEnabled]="editable" [dragData]="_task"
+                     [dropZones]="['demo1']">
+                    <div class="panel-body">
+                        <task-view [show-state]="false" [task]="_task"></task-view>
+                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
+                        <button *ngIf="editable" class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
+                        <button *ngIf="editable" class="btn btn-primary btn-sm"
+                                (click)="openSpendingTimeModal(spendingTimeModal, _task)">Edit time spend
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 card bg-faded dnf-no-border-radius-left">
+        <div dnd-droppable
+             (onDropSuccess)="changeTaskStateAndChangeTimeSpend($event, finishedTaskState, spendingTimeModal)"
+             [dropZones]="['demo1']"
+             class="panel panel-info card-block">
+            <div class="panel-heading card-title">Finished:</div>
+            <div class="panel-body">
+                <div *ngFor="let _task of boardTasks | taskStateFilter:finishedTaskState | containsStringFilter:taskFilterString"
+                     class="panel panel-default"
+                     dnd-draggable [dragEnabled]="editable" [dragData]="_task"
+                     [dropZones]="['demo1']">
+                    <div class="panel-body">
+                        <task-view [show-state]="false" [task]="_task"></task-view>
+                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
+                        <button *ngIf="editable" class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--spending time modal-->
+<ng-template #spendingTimeModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">How much time have you spend on task: "{{currentTaskTitle}}"?</h4>
+        <button type="button" class="close" aria-label="Close" *ngIf="spendTimeDismissEnable"
+                (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="form" #spendTimeForm="ngForm">
+            <div class="form-group">
+                <input type="number" class="form-control" id="spendTime"
+                       name="spendTime" [(ngModel)]="spendTimeVal"
+                       #spendTime="ngModel" [min]="1" [max]="99999" pattern="\-?[0-9]+" required>
+                <div [hidden]="!spendTime.errors?.pattern" class="alert alert-danger">
+                    Time must be an integer!
+                </div>
+                <div [hidden]="!spendTime.errors?.required " class="alert alert-danger">
+                    Time is required!
+                </div>
+                <div [hidden]="!spendTime.errors?.min && !spendTime.errors?.max"
+                     class="alert alert-danger">
+                    Time must have value from 1 to 9999!
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="!spendTimeForm.form.valid" (click)="c(spendTimeVal)">
+            Save
+        </button>
+        <button type="button" class="btn btn-secondary" *ngIf="spendTimeDismissEnable" (click)="d('Close click')">
+            Close
+        </button>
+    </div>
+</ng-template>

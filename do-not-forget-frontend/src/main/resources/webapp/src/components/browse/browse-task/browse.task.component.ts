@@ -23,14 +23,6 @@ export class BrowseTasksComponent {
 
     expiredTaskAmount: number = 0;
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
-    newTaskState = TaskState.NEW;
-    inProgressTaskState = TaskState.IN_PROGRESS;
-    finishedTaskState = TaskState.FINISHED;
-    currentTaskFilterString = "";
-    historicalTaskFilterString = "";
-    spendTimeVal = 0;
-    spendTimeDismissEnable = true;
-    currentTaskTitle = '';
 
     constructor(private _taskService: TaskService, private _alertService: AlertService,
                 private _errorService: ErrorService, private _router: Router, private _modalService: NgbModal,
@@ -70,24 +62,6 @@ export class BrowseTasksComponent {
         );
     }
 
-    deleteTask(task: Task) {
-        let taskTitle = JSON.stringify(task.title);
-        this._taskService.deleteTask(task)
-            .subscribe(
-                (success) => {
-                    this._loadTasks();
-                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Task ' + taskTitle + ' removed successfully');
-                },
-                (error) => {
-                    let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
-                    this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
-                }
-            );
-    }
-
-    editTask(task: Task) {
-        this._router.navigate(['authorized/editTask/' + task.id])
-    }
 
     getHistoricalTasks(): Task[] {
         if (!this.tasks) return [];
@@ -97,28 +71,6 @@ export class BrowseTasksComponent {
     getCurrentTasks(): Task[] {
         if (!this.tasks) return [];
         return this.tasks.filter(task => TaskUtils.isCurrentTask(task))
-    }
-
-    changeTaskState(event, taskState) {
-        let task: Task = event.dragData as Task;
-        task.state = taskState;
-        let taskTitle = task.title;
-        this._taskService.editTaskState(task)
-            .subscribe(
-                (success) => {
-                    this._loadTasks();
-                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('State of task "' + taskTitle + '" change to: ' + TaskUtils.statePrettyPrint(taskState));
-                },
-                (error) => {
-                    let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
-                    this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
-                });
-    }
-
-    changeTaskStateAndChangeTimeSpend(event, taskState, content) {
-        this.spendTimeDismissEnable = false;
-        this.openSpendingTimeModal(content, event.dragData as Task);
-        this.changeTaskState(event, taskState);
     }
 
     currentTasksPresent() {
@@ -136,30 +88,8 @@ export class BrowseTasksComponent {
         });
     }
 
-    openSpendingTimeModal(content, task: Task) {
-        this.spendTimeVal = task.spendTime;
-        this.currentTaskTitle = task.title;
-        let taskTitle = task.title;
-        this._modalService.open(content).result.then((result) => {
-                task.spendTime = result;
-                this._taskService.editTaskTimeSpend(task).subscribe((result) => {
-                        this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Change time spend on task: "' + taskTitle + '"');
-                    },
-                    (error) => {
-                        let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
-                        this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
-                    });
-                this._loadTasks();
-                this._resetSpendTimeValues();
-            },
-            (dismiss) => {
-                this._resetSpendTimeValues();
-            });
-    }
-
-    _resetSpendTimeValues() {
-        this.spendTimeVal = 0;
-        this.spendTimeDismissEnable = true;
-        this.currentTaskTitle = '';
+    reloadTasks($event) {
+        console.log($event);
+        this._loadTasks();
     }
 }
