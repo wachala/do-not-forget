@@ -89,7 +89,6 @@ export class BrowseTasksComponent {
     }
 
     reloadTasks($event) {
-        console.log($event);
         this._loadTasks();
     }
 }
