@@ -46,6 +46,7 @@ export class EditTaskComponent {
         console.log(task);
         this._taskService.editTask(task).subscribe(
             () => {
+                this.task = new Task();
                 this.alertConfig = this._alertService
                     .retrieveSuccessAlertShowConfig('Task \'' + task.title + '\' saved!');
             }

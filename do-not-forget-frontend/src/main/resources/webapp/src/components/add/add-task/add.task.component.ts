@@ -25,6 +25,7 @@ export class AddTaskComponent {
         this._taskService.saveTask(this.task)
             .subscribe(
                 (success) => {
+                    this.task = new Task();
                     this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Task ' + taskTitle + ' added successfully.');
                 },
                 (error) => {
