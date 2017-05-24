@@ -6,7 +6,7 @@
         <h6 class="card-title ">Estimate time: {{task.estimateTime}} mins</h6>
         <h6 class="card-title ">Spend time: {{task.spendTime}} mins</h6>
         <h6 class="card-title ">Priority: {{getPriorityLabel(task.priority)}}</h6>
-        <h6 *ngIf="showState" class="card-subtitle text-muted">{{getState(task.state)}}</h6>
+        <h6 *ngIf="showState" class="card-title">State: {{getState(task.state)}}</h6>
         <h6 class="card-title ">Added date: {{getDate(task.addedDate)}}</h6>
 
     </div>

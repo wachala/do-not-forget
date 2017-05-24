@@ -33,7 +33,8 @@
         <h6 class="card-title ">Spend time: {{task.spendTime}} mins</h6>
 
 
-        <h6 *ngIf="!stateEditEnable" class="card-subtitle text-muted">{{getState(task.state)}}</h6>
+        <h6 *ngIf="!stateEditEnable" class="title">State: {{getState(task.state)}}</h6>
+
         <div *ngIf="stateEditEnable" class="form-group">
             <label class="control-label text-danger"><h6>State:</h6></label>
             <div class="selectContainer input-group">
@@ -51,7 +52,6 @@
 
 
         <h6 class="card-title ">Priority: {{getPriorityLabel(task.priority)}}</h6>
-        <h6 *ngIf="showState" class="card-subtitle text-muted">{{getState(task.state)}}</h6>
         <h6 class="card-title ">Added date: {{getDate(task.addedDate)}}</h6>
 
     </div>

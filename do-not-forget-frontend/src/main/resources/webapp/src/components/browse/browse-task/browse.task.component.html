@@ -48,7 +48,9 @@
         </button>
     </div>
     <div class="modal-body bg-faded">
-        <expired-tasks-list [expired-tasks]="recentlyExpiredTasks">
+        <expired-tasks-list
+                (alertEmited)="alertEventHandle($event)"
+                [expired-tasks]="recentlyExpiredTasks">
         </expired-tasks-list>
     </div>
     <div class="modal-footer">

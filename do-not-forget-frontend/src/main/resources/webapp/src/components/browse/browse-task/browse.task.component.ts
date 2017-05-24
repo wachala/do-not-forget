@@ -62,6 +62,10 @@ export class BrowseTasksComponent {
         );
     }
 
+    alertEventHandle(alert:AlertConfig) {
+        this.alertConfig = alert;
+    }
+
 
     getHistoricalTasks(): Task[] {
         if (!this.tasks) return [];
