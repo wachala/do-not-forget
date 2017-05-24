@@ -31,12 +31,12 @@
                         <div [hidden]="!deadline.errors?.required " class="alert alert-danger">
                             Date is required!
                         </div>
-                        <button type="button" class="btn btn-primary" (click)="changeDeadline(_task)"
+                        <button type="button" class="btn btn-success" (click)="changeDeadline(_task)"
                                 [disabled]="!editForm.form.valid">Change deadline
                         </button>
                     </div>
                 </form>
-                <button type="button" class="btn btn-primary row" (click)="removeTask(_task)">Remove task
+                <button type="button" class="btn btn-success row" (click)="removeTask(_task)">Remove task
                 </button>
             </div>
 

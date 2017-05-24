@@ -77,7 +77,7 @@
                             <button *ngIf="discardEnable" class="btn btn-danger m-1" (click)="discard()">
                                 Cancel
                             </button>
-                            <button class="btn btn-primary m-1" (click)="confirm(); taskForm.resetForm()"
+                            <button class="btn btn-success m-1" (click)="confirm(); taskForm.resetForm()"
                                     [disabled]="!taskForm.form.valid">
                                 Save
                             </button>
