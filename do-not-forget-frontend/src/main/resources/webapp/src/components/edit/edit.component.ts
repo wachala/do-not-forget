@@ -6,6 +6,7 @@ import {ErrorService} from "../../services/ErrorService";
 import {AlertService} from "../../services/AlertService";
 import {AlertConfig} from "../../model/alert/AlertConfig";
 import {PriorityProvider} from "../../providers/priority.provider";
+import {Task} from "../../model/Task";
 
 @Component({
     selector: 'edit-view',
@@ -14,9 +15,8 @@ import {PriorityProvider} from "../../providers/priority.provider";
 })
 
 export class EditTaskComponent {
-    task;
+    task: Task;
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
-    priorityProvider: PriorityProvider = new PriorityProvider();
 
     constructor(private _taskService: TaskService,
                 private _route: ActivatedRoute,
@@ -38,20 +38,21 @@ export class EditTaskComponent {
                 });
     }
 
-    cancel(): void {
+    cancel(event): void {
         this._router.navigate(['authorized/browseTasks']);
     }
 
-    save(): void {
-        this._taskService.editTask(this.task).subscribe(
+    save(task: Task): void {
+        console.log(task);
+        this._taskService.editTask(task).subscribe(
             () => {
                 this.alertConfig = this._alertService
-                    .retrieveSuccessAlertShowConfig('Task \'' + this.task.title + '\' saved!');
+                    .retrieveSuccessAlertShowConfig('Task \'' + task.title + '\' saved!');
             }
         );
     }
 
-    onAlertClose ($event) {
+    onAlertClose($event) {
         this.alertConfig.show = false;
         this._router.navigate(['authorized/browseTasks']);
     }

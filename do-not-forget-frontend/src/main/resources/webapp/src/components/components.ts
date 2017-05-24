@@ -15,6 +15,7 @@ import {CurrentTaskFilterPipe} from "../pipes/CurrentTaskFilterPipe";
 import {ContainsStringFilterPipe} from "../pipes/ContainsStringFilterPipe";
 import {ExpiredTasksComponent} from "./expired-tasks/expired-tasks.component";
 import {KanbanBoardComponent} from "./browse/kanban-board/kanban-board.component";
+import {ModifyTaskFormComponent} from "./modify-task-form/modify-task-form.component";
 
 export const COMPONENTS = [
     AppComponent,
@@ -27,11 +28,11 @@ export const COMPONENTS = [
     TopNavbarComponent,
     //adding task
     AddTaskComponent,
-
+    EditTaskComponent,
+    ModifyTaskFormComponent,
     //browsing tasks
     BrowseTasksComponent,
     TaskViewComponent,
-    EditTaskComponent,
     ExpiredTasksComponent,
     KanbanBoardComponent,
     //commons
