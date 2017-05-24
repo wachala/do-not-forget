@@ -1,0 +1,63 @@
+<div class="card m-2">
+    <h3 class="card-header">{{task.title}}</h3>
+    <div class="card-block">
+        <p *ngIf="task.description" class="card-text">{{task.description}}</p>
+        <h5 *ngIf="!deadlineEditEnable" class="text-danger card-title">Deadline: {{getDate(task.deadLine)}}</h5>
+
+        <div *ngIf="deadlineEditEnable" class="ml-3">
+            <form class="form row" #editForm="ngForm">
+                <div class="form-group">
+                    <label for="deadline" class="text-danger mr-3"><h6>Deadline:</h6></label>
+                    <div class="input-group">
+                        <input class="form-control col-md-4" placeholder="yyyy-mm-dd" id="deadline"
+                               name="deadline" [(ngModel)]="task.deadLine" ngbDatepicker #d="ngbDatepicker"
+                               #deadline="ngModel" dateInFuture required>
+                        <div class="input-group-addon" (click)="d.toggle()">
+                            <img src="assets/icons/calendar-icon.svg"
+                                 style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+                        </div>
+                        <button type="button" class="btn ml-2 btn-success" (click)="editDeadline()"
+                                [disabled]="!editForm.form.valid">Save
+                        </button>
+                    </div>
+                    <div [hidden]="!deadline.errors?.dateInFuture" class="alert alert-danger">
+                        Date must be valid and not in the past!
+                    </div>
+                    <div [hidden]="!deadline.errors?.required" class="alert alert-danger">
+                        Date is required!
+                    </div>
+                </div>
+            </form>
+        </div>
+        <h6 class="card-title ">Estimate time: {{task.estimateTime}} mins</h6>
+        <h6 class="card-title ">Spend time: {{task.spendTime}} mins</h6>
+
+
+        <h6 *ngIf="!stateEditEnable" class="card-subtitle text-muted">{{getState(task.state)}}</h6>
+        <div *ngIf="stateEditEnable" class="form-group">
+            <label class="control-label text-danger"><h6>State:</h6></label>
+            <div class="selectContainer input-group">
+                <select [(ngModel)]="task.state" class="form-control col-md-5" name="taskState">
+                    <option class="dnf-select-option"
+                            *ngFor="let state of taskStateProvider.retrieveTaskStateOptions(); let i = index"
+                            [value]="state.name">
+                        {{getState(state.name)}}
+                    </option>
+                </select>
+                <button type="button" class="btn ml-2 btn-success" (click)="editDeadline()">Save
+                </button>
+            </div>
+        </div>
+
+
+        <h6 class="card-title ">Priority: {{getPriorityLabel(task.priority)}}</h6>
+        <h6 *ngIf="showState" class="card-subtitle text-muted">{{getState(task.state)}}</h6>
+        <h6 class="card-title ">Added date: {{getDate(task.addedDate)}}</h6>
+
+    </div>
+    <div class="card-footer">
+        <a *ngIf="editEnable" class="card-link text-success" (click)="edit()">Edit</a>
+        <a *ngIf="editSpendTimeEnable" class="card-link text-success" (click)="editTimeSpend()">Edit time spend</a>
+        <a *ngIf="deleteEnable" class="card-link text-danger" (click)="remove()">Delete</a>
+    </div>
+</div>
