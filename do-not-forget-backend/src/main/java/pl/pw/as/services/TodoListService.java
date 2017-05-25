@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.pw.as.database.repository.TodoListRepository;
 import pl.pw.as.database.repository.UserRepository;
+import pl.pw.as.model.generator.GeneratorData;
 import pl.pw.as.model.generator.GeneratorStrategy;
 import pl.pw.as.model.generator.TodoList;
 import pl.pw.as.model.task.Task;
@@ -78,9 +79,13 @@ public class TodoListService {
     private void updateUserTodoList(User user, List<Task> tasks, GeneratorStrategy strategy, int timeAvailable) {
         log.info("Updating previously generated todo list for user {}", user.getEmail());
 
-        TodoList todoList = TodoList.builder()
+        GeneratorData generatorData = GeneratorData.builder()
                 .strategy(strategy)
                 .timeAvailable(timeAvailable)
+                .build();
+
+        TodoList todoList = TodoList.builder()
+                .generatorData(generatorData)
                 .tasksTodo(tasks)
                 .build();
 
