@@ -19,5 +19,4 @@ export class TaskStateProvider {
         return TaskState.DEFAULT_INDEX;
     }
 
-
 }

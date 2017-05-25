@@ -5,30 +5,55 @@ import {Task} from "../../../model/Task";
 import {ErrorService} from "../../../services/ErrorService";
 import {AlertService} from "../../../services/AlertService";
 import {AlertConfig} from "../../../model/alert/AlertConfig";
+import {GeneratorData} from "../../../model/generator/GeneratorData";
+import {GeneratorStrategyProvider} from "../../../providers/strategy.provider";
 
 @Component({
     selector: 'generate-todo',
-    providers: [TodoGeneratorService, ErrorService],
+    providers: [TodoGeneratorService, ErrorService, AlertService],
     templateUrl: URL_COMPONENT_BASE + 'browse/generate-todo/generate.todo.component.html'
 //
 })
 export class GenerateTodoComponent {
-    timeAvailable: number = 0;
-    strategy: number = 0;
+    generatorData: GeneratorData = new GeneratorData();
     todoList: Array<Task>;
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
+    previousListAvailable: boolean = false;
+    listGenerated: boolean = false;
+    strategyProvider: GeneratorStrategyProvider = new GeneratorStrategyProvider();
 
     constructor(private todoService: TodoGeneratorService, private errorService: ErrorService,
                 private alertService: AlertService) {
-        this.loadPreviouslyGeneratedTodoList();
     }
 
-    loadPreviouslyGeneratedTodoList() {
+    ngOnInit(): void {
+        this._loadPreviouslyGeneratedTodoList();
+    }
+
+    _loadPreviouslyGeneratedTodoList() {
         this.todoService.loadPrevoiuslyGeneratedList().subscribe(
             data => {
+                console.log(JSON.stringify(data));
+
                 this.todoList = data.tasksTodo;
-                this.timeAvailable = data.timeAvailable;
-                this.strategy = data.strategy;
+                if(data.generatorData) {
+                    this.generatorData = data.generatorData;
+                }
+                this.previousListAvailable = true;
+            },
+            error => {
+                this.todoList = [];
+                this.previousListAvailable = false;
+            }
+        );
+    }
+
+    generateTodoList() {
+        this.todoService.generateTodoList(this.generatorData).subscribe(
+            data => {
+                this.todoList = data;
+                this.previousListAvailable = false;
+                this.listGenerated = true;
             },
             error => {
                 let errorMsg = this.errorService.handleExceptionAndReturnMessage(error);
@@ -37,14 +62,12 @@ export class GenerateTodoComponent {
         );
     }
 
-    generateTodoList() {
-        this.todoService.generateTodoList(this.strategy, this.timeAvailable).subscribe(
-            data => this.todoList = data,
-            error => {
-                let errorMsg = this.errorService.handleExceptionAndReturnMessage(error);
-                this.alertConfig = this.alertService.retrieveErrorAlertShowConfig(errorMsg);
-            }
-        );
+    generatedTaskAvailable() {
+        return this.todoList && this.todoList.length > 0;
+    }
+
+    reloadTasks($event) {
+        this._loadPreviouslyGeneratedTodoList();
     }
 
 }

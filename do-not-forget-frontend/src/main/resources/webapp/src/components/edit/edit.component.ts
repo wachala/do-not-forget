@@ -5,7 +5,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ErrorService} from "../../services/ErrorService";
 import {AlertService} from "../../services/AlertService";
 import {AlertConfig} from "../../model/alert/AlertConfig";
-import {PriorityProvider} from "../../providers/priority.provider";
 import {Task} from "../../model/Task";
 
 @Component({
