@@ -48,7 +48,7 @@ export class KanbanBoardComponent {
             .subscribe(
                 (success) => {
                     this.tasksChanged.emit();
-                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('State of task "' + taskTitle + '" change to: ' + TaskUtils.statePrettyPrint(taskState));
+                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('State of task "' + taskTitle + '" changed to: ' + TaskUtils.statePrettyPrint(taskState));
                 },
                 (error) => {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
@@ -78,7 +78,7 @@ export class KanbanBoardComponent {
         this._modalService.open(content).result.then((result) => {
                 task.spendTime = result;
                 this._taskService.editTaskTimeSpend(task).subscribe((result) => {
-                        this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Change time spend on task: "' + taskTitle + '"');
+                        this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Time spend on task: "' + taskTitle + '" was successfully changed');
                     },
                     (error) => {
                         let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
