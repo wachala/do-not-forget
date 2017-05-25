@@ -1,8 +1,5 @@
 import {TopNavbarComponent} from "./nav/topnavbar/topnavbar.component";
-import {NavbarComponent} from "./nav/navbar/navbar.component";
 import {AppComponent} from "./app/app.component";
-import {NavSimpleFieldComponent} from "./nav/simplefield/simplefield.component";
-import {NavDropdownFieldComponent} from "./nav/dropdownfield/dropdownfield.component";
 import {AddTaskComponent} from "./add/add-task/add.task.component";
 import {BrowseTasksComponent} from "./browse/browse-task/browse.task.component";
 import {TaskViewComponent} from "./browse/task-view/task-view.component";
@@ -17,34 +14,30 @@ import {HistoricalTaskFilterPipe} from "../pipes/HistoricalTaskFilterPipe";
 import {CurrentTaskFilterPipe} from "../pipes/CurrentTaskFilterPipe";
 import {ContainsStringFilterPipe} from "../pipes/ContainsStringFilterPipe";
 import {ExpiredTasksComponent} from "./expired-tasks/expired-tasks.component";
-import {GenerateTodoComponent} from "./browse/generate-todo/generate.todo.component";
+import {KanbanBoardComponent} from "./browse/kanban-board/kanban-board.component";
+import {ModifyTaskFormComponent} from "./modify-task-form/modify-task-form.component";
+import {EditableTaskViewComponent} from "./browse/editable-task-view/editable-task-view.component";
 
 export const COMPONENTS = [
     AppComponent,
     AuthorizedMainComponent,
     UnauthorizedMainComponent,
-
     //login
     LoginComponent,
     RegisterComponent,
-
     //navbar
-    NavbarComponent,
     TopNavbarComponent,
-    NavSimpleFieldComponent,
-    NavDropdownFieldComponent,
-
     //adding task
     AddTaskComponent,
-
-    //task browsing
+    EditTaskComponent,
+    EditableTaskViewComponent,
+    ModifyTaskFormComponent,
+    //browsing tasks
     BrowseTasksComponent,
     TaskViewComponent,
-    EditTaskComponent,
     ExpiredTasksComponent,
-    GenerateTodoComponent,
-
-    //common
+    KanbanBoardComponent,
+    //commons
     //validators
     DateInFutureValidator,
 

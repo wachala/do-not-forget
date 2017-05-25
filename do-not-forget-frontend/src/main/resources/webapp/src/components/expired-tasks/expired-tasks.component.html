@@ -1,45 +1,15 @@
-<div class="container">
-    <div class="slds-notify_container">
-        <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
-                          (nglNotificationClose)="alertConfig.onClose($event)"
-                          [timeout]="alertConfig.timeout" class="slds-theme--alert-texture">
-            <h3>{{alertConfig.message}}</h3>
-        </ngl-notification>
-    </div>
+<div class="bg-faded">
 
     <div *ngFor="let _task of expiredTasks" class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <task-view [show-state]="true" [task]="_task"></task-view>
-            </div>
+        <editable-task-view
+                [edit-enable]="false"
+                [edit-spend-time-enable]="false"
+                [deadline-edit-enable]="true"
+                [state-edit-enable]="false"
+                (taskDelete)="removeTask($event)"
+                (deadLineEdit)="changeDeadline($event)"
+                [task]="_task">
 
-            <div class="col-md-6">
-                <form class="form row" #editForm="ngForm">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input class="form-control" placeholder="yyyy-mm-dd" id="deadline"
-                                   name="deadline" [(ngModel)]="_task.deadLine" ngbDatepicker #d="ngbDatepicker"
-                                   #deadline="ngModel" dateInFuture required>
-                            <div class="input-group-addon" (click)="d.toggle()">
-                                <img src="assets/icons/calendar-icon.svg"
-                                     style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-                            </div>
-                        </div>
-                        <div [hidden]="!deadline.errors?.dateInFuture" class="alert alert-danger">
-                            Date must be valid and not in the past!
-                        </div>
-                        <div [hidden]="!deadline.errors?.required " class="alert alert-danger">
-                            Date is required!
-                        </div>
-                        <button type="button" class="btn btn-primary" (click)="changeDeadline(_task)"
-                                [disabled]="!editForm.form.valid">Change deadline
-                        </button>
-                    </div>
-                </form>
-                <button type="button" class="btn btn-primary row" (click)="removeTask(_task)">Remove task
-                </button>
-            </div>
-
-        </div>
+        </editable-task-view>
     </div>
 </div>

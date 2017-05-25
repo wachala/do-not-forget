@@ -1,12 +1,12 @@
-<div class="container">
-    <div class="slds-notify_container">
-        <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
-                          (nglNotificationClose)="alertConfig.onClose($event)"
-                          [timeout]="alertConfig.timeout" class="slds-theme--alert-texture">
-            <h2>{{alertConfig.message}}</h2>
-        </ngl-notification>
-    </div>
+<div class="slds-notify_container">
+    <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
+                      (nglNotificationClose)="alertConfig.onClose($event)"
+                      [timeout]="alertConfig.timeout" class="slds-theme--alert-texture">
+        <h6>{{alertConfig.message}}</h6>
+    </ngl-notification>
+</div>
 
+<div class="col-sm-6">
     <ngb-accordion #aac="ngbAccordion" activeIds="ngb-panel-0">
         <ngb-panel title="Sign up">
             <template ngbPanelContent>
@@ -22,7 +22,8 @@
                                 <div *ngIf="email.errors?.required && email.touched" class="alert alert-danger">
                                     Email is required
                                 </div>
-                                <div *ngIf="email.errors?.email && !email.errors?.required && email.touched" class="alert alert-danger">
+                                <div *ngIf="email.errors?.email && !email.errors?.required && email.touched"
+                                     class="alert alert-danger">
                                     Not valid email
                                 </div>
                             </div>
@@ -37,7 +38,8 @@
                                 <div *ngIf="password.errors?.required && password.touched" class="alert alert-danger">
                                     Password is required
                                 </div>
-                                <div *ngIf="password.errors?.minlength && !password.errors?.required && password.touched" class="alert alert-danger">
+                                <div *ngIf="password.errors?.minlength && !password.errors?.required && password.touched"
+                                     class="alert alert-danger">
                                     Password must have at least 4 characters
                                 </div>
                             </div>
@@ -49,9 +51,10 @@
                                        class="form-control"
                                        #rppass="ngModel"
                                        [(ngModel)]="repeatedPassword"
-                                        required
+                                       required
                                 >
-                                <div *ngIf="repeatedPassword != registrationData.password && password.touched" class="alert alert-danger">
+                                <div *ngIf="repeatedPassword != registrationData.password && password.touched"
+                                     class="alert alert-danger">
                                     Repeated password must be the same as password
                                 </div>
                             </div>
@@ -79,9 +82,10 @@
                             </div>
 
                             <!--SIGN-UP BUTTON-->
-                            <div class="span1 offset-11">
-                                <button class="btn btn-primary" (click)="register()"
-                                        [disabled]="!registerForm.form.valid && repeatedPassword != registrationData.password">Sign up
+                            <div class="span1 offset-10">
+                                <button class="btn btn-success" (click)="register()"
+                                        [disabled]="!registerForm.form.valid && repeatedPassword != registrationData.password">
+                                    Sign up
                                 </button>
                             </div>
                         </form>

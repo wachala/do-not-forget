@@ -9,22 +9,28 @@ import {Router} from "@angular/router";
 import {TaskService} from "../../../services/TaskService";
 import {ErrorService} from "../../../services/ErrorService";
 import {AlertService} from "../../../services/AlertService";
+import {TaskStateProvider} from "../../../providers/state.provider";
 @Component({
-    selector: 'task-view',
+    selector: 'editable-task-view',
     providers: [TaskService],
-    templateUrl: URL_COMPONENT_BASE + 'browse/task-view/task-view.component.html'
+    templateUrl: URL_COMPONENT_BASE + 'browse/editable-task-view/editable-task-view.component.html'
 //
 })
-export class TaskViewComponent {
+export class EditableTaskViewComponent {
     @Input('task') task: Task;
-    @Input('show-state') showState: boolean = true;
     @Input('edit-enable') editEnable: boolean = true;
     @Input('edit-spend-time-enable') editSpendTimeEnable: boolean = true;
     @Input('delete-enable') deleteEnable: boolean = true;
+    @Input('deadline-edit-enable') deadlineEditEnable: boolean = true;
+    @Input('state-edit-enable') stateEditEnable: boolean = true;
     @Output('taskDelete') taskDelete: EventEmitter<Task> = new EventEmitter();
     @Output('taskTimeSpendEdit') taskTimeSpendEdit: EventEmitter<Task> = new EventEmitter();
+    @Output('stateEdit') taskStateEdit: EventEmitter<Task> = new EventEmitter();
+    @Output('deadLineEdit') deadLineEdit: EventEmitter<Task> = new EventEmitter();
 
+    taskStateProvider: TaskStateProvider = new TaskStateProvider();
     priorityProvider: PriorityProvider = new PriorityProvider();
+
 
     constructor(private _router: Router) {
     }
@@ -53,5 +59,12 @@ export class TaskViewComponent {
         this.taskTimeSpendEdit.emit(this.task);
     }
 
+    editDeadline() {
+        this.deadLineEdit.emit(this.task);
+    }
+
+    editState() {
+        this.taskStateEdit.emit(this.task);
+    }
 
 }
