@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {TaskService} from "../../services/TaskService";
 import {UserService} from "../../services/UserService";
 import {URL_COMPONENT_BASE} from "../../url.constants";
@@ -15,7 +15,7 @@ import {AlertConfig} from "../../model/alert/AlertConfig";
 })
 export class ExpiredTasksComponent {
     @Input('expired-tasks') expiredTasks: Array<Task>;
-    alertConfig: AlertConfig = AlertConfig.getAlertToClose();
+    @Output('alertEmited') showAlert: EventEmitter<AlertConfig> = new EventEmitter();
 
     constructor(private _taskService: TaskService,
                 private _alertService: AlertService,
@@ -30,11 +30,11 @@ export class ExpiredTasksComponent {
         this._taskService.editTask(task)
             .subscribe(
                 (success) => {
-                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Dead line of task: ' + taskTitle + ' changed.');
+                    this.showAlert.emit(this._alertService.retrieveSuccessAlertShowConfig('Dead line of task: ' + taskTitle + ' changed.'));
                 },
                 (error) => {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
-                    this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
+                    this.showAlert.emit(this._alertService.retrieveErrorAlertShowConfig(errorMsg));
                 }
             );
     }
@@ -46,11 +46,11 @@ export class ExpiredTasksComponent {
                 (success) => {
                     let i = this.expiredTasks.indexOf(task);
                     this.expiredTasks.splice(i, 1);
-                    this.alertConfig = this._alertService.retrieveSuccessAlertShowConfig('Task ' + taskTitle + ' removed successfully');
+                    this.showAlert.emit(this._alertService.retrieveSuccessAlertShowConfig('Task ' + taskTitle + ' removed successfully'));
                 },
                 (error) => {
                     let errorMsg = this._errorService.handleExceptionAndReturnMessage(error);
-                    this.alertConfig = this._alertService.retrieveErrorAlertShowConfig(errorMsg);
+                    this.showAlert.emit(this._alertService.retrieveErrorAlertShowConfig(errorMsg));
                 }
             );
     }

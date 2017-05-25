@@ -1,15 +1,16 @@
-<div class="container">
-    <div class="slds-notify_container">
-        <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
-                          (nglNotificationClose)="alertConfig.onClose($event)"
-                          [timeout]="alertConfig.timeout" class="slds-theme--alert-texture">
-            <h2>{{alertConfig.message}}</h2>
-        </ngl-notification>
-    </div>
-    <button *ngIf="expiredTaskAmount > 0" class="btn btn-lg btn-outline-danger col-md-6 offset-md-3" (click)="openModal(content)">
-        {{expiredTaskAmount}} of your tasks expired since your last visit
-    </button>
+<div class="slds-notify_container">
+    <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
+                      (nglNotificationClose)="alertConfig.onClose($event)"
+                      [timeout]="alertConfig.timeout" class="slds-theme--alert-texture">
+        <h6>{{alertConfig.message}}</h6>
+    </ngl-notification>
+</div>
+<button *ngIf="expiredTaskAmount > 0" class="btn btn-lg btn-outline-danger col-md-6 offset-md-3"
+        (click)="openModal(content)">
+    {{expiredTaskAmount}} of your tasks expired since your last visit
+</button>
 
+<div class="jumbotron">
     <ngb-tabset>
         <ngb-tab title="Current tasks" id="1">
             <template ngbTabContent>
@@ -18,68 +19,9 @@
                     You have no active tasks
                 </div>
 
-                <div *ngIf="currentTasksPresent()" class="row col-sm-12">
-                    <input type="text" class="form-control col-sm-4 dnf-input" placeholder="Current task filter" [(ngModel)]="currentTaskFilterString">
-                </div>
+                <kanban-board *ngIf="currentTasksPresent()" [boardTasks]="tasks | currentTaskFilter"
+                              (tasksChanged)="reloadTasks($event)"></kanban-board>
 
-                <!--CURRENT TASKS-->
-                <div class="row col-sm-12" *ngIf="currentTasksPresent()">
-                    <div class="col-sm-4 card dnf-no-border-radius-right">
-                        <div dnd-droppable (onDropSuccess)="changeTaskState($event, newTaskState)" [dropZones]="['demo1']"
-                             class="panel panel-info card-block">
-                            <div class="panel-heading card-title">New:</div>
-                            <div class="panel-body">
-                                <div *ngFor="let _task of tasks | currentTaskFilter | taskStateFilter:newTaskState | containsStringFilter:currentTaskFilterString"
-                                     class="panel panel-default"
-                                     dnd-draggable [dragEnabled]="true" [dragData]="_task"
-                                     [dropZones]="['demo1']">
-                                    <div class="panel-body">
-                                        <task-view [show-state]="false" [task]="_task"></task-view>
-                                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
-                                        <button class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 card dnf-no-border-radius-right dnf-no-border-radius-left dnf-no-border-left dnf-no-border-right">
-                        <div dnd-droppable (onDropSuccess)="changeTaskState($event, inProgressTaskState)" [dropZones]="['demo1']"
-                             class="panel panel-info card-block">
-                            <div class="panel-heading card-title">In progress:</div>
-                            <div class="panel-body">
-                                <div *ngFor="let _task of tasks | currentTaskFilter | taskStateFilter:inProgressTaskState | containsStringFilter:currentTaskFilterString"
-                                     class="panel panel-default"
-                                     dnd-draggable [dragEnabled]="true" [dragData]="_task"
-                                     [dropZones]="['demo1']">
-                                    <div class="panel-body">
-                                        <task-view [show-state]="false" [task]="_task"></task-view>
-                                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
-                                        <button class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
-                                        <button class="btn btn-primary btn-sm" (click)="openSpendingTimeModal(spendingTimeModal, _task)">Edit time spend</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 card dnf-no-border-radius-left">
-                        <div dnd-droppable (onDropSuccess)="changeTaskStateAndChangeTimeSpend($event, finishedTaskState, spendingTimeModal)" [dropZones]="['demo1']"
-                             class="panel panel-info card-block">
-                            <div class="panel-heading card-title">Finished:</div>
-                            <div class="panel-body">
-                                <div *ngFor="let _task of tasks | currentTaskFilter | taskStateFilter:finishedTaskState | containsStringFilter:currentTaskFilterString"
-                                     class="panel panel-default"
-                                     dnd-draggable [dragEnabled]="true" [dragData]="_task"
-                                     [dropZones]="['demo1']">
-                                    <div class="panel-body">
-                                        <task-view [show-state]="false" [task]="_task"></task-view>
-                                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
-                                        <button class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </template>
         </ngb-tab>
         <ngb-tab title="Historical tasks" id="2">
@@ -89,120 +31,32 @@
                     You have no historical tasks
                 </div>
 
-                <div *ngIf="historicalTasksPresent()" class="row col-sm-12">
-                    <input type="text" class="form-control col-sm-4 dnf-input" placeholder="Historical task filter" [(ngModel)]="historicalTaskFilterString">
-                </div>
+                <kanban-board *ngIf="historicalTasksPresent()" [boardTasks]="tasks | historicalTaskFilter"
+                              (tasksChanged)="reloadTasks($event)" [editable]="false"></kanban-board>
 
-                <!--HISTORICAL TASKS-->
-                <div class="row col-sm-12" *ngIf="historicalTasksPresent()">
-                    <div class="col-sm-4 card dnf-no-border-radius-right">
-                        <div dnd-droppable (onDropSuccess)="changeTaskState($event, newTaskState)" [dropZones]="['demo1']"
-                             class="panel panel-info card-block">
-                            <div class="panel-heading card-title">New:</div>
-                            <div class="panel-body">
-                                <div *ngFor="let _task of tasks | historicalTaskFilter | taskStateFilter:newTaskState | containsStringFilter:historicalTaskFilterString"
-                                     class="panel panel-default"
-                                     dnd-draggable [dragEnabled]="true" [dragData]="_task"
-                                     [dropZones]="['demo1']">
-                                    <div class="panel-body">
-                                        <task-view [show-state]="false" [task]="_task"></task-view>
-                                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
-                                        <button class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 card dnf-no-border-radius-left dnf-no-border-radius-right dnf-no-border-left dnf-no-border-right">
-                        <div dnd-droppable (onDropSuccess)="changeTaskState($event, inProgressTaskState)" [dropZones]="['demo1']"
-                             class="panel panel-info card-block">
-                            <div class="panel-heading card-title">In progress:</div>
-                            <div class="panel-body">
-                                <div *ngFor="let _task of tasks | historicalTaskFilter | taskStateFilter:inProgressTaskState | containsStringFilter:historicalTaskFilterString"
-                                     class="panel panel-default"
-                                     dnd-draggable [dragEnabled]="true" [dragData]="_task"
-                                     [dropZones]="['demo1']">
-                                    <div class="panel-body">
-                                        <task-view [show-state]="false" [task]="_task"></task-view>
-                                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
-                                        <button class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 card dnf-no-border-radius-left">
-                        <div dnd-droppable (onDropSuccess)="changeTaskState($event, finishedTaskState)" [dropZones]="['demo1']"
-                             class="panel panel-info card-block">
-                            <div class="panel-heading card-title">Finished:</div>
-                            <div class="panel-body">
-                                <div *ngFor="let _task of tasks | historicalTaskFilter | taskStateFilter:finishedTaskState | containsStringFilter:historicalTaskFilterString"
-                                     class="panel panel-default"
-                                     dnd-draggable [dragEnabled]="true" [dragData]="_task"
-                                     [dropZones]="['demo1']">
-                                    <div class="panel-body">
-                                        <task-view [show-state]="false" [task]="_task"></task-view>
-                                        <button class="btn btn-primary btn-sm" (click)="deleteTask(_task)">Delete</button>
-                                        <button class="btn btn-primary btn-sm" (click)="editTask(_task)">Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </template>
         </ngb-tab>
     </ngb-tabset>
 
-    <ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title">Expired tasks</h4>
-            <button type="button" class="close" aria-label="Close" (click)="c('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <expired-tasks-list [expired-tasks]="recentlyExpiredTasks">
-            </expired-tasks-list>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-        </div>
-    </ng-template>
-
-    <ng-template #spendingTimeModal let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title">How much time have you spend on task: "{{currentTaskTitle}}"?</h4>
-            <button type="button" class="close" aria-label="Close" *ngIf="spendTimeDismissEnable" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form class="form" #spendTimeForm="ngForm">
-                <div class="form-group">
-                    <input type="number" class="form-control" id="spendTime"
-                           name="spendTime" [(ngModel)]="spendTimeVal"
-                           #spendTime="ngModel" [min]="1" [max]="99999" pattern="\-?[0-9]+" required>
-                    <div [hidden]="!spendTime.errors?.pattern" class="alert alert-danger">
-                        Time must be an integer!
-                    </div>
-                    <div [hidden]="!spendTime.errors?.required " class="alert alert-danger">
-                        Time is required!
-                    </div>
-                    <div [hidden]="!spendTime.errors?.min && !spendTime.errors?.max"
-                         class="alert alert-danger">
-                        Time must have value from 1 to 9999!
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" [disabled]="!spendTimeForm.form.valid" (click)="c(spendTimeVal)">Save</button>
-            <button type="button" class="btn btn-secondary" *ngIf="spendTimeDismissEnable" (click)="d('Close click')">Close</button>
-        </div>
-    </ng-template>
-
-
 </div>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Expired tasks</h4>
+        <button type="button" class="close" aria-label="Close" (click)="c('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body bg-faded">
+        <expired-tasks-list
+                (alertEmited)="alertEventHandle($event)"
+                [expired-tasks]="recentlyExpiredTasks">
+        </expired-tasks-list>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>
+
 
 
