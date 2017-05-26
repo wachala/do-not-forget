@@ -12,14 +12,14 @@ import static pl.pw.as.model.generator.GeneratorStrategy.*
 import static pl.pw.as.model.task.TaskState.FINISHED
 import static pl.pw.as.model.task.TaskState.NEW
 
-class ToDoGeneratorTest extends Specification {
+class TodoListServiceTest extends Specification {
     @Shared
     GeneratorSortStrategyFactory generatorSortStrategyFactory = new GeneratorSortStrategyFactory(
             new CustomDateToJavaDateConverter()
     )
 
     @Shared
-    def todoGenerator = new ToDoGenerator(
+    def todoGenerator = new TodoListService(
             generatorSortStrategyFactory: generatorSortStrategyFactory
     )
 

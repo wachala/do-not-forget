@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 import {URL_COMPONENT_BASE} from "../../../url.constants";
 import {TaskService} from "../../../services/TaskService";
 import {Task} from "../../../model/Task";
-import {TaskState} from "../../../model/TaskState";
 import {AlertService} from "../../../services/AlertService";
 import {AlertConfig} from "../../../model/alert/AlertConfig";
 import {ErrorService} from "../../../services/ErrorService";

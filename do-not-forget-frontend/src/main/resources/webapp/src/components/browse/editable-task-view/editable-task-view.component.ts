@@ -7,8 +7,6 @@ import {TaskUtils} from "../../../utils/task.utils";
 import {PriorityProvider} from "../../../providers/priority.provider";
 import {Router} from "@angular/router";
 import {TaskService} from "../../../services/TaskService";
-import {ErrorService} from "../../../services/ErrorService";
-import {AlertService} from "../../../services/AlertService";
 import {TaskStateProvider} from "../../../providers/state.provider";
 @Component({
     selector: 'editable-task-view',

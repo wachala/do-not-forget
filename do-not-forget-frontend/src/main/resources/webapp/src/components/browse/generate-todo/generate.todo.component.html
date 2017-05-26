@@ -1,0 +1,24 @@
+<div class="jumbotron">
+    <!--NO GENERATED TODO LIST ALERT-->
+    <div class="alert alert-info" role="alert" *ngIf="!previousListAvailable && !listGenerated">
+        You don't have any previously generated todo list.
+    </div>
+    <!--COULD NOT GENERATE LIST ALERT-->
+    <div class="alert alert-info" role="alert" *ngIf="listGenerated && !generatedTaskAvailable()">
+        Couldn't generate todo list with given parameters. Please check your search criteria or add tasks if you don't have any.
+    </div>
+    <!--PREVIOUS LIST AVAILABLE-->
+    <div class="alert alert-info" role="alert" *ngIf="previousListAvailable && generatedTaskAvailable()">
+        You can find your previous todo list below.
+    </div>
+
+    <!--GENERATE TODO LIST FORM-->
+    <generate-todo-form
+            [generator-data]=generatorData
+            (generate-todo)="generateTodoList($event)">
+    </generate-todo-form>
+
+    <!--GENERATED LIST KANBAN BOARD-->
+    <kanban-board *ngIf="generatedTaskAvailable()" [boardTasks]="todoList"
+                  (tasksChanged)="reloadTasks($event)" [editable]="true"></kanban-board>
+</div>

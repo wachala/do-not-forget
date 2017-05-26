@@ -69,7 +69,7 @@ class TaskValidatorTest extends Specification {
         def task = new Task(
                 title: "Sample title",
                 deadLine: dayAfterTomorrow,
-                priority: 10,
+                priority: 3,
                 estimateTime: 200
         )
 

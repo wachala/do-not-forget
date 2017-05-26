@@ -12,3 +12,5 @@ export const RETRIEVE_USER_DATA_URL:string = 'user';
 export const PREDICT_TIME_URL:string = 'task/predictTime';
 export const UPDATE_BROWSE_TASKS_DATE_URL:string = 'user/browseTasksDateUpdate';
 export const GET_RECENTLY_EXPIRED_TASKS_URL:string = 'task/recentlyExpired';
+export const GET_PREVIOUSLY_GENERATED_TODO_LIST:string = 'todo/previous';
+export const GET_GENERATED_TODO_LIST:string = 'todo/generate';

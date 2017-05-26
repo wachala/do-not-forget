@@ -3,19 +3,15 @@ package pl.pw.as.rest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
-import pl.pw.as.model.generator.GeneratorStrategy;
 import pl.pw.as.model.task.Task;
-import pl.pw.as.model.user.User;
-import pl.pw.as.security.UserIdRetrievingService;
+import pl.pw.as.retrievers.UserRetriever;
 import pl.pw.as.services.TaskService;
-import pl.pw.as.services.ToDoGenerator;
-import pl.pw.as.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping(value = "task/")
@@ -25,22 +21,16 @@ public class TaskController {
     private TaskService taskService;
 
     @Autowired
-    private UserIdRetrievingService idRetrievingService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ToDoGenerator toDoGenerator;
+    UserRetriever userRetriever;
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public boolean addTask(@RequestBody Task task, HttpServletRequest request) {
-        return taskService.addNewTask(task, extractUser(request));
+        return taskService.addNewTask(task, userRetriever.retrieve(request));
     }
 
     @RequestMapping(method = GET)
     public List<Task> getAll(HttpServletRequest request) {
-        return taskService.getAllUserTasks(extractUser(request));
+        return taskService.getAllUserTasks(userRetriever.retrieve(request));
     }
 
     @RequestMapping(value = "{id}", method = GET)
@@ -51,7 +41,7 @@ public class TaskController {
 
     @RequestMapping(value = "delete", method = RequestMethod.PUT)
     public boolean delete(@RequestBody Task task, HttpServletRequest request) {
-        return taskService.deleteTask(task, userService.getUser(idRetrievingService.retrieve(request)));
+        return taskService.deleteTask(task, userRetriever.retrieve(request));
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.PUT)
@@ -71,23 +61,12 @@ public class TaskController {
 
     @RequestMapping(value = "recentlyExpired", method = RequestMethod.GET)
     public List<Task> editTaskState(HttpServletRequest request) {
-        return taskService.getRecentlyExpiredTasks(extractUser(request));
+        return taskService.getRecentlyExpiredTasks(userRetriever.retrieve(request));
     }
 
     @RequestMapping(value = "predictTime", method = GET)
-    public long predictTime (@Param("pattern") String pattern, HttpServletRequest request) {
-        return taskService.predictTime(extractUser(request), pattern);
+    public long predictTime(@Param("pattern") String pattern, HttpServletRequest request) {
+        return taskService.predictTime(userRetriever.retrieve(request), pattern);
     }
 
-    @RequestMapping(value = "generate", method = GET)
-    public List<Task> generateTasksToDo(@Param("strategy") String strategy, @Param("timeAvailable") int timeAvailable, HttpServletRequest request) {
-        User user = extractUser(request);
-        List<Task> userTasks  =  taskService.getAllUserTasks(user);
-
-        return toDoGenerator.generateTasks(userTasks, GeneratorStrategy.valueOf(strategy), timeAvailable);
-    }
-
-    private User extractUser(HttpServletRequest request) {
-        return userService.getUser(idRetrievingService.retrieve(request));
-    }
 }

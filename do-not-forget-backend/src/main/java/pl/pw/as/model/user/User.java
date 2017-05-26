@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import pl.pw.as.model.generator.TodoList;
 import pl.pw.as.model.task.Task;
 
 import java.time.LocalDate;
@@ -25,6 +26,8 @@ public class User {
     private LocalDate lastBrowseTaskDate;
     @DBRef
     List<Task> tasks = new ArrayList<>();
+    @DBRef
+    TodoList previousTodoList;
 
     public boolean addTask(Task task) {
         return tasks.add(task);
