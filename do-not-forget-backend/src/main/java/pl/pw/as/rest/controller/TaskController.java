@@ -60,7 +60,7 @@ public class TaskController {
     }
 
     @RequestMapping(value = "recentlyExpired", method = RequestMethod.GET)
-    public List<Task> editTaskState(HttpServletRequest request) {
+    public List<Task> getRecentlyExpiredTasks(HttpServletRequest request) {
         return taskService.getRecentlyExpiredTasks(userRetriever.retrieve(request));
     }
 

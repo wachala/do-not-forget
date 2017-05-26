@@ -20,7 +20,7 @@
                                 [disabled]="!editForm.form.valid">Save
                         </button>
                     </div>
-                    <div [hidden]="!deadline.errors?.dateInFuture" class="alert alert-danger">
+                    <div [hidden]="!(deadline.errors?.dateInFuture && deadline.touched)" class="alert alert-danger">
                         Date must be valid and not in the past!
                     </div>
                     <div [hidden]="!deadline.errors?.required" class="alert alert-danger">
@@ -40,7 +40,7 @@
             <div class="selectContainer input-group">
                 <select [(ngModel)]="task.state" class="form-control col-md-5" name="taskState">
                     <option class="dnf-select-option"
-                            *ngFor="let state of taskStateProvider.retrieveTaskStateOptions(); let i = index"
+                            *ngFor="let state of taskStateProvider.retrieveTaskStateOptions()"
                             [value]="state.name">
                         {{getState(state.name)}}
                     </option>
