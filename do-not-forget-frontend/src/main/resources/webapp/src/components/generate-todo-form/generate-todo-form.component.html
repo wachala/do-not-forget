@@ -1,0 +1,55 @@
+<div class="col-sm-6">
+ <ngb-accordion #aac="ngbAccordion" activeIds="ngb-panel-0">
+  <ngb-panel title="Generate todo list">
+   <template ngbPanelContent>
+    <div class="row-fluid">
+     <div class="span6">
+      <form class="form" #generateForm="ngForm">
+
+       <!--TIME AVAILABLE-->
+       <div class="form-group">
+        <label for="timeAvailable">Time available (in minutes): </label>
+        <input type="number" class="form-control" id="timeAvailable"
+               name="timeAvailable" [(ngModel)]="generatorData.timeAvailable"
+               #timeAvailable="ngModel" [min]="0" [max]="9999" pattern="\-?[0-9]+" required>
+        <div [hidden]="!timeAvailable.errors?.pattern" class="alert alert-danger">
+         Time must be an integer!
+        </div>
+        <div [hidden]="!timeAvailable.errors?.required " class="alert alert-danger">
+         Time field is required!
+        </div>
+        <div [hidden]="!timeAvailable.errors?.min && !timeAvailable.errors?.max"
+             class="alert alert-danger">
+         Time must have value from 0 to 9999!
+        </div>
+       </div>
+
+       <!--STRATEGY-->
+       <div class="form-group">
+        <label class="col-xs-3 control-label">Strategy</label>
+        <div class="col-xs-5 selectContainer">
+         <select [(ngModel)]="generatorData.strategy" class="form-control" name="strategy">
+          <option class="dnf-select-option"
+                  *ngFor="let strategy of strategyProvider.retrieveStrategyOptions()"
+                  [value]="strategy.name">
+           {{strategy.description}}
+          </option>
+         </select>
+        </div>
+       </div>
+
+       <!--GENERATE LIST BUTTON-->
+       <div>
+        <div class="span1 offset-10">
+         <button class="btn btn-success" (click)="generateTodoListClicked()"
+                 [disabled]="!generateForm.form.valid">Generate list
+         </button>
+        </div>
+       </div>
+      </form>
+     </div>
+    </div>
+   </template>
+  </ngb-panel>
+ </ngb-accordion>
+</div>

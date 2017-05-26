@@ -18,6 +18,7 @@ import {KanbanBoardComponent} from "./browse/kanban-board/kanban-board.component
 import {ModifyTaskFormComponent} from "./modify-task-form/modify-task-form.component";
 import {EditableTaskViewComponent} from "./browse/editable-task-view/editable-task-view.component";
 import {GenerateTodoComponent} from "./browse/generate-todo/generate.todo.component";
+import {GenerateTodoFormComponent} from "./generate-todo-form/generate-todo-form.component";
 
 export const COMPONENTS = [
     AppComponent,
@@ -33,12 +34,14 @@ export const COMPONENTS = [
     EditTaskComponent,
     EditableTaskViewComponent,
     ModifyTaskFormComponent,
+
     //browsing tasks
     BrowseTasksComponent,
     TaskViewComponent,
     ExpiredTasksComponent,
     KanbanBoardComponent,
     GenerateTodoComponent,
+    GenerateTodoFormComponent,
 
     //commons
     //validators

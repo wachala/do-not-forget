@@ -6,7 +6,6 @@ import {ErrorService} from "../../../services/ErrorService";
 import {AlertService} from "../../../services/AlertService";
 import {AlertConfig} from "../../../model/alert/AlertConfig";
 import {GeneratorData} from "../../../model/generator/GeneratorData";
-import {GeneratorStrategyProvider} from "../../../providers/strategy.provider";
 
 @Component({
     selector: 'generate-todo',
@@ -20,7 +19,6 @@ export class GenerateTodoComponent {
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
     previousListAvailable: boolean = false;
     listGenerated: boolean = false;
-    strategyProvider: GeneratorStrategyProvider = new GeneratorStrategyProvider();
 
     constructor(private todoService: TodoGeneratorService, private errorService: ErrorService,
                 private alertService: AlertService) {
@@ -48,7 +46,7 @@ export class GenerateTodoComponent {
         );
     }
 
-    generateTodoList() {
+    generateTodoList($event) {
         this.todoService.generateTodoList(this.generatorData).subscribe(
             data => {
                 this.todoList = data;
