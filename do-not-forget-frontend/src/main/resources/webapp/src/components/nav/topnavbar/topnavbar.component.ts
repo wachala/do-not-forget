@@ -13,6 +13,7 @@ import {ROOT} from "../../../navigation.constants";
 export class TopNavbarComponent {
     @Input("nav-elements") navElements: Array<NavData> = [];
     @Input("user-info") userInfo: UserInfo;
+    isCollapsed = true;
 
     constructor(private _location: Location, private _router: Router) {
 
@@ -25,5 +26,9 @@ export class TopNavbarComponent {
     logout() {
         sessionStorage.clear();
         this._router.navigate([ROOT]);
+    }
+
+    expand() {
+        console.log("expand");
     }
 }
