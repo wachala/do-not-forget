@@ -20,7 +20,7 @@ export class TopNavbarComponent {
     }
 
     getClassForNav(navElement: NavData) {
-        return navElement.link === this._location.path() ? 'nav-item active' : 'nav-item';
+        return navElement.link === this._location.path() ? 'nav-item active ml-3' : 'nav-item  ml-3';
     }
 
     logout() {
