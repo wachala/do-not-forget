@@ -5,7 +5,8 @@
     </div>
     <!--COULD NOT GENERATE LIST ALERT-->
     <div class="alert alert-info" role="alert" *ngIf="listGenerated && !generatedTaskAvailable()">
-        Couldn't generate todo list with given parameters. Please check your search criteria or add tasks if you don't have any.
+        Couldn't generate todo list with given parameters. Please check your search criteria or add tasks if you don't
+        have any.
     </div>
     <!--PREVIOUS LIST AVAILABLE-->
     <div class="alert alert-info" role="alert" *ngIf="previousListAvailable && generatedTaskAvailable()">
@@ -19,6 +20,15 @@
     </generate-todo-form>
 
     <!--GENERATED LIST KANBAN BOARD-->
-    <kanban-board *ngIf="generatedTaskAvailable()" [boardTasks]="todoList"
-                  (tasksChanged)="reloadTasks($event)" [editable]="true"></kanban-board>
+    <div class="hidden-sm-down">
+        <kanban-board *ngIf="generatedTaskAvailable()" [boardTasks]="todoList"
+                      (tasksChanged)="reloadTasks($event)" [editable]="true"></kanban-board>
+    </div>
+    <div class="hidden-md-up">
+        <task-list *ngIf="generatedTaskAvailable()" [editable]="true"
+                   [taskList]="todoList"
+                   (tasksChanged)="reloadTasks($event)">
+
+        </task-list>
+    </div>
 </div>

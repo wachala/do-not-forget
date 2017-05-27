@@ -1,0 +1,67 @@
+<div class="slds-notify_container">
+    <ngl-notification *ngIf="alertConfig.show" type="alert" [severity]="alertConfig.type"
+                      (nglNotificationClose)="alertConfig.onClose($event)"
+                      [timeout]="alertConfig.timeout" class="slds-theme--alert-texture">
+        <h6>{{alertConfig.message}}</h6>
+    </ngl-notification>
+</div>
+
+<div class="row col-sm-12">
+    <input type="text" class="form-control col-sm-4 dnf-input" placeholder="Task filter"
+           [(ngModel)]="taskFilterString">
+</div>
+
+<div *ngFor="let _task of taskList | containsStringFilter:taskFilterString">
+    <editable-task-view
+            [edit-enable]="editable"
+            [edit-spend-time-enable]="_task.state === 'IN_PROGRESS' && editable"
+            [deadline-edit-enable]="editable"
+            [state-edit-enable]="editable"
+            (taskDelete)="deleteTask($event)"
+            (deadLineEdit)="changeDeadline($event)"
+            (stateEdit)="changeTaskState($event)"
+            (taskTimeSpendEdit)="openSpendingTimeModal(spendingTimeModal, $event)"
+            [task]="_task">
+
+    </editable-task-view>
+</div>
+
+
+
+<!--spending time modal-->
+<ng-template #spendingTimeModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">How much time have you spend on task: "{{currentTaskTitle}}"?</h4>
+        <button type="button" class="close" aria-label="Close" *ngIf="spendTimeDismissEnable"
+                (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="form" #spendTimeForm="ngForm">
+            <div class="form-group">
+                <input type="number" class="form-control" id="spendTime"
+                       name="spendTime" [(ngModel)]="spendTimeVal"
+                       #spendTime="ngModel" [min]="1" [max]="99999" pattern="\-?[0-9]+" required>
+                <div [hidden]="!spendTime.errors?.pattern" class="alert alert-danger">
+                    Time must be an integer!
+                </div>
+                <div [hidden]="!spendTime.errors?.required " class="alert alert-danger">
+                    Time is required!
+                </div>
+                <div [hidden]="!spendTime.errors?.min && !spendTime.errors?.max"
+                     class="alert alert-danger">
+                    Time must have value from 1 to 9999!
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" [disabled]="!spendTimeForm.form.valid" (click)="c(spendTimeVal)">
+            Save
+        </button>
+        <button type="button" class="btn btn-secondary" *ngIf="spendTimeDismissEnable" (click)="d('Close click')">
+            Close
+        </button>
+    </div>
+</ng-template>

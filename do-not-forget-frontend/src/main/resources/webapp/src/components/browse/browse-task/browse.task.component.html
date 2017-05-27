@@ -18,10 +18,17 @@
                 <div class="alert alert-info" role="alert" *ngIf="!currentTasksPresent()">
                     You have no active tasks
                 </div>
+                <div class="hidden-sm-down">
+                    <kanban-board *ngIf="currentTasksPresent()" [boardTasks]="tasks | currentTaskFilter"
+                                  (tasksChanged)="reloadTasks($event)"></kanban-board>
+                </div>
+                <div class="hidden-md-up">
+                    <task-list [editable]="true"
+                               [taskList]="tasks | currentTaskFilter"
+                               (tasksChanged)="reloadTasks($event)">
 
-                <kanban-board *ngIf="currentTasksPresent()" [boardTasks]="tasks | currentTaskFilter"
-                              (tasksChanged)="reloadTasks($event)"></kanban-board>
-
+                    </task-list>
+                </div>
             </template>
         </ngb-tab>
         <ngb-tab title="Historical tasks" id="2">
@@ -31,9 +38,17 @@
                     You have no historical tasks
                 </div>
 
-                <kanban-board *ngIf="historicalTasksPresent()" [boardTasks]="tasks | historicalTaskFilter"
-                              (tasksChanged)="reloadTasks($event)" [editable]="false"></kanban-board>
+                <div class="hidden-sm-down">
+                    <kanban-board *ngIf="historicalTasksPresent()" [boardTasks]="tasks | historicalTaskFilter"
+                                  (tasksChanged)="reloadTasks($event)" [editable]="false"></kanban-board>
+                </div>
+                <div class="hidden-md-up">
+                    <task-list [editable]="false"
+                               [taskList]="tasks | historicalTaskFilter"
+                               (tasksChanged)="reloadTasks($event)">
 
+                    </task-list>
+                </div>
 
             </template>
         </ngb-tab>
