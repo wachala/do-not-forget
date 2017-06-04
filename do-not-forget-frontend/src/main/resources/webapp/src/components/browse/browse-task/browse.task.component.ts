@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import {TaskUtils} from "../../../utils/task.utils";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {UserService} from "../../../services/UserService";
+import {TaskState} from "../../../model/TaskState";
 
 @Component({
     selector: 'browse-tasks',
@@ -19,6 +20,11 @@ import {UserService} from "../../../services/UserService";
 export class BrowseTasksComponent {
     tasks: Array<Task>;
     recentlyExpiredTasks: Array<Task>;
+
+    //for pipes
+    newTaskState = TaskState.NEW;
+    inProgressTaskState = TaskState.IN_PROGRESS;
+    finishedTaskState = TaskState.FINISHED;
 
     expiredTaskAmount: number = 0;
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
@@ -64,7 +70,6 @@ export class BrowseTasksComponent {
     alertEventHandle(alert:AlertConfig) {
         this.alertConfig = alert;
     }
-
 
     getHistoricalTasks(): Task[] {
         if (!this.tasks) return [];

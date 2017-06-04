@@ -6,7 +6,7 @@
     </ngl-notification>
 </div>
 
-<div class="col-sm-6">
+<div class="col-sm-6 dnf-center-element">
     <ngb-accordion #aac="ngbAccordion" activeIds="ngb-panel-0">
         <ngb-panel title="Sign up">
             <template ngbPanelContent>
@@ -76,13 +76,13 @@
                                 <input id="surname" name="surname" type="text"
                                        class="form-control" [(ngModel)]="registrationData.surname" #surname="ngModel"
                                        required>
-                                <div *ngIf="surname.errors?.required && name.touched" class="alert alert-danger">
+                                <div *ngIf="surname.errors?.required && surname.touched" class="alert alert-danger">
                                     Surname is required
                                 </div>
                             </div>
 
                             <!--SIGN-UP BUTTON-->
-                            <div class="span1 offset-10">
+                            <div class="dnf-right-element">
                                 <button class="btn btn-success" (click)="register()"
                                         [disabled]="!registerForm.form.valid && repeatedPassword != registrationData.password">
                                     Sign up

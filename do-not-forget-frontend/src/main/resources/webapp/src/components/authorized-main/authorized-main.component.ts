@@ -11,7 +11,7 @@ import {USER} from "../../auth.constants";
 
 })
 export class AuthorizedMainComponent {
-    authorizedNavElementsList: Array<NavData> = [new NavData("Browse task", "/authorized/browseTasks"),
+    authorizedNavElementsList: Array<NavData> = [new NavData("Browse tasks", "/authorized/browseTasks"),
         new NavData("Add task", "/authorized/addTask"),
         new NavData("Generate Todo list", "/authorized/generateTodo")];
     userInfo: UserInfo;
