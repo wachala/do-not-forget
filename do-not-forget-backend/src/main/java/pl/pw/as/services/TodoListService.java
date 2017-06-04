@@ -19,6 +19,7 @@ import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 import static pl.pw.as.model.task.TaskState.FINISHED;
+import static pl.pw.as.utils.CustomDateUtils.*;
 
 @Slf4j
 @Component
@@ -36,7 +37,7 @@ public class TodoListService {
     @Autowired
     private TaskService taskService;
 
-    private final Predicate<Task> currentTask = task -> !FINISHED.equals(task.getState());
+    private final Predicate<Task> currentTask = task -> !FINISHED.equals(task.getState()) && !isInPast(task.getDeadLine());
 
     public List<Task> generateTodoList(User user, GeneratorStrategy strategy, int timeAvailable) {
         List<Task> userTasks = taskService.getAllUserTasks(user);
