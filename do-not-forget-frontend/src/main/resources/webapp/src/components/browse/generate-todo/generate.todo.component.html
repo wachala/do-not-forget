@@ -25,10 +25,23 @@
                       (tasksChanged)="reloadTasks($event)" [editable]="true"></kanban-board>
     </div>
     <div class="hidden-md-up">
+        <h3 class="dnf-mobile-header">New Tasks</h3>
         <task-list *ngIf="generatedTaskAvailable()" [editable]="true"
-                   [taskList]="todoList"
+                   [taskList]="todoList | taskStateFilter:newTaskState"
                    (tasksChanged)="reloadTasks($event)">
-
         </task-list>
+
+        <h3 class="dnf-mobile-header">In Progress Tasks</h3>
+        <task-list *ngIf="generatedTaskAvailable()" [editable]="true"
+                   [taskList]="todoList | taskStateFilter:inProgressTaskState"
+                   (tasksChanged)="reloadTasks($event)">
+        </task-list>
+
+        <h3 class="dnf-mobile-header">Finished Tasks</h3>
+        <task-list *ngIf="generatedTaskAvailable()" [editable]="true"
+                   [taskList]="todoList | taskStateFilter:finishedTaskState"
+                   (tasksChanged)="reloadTasks($event)">
+        </task-list>
+
     </div>
 </div>

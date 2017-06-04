@@ -16,7 +16,7 @@
                             <img src="assets/icons/calendar-icon.svg"
                                  style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
                         </div>
-                        <button type="button" class="btn ml-2 btn-success" (click)="editDeadline()"
+                        <button type="button" class="btn ml-2 btn-success dnf-right-element" (click)="editDeadline()"
                                 [disabled]="!editForm.form.valid">Save
                         </button>
                     </div>
@@ -35,21 +35,28 @@
 
         <h6 *ngIf="!stateEditEnable" class="title">State: {{getState(task.state)}}</h6>
 
-        <div *ngIf="stateEditEnable" class="form-group">
-            <label class="control-label text-danger"><h6>State:</h6></label>
-            <div class="selectContainer input-group">
-                <select [(ngModel)]="task.state" class="form-control col-md-5" name="taskState">
-                    <option class="dnf-select-option"
-                            *ngFor="let state of taskStateProvider.retrieveTaskStateOptions()"
-                            [value]="state.name">
-                        {{getState(state.name)}}
-                    </option>
-                </select>
-                <button type="button" class="btn ml-2 btn-success" (click)="editState()">Save
-                </button>
-            </div>
-        </div>
+        <div class="ml-3">
+            <form class="form row">
+                <div *ngIf="stateEditEnable" class="form-group">
+                    <label class="control-label text-danger"><h6>State:</h6></label>
+                    <div class="selectContainer input-group">
+                        <select [(ngModel)]="task.state" class="form-control col-md-5 pr-5" name="taskState">
+                            <option class="dnf-select-option"
+                                    *ngFor="let state of taskStateProvider.retrieveTaskStateOptions()"
+                                    [value]="state.name">
+                                {{getState(state.name)}}
+                            </option>
+                        </select>
 
+                        <div class="dnf-right-element">
+                            <button type="button" class="btn btn-success ml-4" (click)="editState()">Save
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <h6 class="card-title ">Priority: {{getPriorityLabel(task.priority)}}</h6>
         <h6 class="card-title ">Added date: {{getDate(task.addedDate)}}</h6>
