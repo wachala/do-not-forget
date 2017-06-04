@@ -13,17 +13,22 @@ import {ROOT} from "../../../navigation.constants";
 export class TopNavbarComponent {
     @Input("nav-elements") navElements: Array<NavData> = [];
     @Input("user-info") userInfo: UserInfo;
+    isCollapsed = true;
 
     constructor(private _location: Location, private _router: Router) {
 
     }
 
     getClassForNav(navElement: NavData) {
-        return navElement.link === this._location.path() ? 'nav-item active' : 'nav-item';
+        return navElement.link === this._location.path() ? 'nav-item active ml-3' : 'nav-item  ml-3';
     }
 
     logout() {
         sessionStorage.clear();
         this._router.navigate([ROOT]);
+    }
+
+    expand() {
+        console.log("expand");
     }
 }
