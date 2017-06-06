@@ -1,10 +1,10 @@
 # do-not-forget
 Developers:
-* Katarzyna Głąb
-* Piotr Wąchała
-* Arkadiusz Socha
+* [Katarzyna Głąb](https://github.com/CharlieBr)
+* [Piotr Wąchała](https://github.com/wachala)
+* [Arkadiusz Socha](https://github.com/sochArkadiusz)
 
-#backend
+# backend
 
 1. Requirements:
   * java 8
@@ -13,10 +13,10 @@ Developers:
   
 2. Run:
   * in console: "mongod"
-  * from IntelliJ as a springboot aplpication
+  * from IntelliJ as a SpringBoot application
   
 # frontend
-1. Requirementes:
+1. Requirements:
 * nodeJS
 * npm
 * typescript - (npm install -g typescript)
@@ -25,4 +25,6 @@ Developers:
 * go to: do-not-forget/do-not-forget-frontend/src/main/resources/webapp
 * npm install
 * npm start
-  
+
+
+Go to [localhost:3000](localhost:3000) to start using application.
