@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  backend-dnf:
+    build: ./do-not-forget-backend/
+    ports:
+      - "3333:3333"
+  mongodb:
+    image:  mongo:3.4.4
+    ports:
+      - "27017:27017"
