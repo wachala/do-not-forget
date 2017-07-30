@@ -3,6 +3,7 @@ import PropsTypes from 'prop-types';
 import {withStyles, createStyleSheet} from 'material-ui/styles';
 import {AppBar, Toolbar, IconButton, Typography, Button} from 'material-ui/index';
 import {Menu} from 'material-ui-icons/index';
+import {Link} from 'react-router-dom';
 
 const styleSheet = createStyleSheet({
   root: {
@@ -26,10 +27,10 @@ class ApplicationBarComponent extends React.Component {
             </IconButton>
 
             <Typography type="title" color="inherit" className={classes.flex}>
-              Do not forget
+              <Link to="/"> Do not forget</Link>
             </Typography>
-            <Button color="contrast">Login</Button>
-            <Button color="contrast">Sign up</Button>
+            <Link to="/login"><Button color="contrast">Login</Button></Link>
+            <Link to="/singup"><Button color="contrast">Sign up</Button></Link>
           </Toolbar>
 
         </AppBar>

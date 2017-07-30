@@ -1,7 +1,9 @@
 import React from 'react';
 import Text from './text/Text';
+import Login from './login/Login';
+import SignUp from './sing.up/SignUp';
 import ApplicationBar from './app.bar/ApplicationBar';
-import {Button} from '../../node_modules/material-ui/index';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 class AppComponent extends React.Component {
   constructor() {
@@ -15,12 +17,15 @@ class AppComponent extends React.Component {
 
   render() {
     return (
-      <div className="main">
-        <ApplicationBar > </ApplicationBar>
-        <Text staticText="Text from child component"
-              clicked={this.state.clicked}/>
-        <Button raised={true} onClick={this.onButtonClick.bind(this)}>Click</Button>
-      </div>
+      <Router>
+        <div className="main">
+          <ApplicationBar > </ApplicationBar>
+
+          <Route exact path="/" component={Text} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
+        </div>
+      </Router>
     );
   }
 }

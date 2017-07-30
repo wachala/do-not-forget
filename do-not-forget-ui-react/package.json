@@ -69,6 +69,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
+    "react-router-dom": "^4.1.2",
     "typeface-roboto": "0.0.31"
   }
 }
