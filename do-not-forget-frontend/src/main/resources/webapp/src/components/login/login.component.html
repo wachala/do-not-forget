@@ -7,7 +7,7 @@
 </div>
 
 
-<div class="col-sm-6">
+<div class="col-sm-6 dnf-center-element">
     <ngb-accordion #aac="ngbAccordion" activeIds="ngb-panel-0">
         <ngb-panel title="Log In">
             <template ngbPanelContent>
@@ -45,12 +45,10 @@
                             </div>
 
                             <!--LOGIN BUTTON-->
-                            <div>
-                                <div class="span1 offset-10">
-                                    <button class="btn btn-success" (click)="login()"
-                                            [disabled]="!loginForm.form.valid">Log In
-                                    </button>
-                                </div>
+                            <div class="dnf-right-element">
+                                <button class="btn btn-success" (click)="login()"
+                                        [disabled]="!loginForm.form.valid">Log In
+                                </button>
                             </div>
                         </form>
                     </div>

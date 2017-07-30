@@ -6,6 +6,7 @@ import {ErrorService} from "../../../services/ErrorService";
 import {AlertService} from "../../../services/AlertService";
 import {AlertConfig} from "../../../model/alert/AlertConfig";
 import {GeneratorData} from "../../../model/generator/GeneratorData";
+import {TaskState} from "../../../model/TaskState";
 
 @Component({
     selector: 'generate-todo',
@@ -19,6 +20,11 @@ export class GenerateTodoComponent {
     alertConfig: AlertConfig = AlertConfig.getAlertToClose();
     previousListAvailable: boolean = false;
     listGenerated: boolean = false;
+
+    //for pipes
+    newTaskState = TaskState.NEW;
+    inProgressTaskState = TaskState.IN_PROGRESS;
+    finishedTaskState = TaskState.FINISHED;
 
     constructor(private todoService: TodoGeneratorService, private errorService: ErrorService,
                 private alertService: AlertService) {

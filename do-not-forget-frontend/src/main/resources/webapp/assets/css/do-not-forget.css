@@ -25,3 +25,20 @@
     text-align: center;
     margin: 5px;
 }
+
+.dnf-mobile-header {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-bottom: solid 2px white;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.dnf-center-element {
+    float: none;
+    margin: 0 auto;
+}
+
+.dnf-right-element {
+    float: right !important;
+}
